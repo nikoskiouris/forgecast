@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forgecast — DIB disruption probabilities</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #141a2e;
+      --line: #243049;
+      --text: #e8edf7;
+      --muted: #8b97b3;
+      --gold: #d4b46a;
+      --up: #e07a5f;
+      --down: #81b29a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      padding: 28px 32px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    header p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+    .bar {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 32px;
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 13px;
+    }
+    .bar input {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 4px;
+    }
+    main { padding: 8px 32px 48px; max-width: 980px; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 12px 0;
+      cursor: pointer;
+    }
+    .card:hover { border-color: var(--gold); }
+    .row { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+    .who { font-size: 16px; }
+    .pct { font-size: 28px; font-variant-numeric: tabular-nums; color: var(--gold); }
+    .delta.up { color: var(--up); }
+    .delta.down { color: var(--down); }
+    .meta { color: var(--muted); font-size: 13px; margin-top: 6px; font-family: ui-sans-serif, system-ui, sans-serif; }
+    .meter { height: 4px; background: #1c243c; margin-top: 12px; border-radius: 2px; overflow: hidden; }
+    .meter > span { display: block; height: 100%; background: var(--gold); }
+    .detail {
+      display: none;
+      margin-top: 14px;
+      white-space: pre-wrap;
+      font-size: 14px;
+      line-height: 1.45;
+      color: #d5dced;
+    }
+    .card.open .detail { display: block; }
+    .note { color: var(--muted); font-size: 13px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Forgecast</h1>
+    <p>Probabilities of disruption to the U.S. and allied defense industrial base. Not declarations.</p>
+  </header>
+  <div class="bar">
+    <label>As of <input id="asof" type="date" /></label>
+    <span id="status">loading…</span>
+  </div>
+  <main>
+    <div id="list"></div>
+    <p class="note" id="notes"></p>
+  </main>
+  <script>
+    const asof = document.getElementById("asof");
+    const today = new Date("2024-06-01");
+    asof.value = today.toISOString().slice(0, 10);
+
+    function pct(x) { return Math.round(x * 100) + "%"; }
+
+    async function load() {
+      document.getElementById("status").textContent = "scoring…";
+      const res = await fetch("/api/forecast?as_of=" + asof.value + "&horizon=180");
+      const data = await res.json();
+      document.getElementById("status").textContent =
+        data.portfolio + " · " + data.horizon_days + " day horizon · " + data.items.length + " watch items";
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+      data.items.forEach((item, i) => {
+        const d = item.delta || 0;
+        const deltaCls = d >= 0 ? "up" : "down";
+        const deltaTxt = (d >= 0 ? "+" : "") + Math.round(d * 100) + " pts vs last month";
+        const target = item.material ? item.material.replaceAll("_", " ") : (item.chokepoint || "supply");
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="row">
+            <div class="who">${item.actor_name} · ${item.disruption_type.replaceAll("_", " ")} · ${target}</div>
+            <div class="pct">${pct(item.probability)}</div>
+          </div>
+          <div class="meta">
+            <span class="delta ${deltaCls}">${deltaTxt}</span>
+            · programs ${item.exposed_programs.length}
+            · suppliers ${item.exposed_suppliers.length}
+          </div>
+          <div class="meter"><span style="width:${item.probability * 100}%"></span></div>
+          <div class="detail"></div>`;
+        card.addEventListener("click", async () => {
+          card.classList.toggle("open");
+          const box = card.querySelector(".detail");
+          if (card.classList.contains("open") && !box.dataset.loaded) {
+            const r = await fetch("/api/report?as_of=" + asof.value + "&rank=" + (i + 1));
+            const body = await r.json();
+            box.textContent = body.markdown;
+            box.dataset.loaded = "1";
+          }
+        });
+        list.appendChild(card);
+      });
+      document.getElementById("notes").textContent = (data.notes || []).join(" ");
+    }
+    asof.addEventListener("change", load);
+    load();
+  </script>
+</body>
+</html>

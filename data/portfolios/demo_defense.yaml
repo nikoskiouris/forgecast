@@ -1,0 +1,70 @@
+name: demo_defense
+owner: US prime contractor (demo)
+horizon_days: 180
+programs:
+  - id: F-35
+    name: F-35 Lightning II
+    materials: [titanium, rare_earths, semiconductors, carbon_fiber, gallium]
+  - id: VCS
+    name: Virginia-class submarine
+    materials: [steel, titanium, beryllium]
+  - id: PATRIOT
+    name: Patriot
+    materials: [semiconductors, gallium, germanium, rare_earths]
+  - id: GMLRS
+    name: GMLRS
+    materials: [steel, antimony, semiconductors]
+  - id: SATCOM
+    name: Protected SATCOM
+    materials: [germanium, gallium, semiconductors]
+suppliers:
+  - id: vsmpo
+    name: VSMPO-AVISMA
+    country: RU
+    materials: [titanium]
+    programs: [F-35]
+  - id: mp_materials
+    name: MP Materials
+    country: US
+    materials: [rare_earths]
+    programs: [F-35, PATRIOT]
+  - id: lynas
+    name: Lynas
+    country: AU
+    materials: [rare_earths]
+    programs: [F-35]
+  - id: tsmc
+    name: TSMC
+    country: TW
+    materials: [semiconductors]
+    programs: [F-35, PATRIOT, SATCOM]
+  - id: glencore_cd
+    name: DRC cobalt node
+    country: CD
+    materials: [cobalt]
+    programs: [F-35]
+  - id: graphite_cn
+    name: China spherical graphite
+    country: CN
+    materials: [graphite]
+    programs: [F-35]
+  - id: ga_cn
+    name: China gallium metal
+    country: CN
+    materials: [gallium]
+    programs: [F-35, PATRIOT, SATCOM]
+  - id: ge_cn
+    name: China germanium
+    country: CN
+    materials: [germanium]
+    programs: [PATRIOT, SATCOM]
+  - id: sb_cn
+    name: China antimony
+    country: CN
+    materials: [antimony]
+    programs: [GMLRS]
+  - id: neon_ua
+    name: Ukraine semiconductor neon
+    country: UA
+    materials: [neon]
+    programs: [F-35, SATCOM]
