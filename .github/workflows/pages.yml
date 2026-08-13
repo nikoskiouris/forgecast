@@ -1,4 +1,5 @@
 name: pages
+# Retrigger after Pages source was set to GitHub Actions.
 
 on:
   push:
