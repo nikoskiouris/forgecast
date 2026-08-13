@@ -13,9 +13,9 @@ AIRPORT_KM = 10.0
 WEEK_KM = 4.0
 
 TIERS = (
-    ("hits", "Hits your day"),
-    ("could", "Could hit you"),
-    ("later", "Later this week"),
+    ("hits", "Change the plan"),
+    ("could", "Other corridor / nearby"),
+    ("later", "Know, don't act"),
 )
 
 

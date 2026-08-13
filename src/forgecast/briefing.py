@@ -27,7 +27,7 @@ def quiet_copy(n_city: int) -> str:
 
 
 def group_items(items) -> list[tuple[str, list]]:
-    order = (("hits", "Hits your day"), ("could", "Could hit you"), ("later", "Later this week"))
+    order = (("hits", "Change the plan"), ("could", "Other corridor / nearby"), ("later", "Know, don't act"))
     by = {key: [] for key, _label in order}
     for item in items:
         by.setdefault(item.tier, []).append(item)

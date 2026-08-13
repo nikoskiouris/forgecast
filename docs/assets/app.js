@@ -44,9 +44,9 @@ const GAZETTEER = {
   "buffington road": [33.6137, -84.4894, "5200 Buffington Road, College Park"],
 };
 const TIERS = [
-  ["hits", "Hits your day"],
-  ["could", "Could hit you"],
-  ["later", "Later this week"],
+  ["hits", "Change the plan"],
+  ["could", "Other corridor / nearby"],
+  ["later", "Know, don't act"],
 ];
 
 const statusEl = document.getElementById("status");
