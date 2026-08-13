@@ -72,11 +72,15 @@ class AnalogMatch(BaseModel):
 
 
 class ForecastItem(BaseModel):
+    id: str = ""
     disruption_type: DisruptionType
     actor_country: str
     actor_name: str
     material: str | None = None
     chokepoint: str | None = None
+    site: str | None = None
+    lat: float | None = None
+    lon: float | None = None
     probability: float = Field(ge=0, le=1)
     previous_probability: float | None = None
     delta: float | None = None
@@ -95,6 +99,63 @@ class ForecastReport(BaseModel):
     portfolio: str
     items: list[ForecastItem]
     notes: list[str] = Field(default_factory=list)
+
+
+class MapPin(BaseModel):
+    id: str
+    lat: float
+    lon: float
+    kind: Literal["forecast", "supplier"]
+    label: str
+    subtitle: str = ""
+    site: str | None = None
+    country: str
+    material: str | None = None
+    disruption_type: DisruptionType | None = None
+    probability: float | None = None
+    previous_probability: float | None = None
+    delta: float | None = None
+    chokepoint: str | None = None
+    rank: int = 0
+    exposed_programs: list[str] = Field(default_factory=list)
+    exposed_suppliers: list[str] = Field(default_factory=list)
+    drivers: list[Driver] = Field(default_factory=list)
+    analogs: list[AnalogMatch] = Field(default_factory=list)
+    would_increase: list[str] = Field(default_factory=list)
+    would_decrease: list[str] = Field(default_factory=list)
+    sources: list[str] = Field(default_factory=list)
+    headline: str = ""
+
+
+class PulseEvent(BaseModel):
+    id: str
+    lat: float
+    lon: float
+    timestamp: datetime
+    actor_country: str
+    actor_name: str
+    action: str
+    material: str | None = None
+    tone: float = 0.0
+    location: str | None = None
+
+
+class MapPayload(BaseModel):
+    as_of: date
+    horizon_days: int
+    portfolio: str
+    programs: list[str] = Field(default_factory=list)
+    pins: list[MapPin]
+    suppliers: list[MapPin] = Field(default_factory=list)
+    pulse: list[PulseEvent] = Field(default_factory=list)
+    notes: list[str] = Field(default_factory=list)
+
+
+class DemoBundle(BaseModel):
+    default_as_of: date
+    horizon_days: int
+    dates: list[date]
+    snapshots: dict[str, MapPayload]
 
 
 class BacktestScores(BaseModel):

@@ -11,6 +11,7 @@ from forgecast.config import DEFAULT_HORIZON_DAYS, DEFAULT_PORTFOLIO, DEMO_AS_OF
 from forgecast.explain import drivers_from_features, fill_text_fields, recent_sources
 from forgecast.exposure import apply_exposure, load_portfolio
 from forgecast.features import Entity, feature_vector, month_starts
+from forgecast.geo import locate_node, make_pin_id
 from forgecast.graph import Store
 from forgecast.models import Ensemble
 from forgecast.sample import generate_world
@@ -86,12 +87,17 @@ def _item_for(
             "IR": "Strait of Hormuz",
         }.get(entity.country)
 
+    lat, lon, site = locate_node(entity.country, entity.material, chokepoint)
     item = ForecastItem(
+        id=make_pin_id(entity.country, entity.material, entity.disruption),
         disruption_type=entity.disruption,
         actor_country=entity.country,
         actor_name=country_name(entity.country),
         material=entity.material,
         chokepoint=chokepoint,
+        site=site,
+        lat=lat,
+        lon=lon,
         probability=round(p, 4),
         previous_probability=round(p_prev, 4),
         delta=round(p - p_prev, 4),
@@ -109,7 +115,7 @@ def forecast(
     portfolio_path: Path | None = None,
     store: Store | None = None,
     model: Ensemble | None = None,
-    top_n: int = 8,
+    top_n: int = 16,
 ) -> ForecastReport:
     as_of = as_of or DEMO_AS_OF
     portfolio_path = portfolio_path or DEFAULT_PORTFOLIO
