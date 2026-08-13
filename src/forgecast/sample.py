@@ -1,20 +1,35 @@
-"""Deterministic historically-inspired event world for demos and backtests."""
+"""Deterministic sample world of the AI power buildout."""
 
 from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
+from functools import lru_cache
 
 import numpy as np
 
+from forgecast.geo import cell_for
 from forgecast.ingest.cameo import GOLDSTEIN, action_label
-from forgecast.schema import DisruptionType, Event, Outcome
-from forgecast.staticdata import EPISODES, MATERIALS, outcomes_from_episodes
+from forgecast.schema import Event, Outcome, SignalType
+from forgecast.staticdata import (
+    BAS,
+    COUNTIES,
+    EPISODES,
+    coords,
+    geo_kind_of,
+    outcomes_from_episodes,
+    place_name,
+)
 
-COUNTRIES = ["CN", "RU", "IR", "YE", "UA", "TW", "CD", "ID", "ZA", "AU", "MM", "TR", "EG", "JP", "DE"]
 BG_CODES = ["01", "04", "05", "10", "11", "12"]
-HOT_CODES = ["13", "14", "15", "16", "163", "19"]
+GEO_IDS = list(BAS) + list(COUNTIES)
+
+THEME = {
+    SignalType.LOAD_GROWTH: "load",
+    SignalType.PERMIT_MW: "permit",
+    SignalType.GIGA_SITE: "campus",
+}
 
 
 def _eid(*parts: object) -> str:
@@ -29,31 +44,37 @@ def _dt(d: date, rng: np.random.Generator) -> datetime:
 def _event(
     rng: np.random.Generator,
     day: date,
-    country: str,
+    geo_id: str,
     code: str,
-    material: str | None,
-    target: str | None = "US",
+    signal: SignalType | None,
     source: str = "sample",
-    disruption: DisruptionType | None = None,
-    location: str | None = None,
 ) -> Event:
+    lat, lon = coords(geo_id)
+    lat = lat + float(rng.normal(0, 0.08))
+    lon = lon + float(rng.normal(0, 0.08))
     tone = float(GOLDSTEIN.get(code, 0.0)) + float(rng.normal(0, 1.2))
+    kind = geo_kind_of(geo_id)
     return Event(
-        id=_eid(day, country, code, material, rng.integers(0, 10_000_000)),
+        id=_eid(day, geo_id, code, signal, rng.integers(0, 10_000_000)),
         timestamp=_dt(day, rng),
-        actor=country,
-        actor_country=country,
+        actor=place_name(geo_id),
+        actor_country="US",
         action=action_label(code),
         action_code=code,
-        target=target,
-        target_country=target if target and len(target) == 2 else None,
-        material=material,
-        location=location,
+        target="grid",
+        target_country="US",
+        theme=THEME.get(signal) if signal else None,
+        location=place_name(geo_id),
+        lat=lat,
+        lon=lon,
+        h3=cell_for(lat, lon, 5),
+        geo_id=geo_id,
+        geo_kind=kind,  # type: ignore[arg-type]
         goldstein=float(GOLDSTEIN.get(code, 0.0)),
         tone=tone,
-        source_url=f"https://example.invalid/events/{country}/{day.isoformat()}",
+        source_url=f"https://example.invalid/grid/{geo_id}/{day.isoformat()}",
         source=source,
-        disruption_type=disruption,
+        signal_type=signal,
     )
 
 
@@ -63,37 +84,31 @@ class World:
     outcomes: list[Outcome]
 
 
+@lru_cache(maxsize=2)
 def generate_world(
     seed: int = 42,
     start: date = date(2009, 1, 1),
-    end: date = date(2025, 12, 31),
+    end: date = date(2026, 12, 31),
 ) -> World:
     rng = np.random.default_rng(seed)
     events: list[Event] = []
 
     day = start
     while day <= end:
-        # Sparse background diplomacy so the signal is not drowned.
         if int(rng.integers(0, 3)) == 0:
-            c = str(rng.choice(COUNTRIES))
+            geo_id = str(rng.choice(GEO_IDS))
             code = str(rng.choice(BG_CODES))
-            mat = str(rng.choice(MATERIALS)) if rng.random() < 0.15 else None
-            events.append(_event(rng, day, c, code, mat))
+            events.append(_event(rng, day, geo_id, code, None))
         day += timedelta(days=1)
 
     for ep in EPISODES:
-        peak: date = ep["peak"]
-        country: str = ep["country"]
-        material: str | None = ep["material"]
-        disruption = ep["disruption"]
-        is_miss = disruption is None
-        # Ramp intensity over ~120 days.
-        for delta in range(120, -1, -1):
-            d = peak - timedelta(days=delta)
-            if d < start or d > end:
+        ramp = max((ep.peak - ep.start).days, 150)
+        for delta in range(ramp, -1, -1):
+            d = ep.peak - timedelta(days=delta)
+            if d < start or d > end or d < ep.start:
                 continue
-            progress = 1.0 - delta / 120.0
-            n = int(rng.poisson(0.4 + 2.2 * progress))
+            progress = 1.0 - delta / float(ramp)
+            n = int(rng.poisson(0.6 + 2.8 * progress))
             for _ in range(n):
                 if progress < 0.35:
                     code = str(rng.choice(["11", "12", "13", "10"]))
@@ -101,46 +116,18 @@ def generate_world(
                     code = str(rng.choice(["13", "15", "16", "14"]))
                 else:
                     code = str(rng.choice(["13", "16", "163", "15", "19"]))
-                loc = None
-                if ep["id"] in {"suez_2021"}:
-                    loc = "Suez Canal"
-                if ep["id"] in {"redsea_2023"}:
-                    loc = "Red Sea"
-                events.append(_event(rng, d, country, code, material, location=loc))
-        # The actual disruption event (skip for near-misses).
-        if not is_miss and start <= peak <= end:
-            code = "163" if disruption in {
-                DisruptionType.EXPORT_RESTRICTION,
-                DisruptionType.SANCTIONS,
-            } else "19"
-            if disruption == DisruptionType.CIVIL_UNREST:
-                code = "14"
-            if disruption == DisruptionType.FACTORY_SHUTDOWN:
+                events.append(_event(rng, d, ep.geo_id, code, ep.signal))
+        if start <= ep.peak <= end:
+            code = "163" if ep.signal is SignalType.PERMIT_MW else "19"
+            if ep.signal is SignalType.LOAD_GROWTH:
                 code = "16"
-            if disruption == DisruptionType.SHIPPING_THREAT:
-                code = "19"
-            loc = "Suez Canal" if ep["id"] == "suez_2021" else None
-            loc = "Red Sea" if ep["id"] == "redsea_2023" else loc
-            events.append(
-                _event(
-                    rng,
-                    peak,
-                    country,
-                    code,
-                    material,
-                    disruption=disruption,
-                    location=loc,
-                    source="sample-label",
-                )
-            )
-        # Mild aftershocks.
-        if not is_miss:
-            for delta in range(1, 45):
-                d = peak + timedelta(days=delta)
-                if d > end:
-                    break
-                if rng.random() < 0.25:
-                    events.append(_event(rng, d, country, "11", material))
+            events.append(_event(rng, ep.peak, ep.geo_id, code, ep.signal, source="sample-label"))
+        for delta in range(1, 45):
+            d = ep.peak + timedelta(days=delta)
+            if d > end:
+                break
+            if rng.random() < 0.25:
+                events.append(_event(rng, d, ep.geo_id, "11", ep.signal))
 
     events.sort(key=lambda e: e.timestamp)
     return World(events=events, outcomes=outcomes_from_episodes())

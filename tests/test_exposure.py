@@ -1,30 +1,34 @@
 from forgecast.config import DEFAULT_PORTFOLIO
 from forgecast.exposure import apply_exposure, load_portfolio
-from forgecast.schema import DisruptionType, ForecastItem
+from forgecast.schema import ForecastItem, SignalType
 
 
-def test_titanium_hits_f35_and_vsmpo():
+def test_ercot_west_hits_vst_nrg_only():
     portfolio = load_portfolio(DEFAULT_PORTFOLIO)
     item = ForecastItem(
-        disruption_type=DisruptionType.EXPORT_RESTRICTION,
-        actor_country="RU",
-        actor_name="Russia",
-        material="titanium",
-        probability=0.31,
+        signal_type=SignalType.LOAD_GROWTH,
+        geo_id="ERCO-W",
+        geo_kind="ba",
+        geo_name="ERCOT West",
+        probability=0.9,
     )
     item = apply_exposure(item, portfolio)
-    assert any("F-35" in p for p in item.exposed_programs)
-    assert any("VSMPO" in s for s in item.exposed_suppliers)
+    tickers = {t.ticker for t in item.exposed_tickers}
+    assert tickers == {"VST", "NRG"}
+    assert "SO" not in tickers
+    assert "EQIX" not in tickers
 
 
-def test_shipping_exposes_all_programs():
+def test_quiet_geo_does_not_dump_book():
     portfolio = load_portfolio(DEFAULT_PORTFOLIO)
     item = ForecastItem(
-        disruption_type=DisruptionType.SHIPPING_THREAT,
-        actor_country="YE",
-        actor_name="Yemen",
-        chokepoint="Red Sea",
-        probability=0.4,
+        signal_type=SignalType.PERMIT_MW,
+        geo_id="35001",
+        geo_kind="county",
+        geo_name="Bernalillo County, NM",
+        probability=0.1,
     )
     item = apply_exposure(item, portfolio)
-    assert len(item.exposed_programs) >= 3
+    tickers = {t.ticker for t in item.exposed_tickers}
+    assert tickers <= {"PNM"}
+    assert len(tickers) <= 2

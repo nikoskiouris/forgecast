@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import date, datetime
 from enum import Enum
 from typing import Literal
@@ -7,33 +8,40 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 
-class DisruptionType(str, Enum):
-    EXPORT_RESTRICTION = "export_restriction"
-    PORT_BORDER_CLOSURE = "port_border_closure"
-    SANCTIONS = "sanctions"
-    CIVIL_UNREST = "civil_unrest"
-    CONFLICT_ESCALATION = "conflict_escalation"
-    FACTORY_SHUTDOWN = "factory_shutdown"
-    SHIPPING_THREAT = "shipping_threat"
-    ASSET_SEIZURE = "asset_seizure"
+class SignalType(str, Enum):
+    LOAD_GROWTH = "load_growth"
+    PERMIT_MW = "permit_mw"
+    GIGA_SITE = "giga_site"
+
+
+@dataclass(frozen=True)
+class Entity:
+    geo_id: str
+    geo_kind: Literal["ba", "county"]
+    signal: SignalType
 
 
 class Event(BaseModel):
     id: str
     timestamp: datetime
     actor: str
-    actor_country: str
+    actor_country: str = "US"
     action: str
     action_code: str
     target: str | None = None
     target_country: str | None = None
-    material: str | None = None
+    theme: str | None = None
     location: str | None = None
+    lat: float | None = None
+    lon: float | None = None
+    h3: str | None = None
+    geo_id: str | None = None
+    geo_kind: Literal["ba", "county", "site"] | None = None
     goldstein: float = 0.0
     tone: float = 0.0
     source_url: str | None = None
     source: str = "sample"
-    disruption_type: DisruptionType | None = None
+    signal_type: SignalType | None = None
 
 
 class Relation(BaseModel):
@@ -41,16 +49,16 @@ class Relation(BaseModel):
     subject: str
     predicate: str
     object: str
-    material: str | None = None
+    theme: str | None = None
     confidence: float = 1.0
     event_id: str | None = None
 
 
 class Outcome(BaseModel):
     occurred_on: date
-    country: str
-    material: str | None = None
-    disruption_type: DisruptionType
+    geo_id: str
+    geo_kind: Literal["ba", "county"]
+    signal_type: SignalType
     name: str
     notes: str = ""
 
@@ -65,22 +73,32 @@ class AnalogMatch(BaseModel):
     name: str
     similarity: float
     year: int
-    country: str
-    material: str | None = None
+    geo_id: str
+    geo_name: str = ""
+    signal_type: SignalType | None = None
     outcome: str
     difference: str
 
 
+class TickerHit(BaseModel):
+    ticker: str
+    name: str
+    role: Literal["utility", "ipp", "reit", "equipment", "bank"]
+    weight: float = 1.0
+    thesis: str = ""
+
+
 class ForecastItem(BaseModel):
     id: str = ""
-    disruption_type: DisruptionType
-    actor_country: str
-    actor_name: str
-    material: str | None = None
-    chokepoint: str | None = None
+    signal_type: SignalType
+    geo_id: str
+    geo_kind: Literal["ba", "county"]
+    geo_name: str
     site: str | None = None
     lat: float | None = None
     lon: float | None = None
+    h3: str | None = None
+    threshold: str = ""
     probability: float = Field(ge=0, le=1)
     previous_probability: float | None = None
     delta: float | None = None
@@ -89,8 +107,7 @@ class ForecastItem(BaseModel):
     would_increase: list[str] = Field(default_factory=list)
     would_decrease: list[str] = Field(default_factory=list)
     sources: list[str] = Field(default_factory=list)
-    exposed_programs: list[str] = Field(default_factory=list)
-    exposed_suppliers: list[str] = Field(default_factory=list)
+    exposed_tickers: list[TickerHit] = Field(default_factory=list)
 
 
 class ForecastReport(BaseModel):
@@ -98,6 +115,8 @@ class ForecastReport(BaseModel):
     horizon_days: int
     portfolio: str
     items: list[ForecastItem]
+    brier: float | None = None
+    brier_skill: float | None = None
     notes: list[str] = Field(default_factory=list)
 
 
@@ -105,26 +124,25 @@ class MapPin(BaseModel):
     id: str
     lat: float
     lon: float
-    kind: Literal["forecast", "supplier"]
+    kind: Literal["forecast", "plant", "campus"]
     label: str
     subtitle: str = ""
     site: str | None = None
-    country: str
-    material: str | None = None
-    disruption_type: DisruptionType | None = None
+    geo_id: str = ""
+    geo_kind: str = ""
+    signal_type: SignalType | None = None
     probability: float | None = None
     previous_probability: float | None = None
     delta: float | None = None
-    chokepoint: str | None = None
     rank: int = 0
-    exposed_programs: list[str] = Field(default_factory=list)
-    exposed_suppliers: list[str] = Field(default_factory=list)
+    exposed_tickers: list[TickerHit] = Field(default_factory=list)
     drivers: list[Driver] = Field(default_factory=list)
     analogs: list[AnalogMatch] = Field(default_factory=list)
     would_increase: list[str] = Field(default_factory=list)
     would_decrease: list[str] = Field(default_factory=list)
     sources: list[str] = Field(default_factory=list)
     headline: str = ""
+    h3: str | None = None
 
 
 class PulseEvent(BaseModel):
@@ -132,30 +150,43 @@ class PulseEvent(BaseModel):
     lat: float
     lon: float
     timestamp: datetime
-    actor_country: str
+    actor_country: str = "US"
     actor_name: str
     action: str
-    material: str | None = None
+    theme: str | None = None
     tone: float = 0.0
     location: str | None = None
+    geo_id: str | None = None
+
+
+class FlowArc(BaseModel):
+    src_lat: float
+    src_lon: float
+    dst_lat: float
+    dst_lon: float
+    src_id: str
+    dst_id: str
+    weight: float = 1.0
+    label: str = ""
 
 
 class MapPayload(BaseModel):
     as_of: date
     horizon_days: int
     portfolio: str
-    programs: list[str] = Field(default_factory=list)
     pins: list[MapPin]
-    suppliers: list[MapPin] = Field(default_factory=list)
-    pulse: list[PulseEvent] = Field(default_factory=list)
+    plants: list[MapPin] = Field(default_factory=list)
+    pulses: list[PulseEvent] = Field(default_factory=list)
+    flows: list[FlowArc] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)
 
 
-class DemoBundle(BaseModel):
-    default_as_of: date
-    horizon_days: int
-    dates: list[date]
-    snapshots: dict[str, MapPayload]
+class HexSeries(BaseModel):
+    h3: list[str]
+    week: list[int]
+    score: list[float]
+    n_events: list[int] = Field(default_factory=list)
+    metric: str = "activity"
 
 
 class BacktestScores(BaseModel):
@@ -166,86 +197,3 @@ class BacktestScores(BaseModel):
     baseline_brier: float
     brier_skill: float
     reliability: list[dict] = Field(default_factory=list)
-
-
-class EventKind(str, Enum):
-    ROAD = "road"
-    TRANSIT = "transit"
-    WEATHER = "weather"
-    EVENT = "event"
-    UTILITY = "utility"
-    AIRPORT = "airport"
-    PLACE = "place"
-
-
-class CityEvent(BaseModel):
-    id: str
-    kind: EventKind
-    severity: Literal["high", "mid", "low"] = "mid"
-    title: str
-    summary: str = ""
-    lat: float
-    lon: float
-    start: datetime | None = None
-    end: datetime | None = None
-    source: str
-    source_url: str | None = None
-    roads: list[str] = Field(default_factory=list)
-    routes: list[str] = Field(default_factory=list)
-    area: str | None = None
-    raw_type: str | None = None
-    metro: bool = False
-
-
-class Place(BaseModel):
-    label: str
-    address: str
-    lat: float
-    lon: float
-
-
-class ImpactItem(BaseModel):
-    event_id: str
-    kind: EventKind
-    severity: Literal["high", "mid", "low"]
-    title: str
-    summary: str = ""
-    advice: str
-    lat: float
-    lon: float
-    distance_km: float | None = None
-    near: list[str] = Field(default_factory=list)
-    on_commute: bool = False
-    start: datetime | None = None
-    end: datetime | None = None
-    source: str
-    source_url: str | None = None
-    score: float = 0.0
-
-
-class DayReport(BaseModel):
-    as_of: datetime
-    city: str = "Atlanta"
-    weekday: str = ""
-    center_lat: float = 33.749
-    center_lon: float = -84.388
-    zoom: float = 11.0
-    places: list[Place] = Field(default_factory=list)
-    commute: list[list[float]] = Field(default_factory=list)
-    items: list[ImpactItem] = Field(default_factory=list)
-    events: list[CityEvent] = Field(default_factory=list)
-    notes: list[str] = Field(default_factory=list)
-    sources_ok: list[str] = Field(default_factory=list)
-    sources_failed: list[str] = Field(default_factory=list)
-
-
-class CityBundle(BaseModel):
-    as_of: datetime
-    city: str = "Atlanta"
-    center_lat: float = 33.749
-    center_lon: float = -84.388
-    zoom: float = 10.6
-    events: list[CityEvent] = Field(default_factory=list)
-    notes: list[str] = Field(default_factory=list)
-    sources_ok: list[str] = Field(default_factory=list)
-    sources_failed: list[str] = Field(default_factory=list)
