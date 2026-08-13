@@ -107,7 +107,7 @@ def fetch_city_events(http: httpx.Client | None = None) -> CityBundle:
             client.close()
     notes = [
         "Live Atlanta feeds: GDOT traffic, city lane/utility permits, NWS, Open-Meteo, MARTA, FAA.",
-        "Map is evidence. The briefing is what sits on your places and commute.",
+        "Map is evidence. The briefing is which of your corridors is in trouble.",
     ]
     if failed:
         notes.append("Some feeds missed this refresh: " + "; ".join(failed[:4]))

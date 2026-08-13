@@ -9,8 +9,8 @@ from forgecast.city import (
     station_for_text,
 )
 from forgecast.geocode import gazetteer_lookup
-from forgecast.impact import advice_for, impacts
-from forgecast.schema import CityEvent, EventKind, Place
+from forgecast.impact import advice_for, corridor_verdict, impacts
+from forgecast.schema import CityEvent, CommuteRoute, EventKind, Place
 
 
 def test_midtown_is_in_metro():
@@ -42,6 +42,14 @@ def test_gazetteer_ponce():
     hit = gazetteer_lookup("Ponce City Market")
     assert hit is not None
     assert in_metro(hit.lat, hit.lon)
+
+
+def test_gazetteer_briarlake_and_buffington():
+    home = gazetteer_lookup("2855 Brairlake Road")
+    work = gazetteer_lookup("5200 Buffinton Road")
+    assert home is not None and work is not None
+    assert abs(home.lat - 33.8439) < 0.02
+    assert abs(work.lat - 33.6137) < 0.02
 
 
 def _ev(**kw):
@@ -96,3 +104,47 @@ def test_advice_leave_earlier():
     text = advice_for(ev, ["home"], True, "work", "now")
     assert "Leave" in text
     assert "work" in text
+
+
+def test_corridor_hits_stack_by_usual_habit():
+    home = Place(label="home", address="Briarlake Road", lat=33.8439, lon=-84.2722)
+    work = Place(label="work", address="Buffington Road", lat=33.6137, lon=-84.4894)
+    i85 = CommuteRoute(
+        id="connector",
+        name="Connector",
+        highways=["I-85", "I-75"],
+        coords=[[home.lon, home.lat], [-84.386, 33.781], [work.lon, work.lat]],
+        kind="shortest",
+    )
+    i285 = CommuteRoute(
+        id="perimeter",
+        name="Perimeter",
+        highways=["I-285"],
+        coords=[[home.lon, home.lat], [-84.206, 33.746], [work.lon, work.lat]],
+        kind="perimeter",
+    )
+    now = datetime(2026, 8, 13, 9, 0, tzinfo=EASTERN)
+    events = [
+        _ev(id="on-85", title="Crash on I-85 at 10th St", lat=33.781, lon=-84.386, start=now),
+        _ev(id="on-285", title="Lane closure on I-285", lat=33.746, lon=-84.206, start=now, roads=["I-285"]),
+        _ev(
+            id="named-285",
+            title="Overnight work on I-285",
+            lat=33.90,
+            lon=-84.55,
+            start=now,
+            roads=["I-285"],
+        ),
+    ]
+    items = impacts(events, [home, work], i85.coords, dest="work", now=now, routes=[i85, i285], usual_id="perimeter")
+    by = {i.event_id: i for i in items}
+    assert "on-285" in by
+    assert by["on-285"].tier == "hits"
+    assert "Perimeter" in by["on-285"].advice
+    assert "named-285" in by
+    assert "perimeter" in by["named-285"].on_routes
+    if "on-85" in by:
+        assert by["on-85"].tier == "could"
+        assert "connector" in by["on-85"].on_routes
+    verdict = corridor_verdict([i85, i285], items, usual_id="perimeter")
+    assert "Perimeter" in verdict or "usual" in verdict.lower()

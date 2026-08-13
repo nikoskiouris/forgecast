@@ -204,6 +204,19 @@ class Place(BaseModel):
     lon: float
 
 
+class CommuteRoute(BaseModel):
+    id: str
+    name: str
+    detail: str = ""
+    highways: list[str] = Field(default_factory=list)
+    coords: list[list[float]] = Field(default_factory=list)
+    duration_s: float | None = None
+    distance_m: float | None = None
+    kind: Literal["shortest", "alternate", "perimeter"] = "alternate"
+    hits: int = 0
+    extra_min: int = 0
+
+
 class ImpactItem(BaseModel):
     event_id: str
     kind: EventKind
@@ -216,6 +229,9 @@ class ImpactItem(BaseModel):
     distance_km: float | None = None
     near: list[str] = Field(default_factory=list)
     on_commute: bool = False
+    on_routes: list[str] = Field(default_factory=list)
+    route_names: list[str] = Field(default_factory=list)
+    tier: Literal["hits", "could", "later"] = "could"
     start: datetime | None = None
     end: datetime | None = None
     source: str
@@ -232,6 +248,8 @@ class DayReport(BaseModel):
     zoom: float = 11.0
     places: list[Place] = Field(default_factory=list)
     commute: list[list[float]] = Field(default_factory=list)
+    routes: list[CommuteRoute] = Field(default_factory=list)
+    corridor: str = ""
     items: list[ImpactItem] = Field(default_factory=list)
     events: list[CityEvent] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)

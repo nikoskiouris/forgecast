@@ -27,13 +27,15 @@
 
   <aside class="hud hud-left" id="watch">
     <div class="hud-kicker" id="list-kicker">Your day</div>
+    <p id="verdict" class="verdict" hidden></p>
+    <div id="corridors" class="corridors"></div>
     <div id="list"></div>
   </aside>
 
   <aside class="hud hud-right" id="brief">
     <div class="empty" id="brief-empty">
-      <p>Click a pin.</p>
-      <p class="muted">The map is evidence. The feed is what can hit your home, work, gym, or commute.</p>
+      <p>The stack is the day.</p>
+      <p class="muted">The map is evidence. Tap a corridor you actually drive — Connector vs Perimeter, not a fastest route.</p>
     </div>
     <div id="brief-body" hidden></div>
   </aside>
@@ -53,7 +55,7 @@
     <div class="gate-card">
       <div class="gate-mark">Forgecast</div>
       <h2>What could disrupt your day?</h2>
-      <p class="lede">Enter a home, work, or other location. Forgecast monitors what’s happening nearby and tells you what matters.</p>
+      <p class="lede">Home and work. Forgecast names the Atlanta corridors you actually choose (I-85 vs I-285) and stacks what will punch your day.</p>
       <form id="places-form">
         <label>Home
           <input id="home" name="home" type="text" autocomplete="street-address" placeholder="Atlanta address" required />
@@ -65,6 +67,7 @@
           <input id="gym" name="gym" type="text" autocomplete="off" placeholder="Optional" />
         </label>
         <div class="chips" id="chips">
+          <button type="button" data-home="2855 Briarlake Road" data-work="5200 Buffington Road">Try Briarlake → Buffington</button>
           <button type="button" data-home="Ponce City Market" data-work="Georgia Tech">Try Ponce → Tech</button>
           <button type="button" data-home="Midtown Atlanta" data-work="Hartsfield-Jackson Atlanta International Airport">Try Midtown → ATL</button>
           <button type="button" data-home="Decatur" data-work="Five Points">Try Decatur → Five Points</button>

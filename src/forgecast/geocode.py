@@ -38,11 +38,23 @@ GAZETTEER: dict[str, tuple[float, float, str]] = {
     "old fourth ward": (33.7660, -84.3660, "Old Fourth Ward"),
     "west midtown": (33.7980, -84.4130, "West Midtown, Atlanta"),
     "grant park": (33.7340, -84.3730, "Grant Park, Atlanta"),
+    "briarlake": (33.8439, -84.2722, "Briarlake Road, Atlanta"),
+    "briarlake road": (33.8439, -84.2722, "Briarlake Road, Atlanta"),
+    "briarlake forest": (33.8439, -84.2722, "Briarlake Road, Atlanta"),
+    "buffington": (33.6137, -84.4894, "5200 Buffington Road, College Park"),
+    "buffington road": (33.6137, -84.4894, "5200 Buffington Road, College Park"),
+    "chick-fil-a headquarters": (33.6137, -84.4894, "5200 Buffington Road, College Park"),
+    "chick fila headquarters": (33.6137, -84.4894, "5200 Buffington Road, College Park"),
 }
+
+_TYPOS = (("brairlake", "briarlake"), ("buffinton", "buffington"))
 
 
 def _norm(q: str) -> str:
-    return " ".join(q.lower().replace(",", " ").split())
+    text = " ".join(q.lower().replace(",", " ").split())
+    for bad, good in _TYPOS:
+        text = text.replace(bad, good)
+    return text
 
 
 def gazetteer_lookup(query: str) -> Place | None:
@@ -50,8 +62,13 @@ def gazetteer_lookup(query: str) -> Place | None:
     if q in GAZETTEER:
         lat, lon, name = GAZETTEER[q]
         return Place(label="place", address=name, lat=lat, lon=lon)
+    contained = [(k, v) for k, v in GAZETTEER.items() if k in q]
+    if contained:
+        _key, val = max(contained, key=lambda kv: len(kv[0]))
+        lat, lon, name = val
+        return Place(label="place", address=name, lat=lat, lon=lon)
     for key, val in GAZETTEER.items():
-        if key in q or q in key:
+        if q in key:
             lat, lon, name = val
             return Place(label="place", address=name, lat=lat, lon=lon)
     return None
@@ -88,6 +105,21 @@ def _nominatim(http: httpx.Client, query: str) -> Place | None:
     return None
 
 
+_STOP = {"atlanta", "ga", "georgia", "road", "rd", "street", "st", "ave", "dr", "ne", "nw", "se", "sw"}
+
+
+def _tokens(query: str) -> list[str]:
+    return [t for t in _norm(query).split() if t not in _STOP and not t.isdigit()]
+
+
+def _photon_score(query: str, hay: str, housenumber: str | None) -> int:
+    q = _norm(query)
+    score = sum(3 for t in _tokens(query) if t in hay)
+    if housenumber and housenumber in q.split():
+        score += 2
+    return score
+
+
 def _photon(http: httpx.Client, query: str) -> Place | None:
     data = get_json(
         http,
@@ -95,6 +127,7 @@ def _photon(http: httpx.Client, query: str) -> Place | None:
         {"q": _qualify(query), "lat": 33.75, "lon": -84.39, "limit": 5},
     )
     feats = data.get("features") or [] if isinstance(data, dict) else []
+    ranked: list[tuple[int, Place]] = []
     for feat in feats:
         geom = feat.get("geometry") or {}
         coords = geom.get("coordinates") or []
@@ -108,8 +141,13 @@ def _photon(http: httpx.Client, query: str) -> Place | None:
         street = " ".join(str(x) for x in [props.get("housenumber"), props.get("street")] if x)
         city = props.get("city") or "Atlanta"
         addr = ", ".join(x for x in [street or name, city, "GA"] if x)
-        return Place(label="place", address=addr, lat=lat, lon=lon)
-    return None
+        hay = _norm(f"{name} {street} {city}")
+        place = Place(label="place", address=addr, lat=lat, lon=lon)
+        ranked.append((_photon_score(query, hay, props.get("housenumber") and str(props.get("housenumber"))), place))
+    if not ranked:
+        return None
+    ranked.sort(key=lambda row: row[0], reverse=True)
+    return ranked[0][1]
 
 
 def geocode(query: str, http: httpx.Client, label: str = "place") -> Place:
@@ -130,6 +168,11 @@ def geocode(query: str, http: httpx.Client, label: str = "place") -> Place:
             place = _photon(http, q)
         except Exception:  # noqa: BLE001 — then gazetteer / error
             place = None
+    if hit and place:
+        hit_score = _photon_score(q, _norm(hit.address), None)
+        place_score = _photon_score(q, _norm(place.address), None)
+        if hit_score > place_score:
+            return Place(label=label, address=hit.address, lat=hit.lat, lon=hit.lon)
     if place is None and hit:
         return Place(label=label, address=hit.address, lat=hit.lat, lon=hit.lon)
     if place is None:
