@@ -173,6 +173,59 @@ button.ghost:hover { border-color: var(--gold); }
 .row .who { font-size: 14px; line-height: 1.35; }
 .row .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
+.verdict {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 17px;
+  line-height: 1.35;
+  margin: 0 8px 12px;
+  color: var(--text);
+}
+.verdict[hidden] { display: none; }
+
+.corridors { display: flex; flex-direction: column; gap: 6px; margin: 0 4px 12px; }
+.corridor {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: inherit;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.corridor:hover { border-color: var(--line); background: rgba(232, 197, 114, 0.06); }
+.corridor.active {
+  border-color: rgba(61, 204, 168, 0.55);
+  background: rgba(61, 204, 168, 0.08);
+}
+.corridor .cname { font-size: 14px; font-weight: 600; }
+.corridor .cdetail { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.corridor .chits {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+.corridor.messy .chits { color: var(--high); }
+.corridor.clear .chits { color: var(--down); }
+
+.tier-h {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+  padding: 12px 8px 4px;
+}
+.tier-h:first-child { padding-top: 4px; }
+
 .brief-kicker { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
 .brief-head { margin: 8px 0 14px; font-size: 18px; line-height: 1.35; font-family: "Instrument Serif", Georgia, serif; }
 .muted { color: var(--muted); }

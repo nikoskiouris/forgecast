@@ -7,11 +7,11 @@ import httpx
 from forgecast.briefing import kicker, quiet_copy, weekday_label
 from forgecast.city import CENTER_LAT, CENTER_LON, in_metro
 from forgecast.geocode import geocode_places
-from forgecast.impact import commute_pair, impacts
+from forgecast.impact import commute_pair, corridor_verdict, impacts, stamp_routes
 from forgecast.ingest.http import make_client
 from forgecast.ingest.live import fetch_city_events
-from forgecast.routing import commute_route
-from forgecast.schema import CityBundle, CityEvent, DayReport, EventKind, Place
+from forgecast.routing import commute_options
+from forgecast.schema import CityBundle, CityEvent, CommuteRoute, DayReport, EventKind, Place
 
 # Keep the JSON payload usable on GitHub Pages / first paint.
 MAP_CAP = 180
@@ -76,18 +76,28 @@ def build_day(
         bundle = bundle or fetch_city_events(client)
         pair = commute_pair(places)
         dest = pair[1].label if pair else None
+        routes: list[CommuteRoute] = []
         commute: list[list[float]] = []
         if pair:
             try:
-                commute = commute_route(client, pair[0].lon, pair[0].lat, pair[1].lon, pair[1].lat)
+                routes = commute_options(client, pair[0].lon, pair[0].lat, pair[1].lon, pair[1].lat)
             except Exception:  # noqa: BLE001 — OSRM down still yields a straight-line commute
-                commute = [[pair[0].lon, pair[0].lat], [pair[1].lon, pair[1].lat]]
-        items = impacts(bundle.events, places, commute, dest=dest)
+                routes = [
+                    CommuteRoute(
+                        id="yourroute",
+                        name="your route",
+                        coords=[[pair[0].lon, pair[0].lat], [pair[1].lon, pair[1].lat]],
+                        kind="shortest",
+                    )
+                ]
+            commute = routes[0].coords if routes else []
+        items = impacts(bundle.events, places, commute, dest=dest, routes=routes)
+        routes = stamp_routes(routes, items)
         keep = {i.event_id for i in items}
         events = map_events(bundle.events, keep)
         lat0 = sum(p.lat for p in places) / len(places)
         lon0 = sum(p.lon for p in places) / len(places)
-        zoom = 12.2 if len(places) == 1 else 11.2
+        zoom = 11.0 if routes else (12.2 if len(places) == 1 else 11.2)
         return DayReport(
             as_of=bundle.as_of,
             weekday=weekday_label(bundle.as_of),
@@ -96,6 +106,8 @@ def build_day(
             zoom=zoom,
             places=places,
             commute=commute,
+            routes=routes,
+            corridor=corridor_verdict(routes, items),
             items=items,
             events=events,
             notes=_notes(bundle, places, len(items)),

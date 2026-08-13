@@ -165,14 +165,26 @@ def day(
     if report.sources_failed:
         typer.echo(f"missed: {', '.join(report.sources_failed)}")
     typer.echo("")
+    if report.corridor:
+        typer.echo(report.corridor)
+        typer.echo("")
+    if report.routes:
+        for route in report.routes:
+            flag = f"{route.hits} hits" if route.hits else "clear"
+            typer.echo(f"  {route.name}  {route.detail}  {flag}")
+        typer.echo("")
     if not report.items:
         typer.echo("Nothing loud on your places. Map still has citywide events.")
         return
-    for item in report.items:
-        flag = "↔ commute" if item.on_commute else ", ".join(item.near)
-        typer.echo(f"• {item.advice}")
-        typer.echo(f"    {item.kind.value} · {item.source} · {flag}")
-        typer.echo("")
+    from forgecast.briefing import group_items
+
+    for label, chunk in group_items(report.items):
+        typer.echo(label)
+        for item in chunk:
+            flag = " ↔ " + " / ".join(item.route_names) if item.route_names else ", ".join(item.near)
+            typer.echo(f"• {item.advice}")
+            typer.echo(f"    {item.kind.value} · {item.source} · {flag}")
+            typer.echo("")
 
 
 @app.command()

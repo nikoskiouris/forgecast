@@ -24,3 +24,11 @@ def quiet_copy(n_city: int) -> str:
     if n_city:
         return f"Nothing loud sits on your places right now. {n_city} other city events are on the map."
     return "Quiet near your places. No live city events reached us this refresh."
+
+
+def group_items(items) -> list[tuple[str, list]]:
+    order = (("hits", "Hits your day"), ("could", "Could hit you"), ("later", "Later this week"))
+    by = {key: [] for key, _label in order}
+    for item in items:
+        by.setdefault(item.tier, []).append(item)
+    return [(label, by[key]) for key, label in order if by[key]]
