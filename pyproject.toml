@@ -1,12 +1,12 @@
 [project]
 name = "forgecast"
-version = "0.1.0"
-description = "Calibrated forecasts of disruptions to the U.S. and allied defense industrial base."
+version = "0.2.0"
+description = "Know what will affect your day in Atlanta—before it does."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "Forgecast"}]
-keywords = ["forecasting", "defense", "supply-chain", "gdelt", "calibration"]
+keywords = ["atlanta", "traffic", "transit", "weather", "briefing"]
 dependencies = [
   "pydantic>=2.0",
   "numpy>=1.24",

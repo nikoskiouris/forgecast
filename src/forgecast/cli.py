@@ -14,7 +14,7 @@ from forgecast.sample import generate_world
 app = typer.Typer(
     no_args_is_help=True,
     add_completion=False,
-    help="Calibrated forecasts of DIB supply-chain disruption.",
+    help="Atlanta day briefing: what will affect your places, routes, and routine.",
 )
 
 
@@ -146,10 +146,40 @@ def graph(
 
 
 @app.command()
+def day(
+    home: str = typer.Option(..., help="Home address in metro Atlanta"),
+    work: Optional[str] = typer.Option(None, help="Work address"),
+    gym: Optional[str] = typer.Option(None, help="Gym or other place"),
+) -> None:
+    """Live briefing for your Atlanta places. Real GDOT / MARTA / NWS / permits."""
+    from forgecast.day import build_day
+
+    raw = [{"label": "home", "address": home}]
+    if work:
+        raw.append({"label": "work", "address": work})
+    if gym:
+        raw.append({"label": "gym", "address": gym})
+    report = build_day(raw)
+    typer.echo(f"Your {report.weekday}  ·  {report.as_of.strftime('%Y-%m-%d %H:%M %Z')}")
+    typer.echo(f"feeds: {', '.join(report.sources_ok) or 'none'}")
+    if report.sources_failed:
+        typer.echo(f"missed: {', '.join(report.sources_failed)}")
+    typer.echo("")
+    if not report.items:
+        typer.echo("Nothing loud on your places. Map still has citywide events.")
+        return
+    for item in report.items:
+        flag = "↔ commute" if item.on_commute else ", ".join(item.near)
+        typer.echo(f"• {item.advice}")
+        typer.echo(f"    {item.kind.value} · {item.source} · {flag}")
+        typer.echo("")
+
+
+@app.command()
 def snapshot(
     out: Path = typer.Option(Path("docs"), help="Folder for the static demo site"),
 ) -> None:
-    """Bake the map + forecast JSON. One folder. GitHub Pages can host it."""
+    """Bake live Atlanta events + the map UI. GitHub Pages can host it."""
     from forgecast.snapshot import write_site
 
     path = write_site(out)
@@ -162,7 +192,7 @@ def serve(
     host: str = "127.0.0.1",
     port: int = 8000,
 ) -> None:
-    """One process: map UI + API. Open http://127.0.0.1:8000"""
+    """One process: Atlanta map + live briefing. Open http://127.0.0.1:8000"""
     import uvicorn
 
     typer.echo(f"Forgecast  →  http://{host}:{port}")

@@ -1,149 +1,71 @@
 # Forgecast
 
-Calibrated **probabilities** of disruption to the U.S. and allied defense industrial base — not declarations that something will happen.
+**Know what will affect your day—before it does.**
 
-## See it
+You type in home, work, the gym. Forgecast reads live Atlanta road closures, city permits, MARTA alerts, weather, and airport delays — then tells you only what could hit **you**.
 
-One map. No stack of servers.
+The map is evidence. The product is the briefing.
 
-**Live demo:** [nikoskiouris.github.io/forgecast](https://nikoskiouris.github.io/forgecast/)
+> Leave 15 minutes earlier: lane closures affect your usual route to work.
+> Avoid Midtown after 5:30 PM: a major event is expected to create heavy traffic.
+> MARTA Red Line delays may affect your backup route.
 
-(First time only: repo **Settings → Pages → Source: GitHub Actions**. After that, push to `main` is the whole deploy.)
-
-That is a static snapshot of the sample world (as-of 2023-06-01 / 2024-01-01 / 2024-06-01). Click pins. Read the briefing. Same files as `docs/` in this repo.
-
-Local, still one process:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
-forgecast serve          # http://127.0.0.1:8000
-```
-
-If `docs/data/demo.json` is missing, bake it first (also what GitHub Pages hosts):
-
-```bash
-forgecast snapshot       # writes docs/
-forgecast serve
-```
-
-A defense manufacturer can ask:
-
-> What foreign events are most likely to disrupt our supply chain during the next 180 days?
-
-Forgecast answers in this shape:
-
-> There is a 31% probability of new export restrictions affecting titanium (Russia) within 180 days, up from 22% last month. Three weapons programs and one supplier are exposed. The probability moved because of these developments.
-
-Then it shows the indicators, historical analogs, how today differs, what would raise or lower the probability, and the sources.
-
-This is a scoped prototype. The wedge is **medium-horizon, calibrated forecasting tied to a customer’s actual assets and suppliers** — not another breaking-news alerting product.
-
-## What it forecasts
-
-- Export restrictions on strategic materials
-- Port or border closures
-- Sanctions
-- Coups and major civil unrest
-- Conflict escalation
-- Factory shutdowns
-- Threats to shipping routes
-- Government nationalization or seizure of assets
-
-## How it works
-
-```
-Global news and public data
-        ↓
-Structured event timeline
-        ↓
-Historical pattern retrieval
-        ↓
-Statistical forecasting models
-        ↓
-Probability, evidence, and analogs
-```
-
-1. **Read and structure the world.** Events are stored as `actor → action → target → material → date`. Live ingest uses [GDELT](https://www.gdeltproject.org/) (CAMEO-coded global events). The demo ships with a historically-inspired sample world covering 2009–2025 (rare earths 2010, Suez 2021, Russia/Ukraine 2022, China gallium/germanium/graphite/antimony controls, Red Sea 2023–24, Myanmar 2021, plus a 2019 rare-earth near miss).
-2. **Temporal knowledge graph.** Each event becomes a dated edge: sanctions, force posture, trade rhetoric, material mentions.
-3. **Historical analogs.** Cosine similarity over 120-day event-mix windows, anchored to named episodes. Similarity is **one input**, not the algorithm. The write-up always states how today differs (especially economic interdependence).
-4. **Calibrated ensemble.** Base rate + time-series logistic + discrete-time hazard + sequence mix + analog outcome rate, then isotonic calibration. The LLM-shaped prose is a template over those numbers. It does not invent the probability.
+Atlanta metro only.
 
 ## Quick start
 
 Python 3.10+.
 
 ```bash
-python3.10 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 
-forgecast forecast
-forgecast report
-forgecast backtest
-forgecast serve     # one process: map + API
-forgecast snapshot  # bake the static GitHub Pages demo
+forgecast serve     # http://127.0.0.1:8000
+forgecast day --home "Ponce City Market" --work "Georgia Tech"
+forgecast snapshot  # bake live events into docs/ for GitHub Pages
 ```
 
-Default `as_of` is **2024-06-01** so the sample world still has a future (China antimony controls land later that year). Pass `--as-of` to change it.
+First screen:
 
-```bash
-forgecast seed
-forgecast ingest --start 2024-06-01 --end 2024-06-07   # live GDELT
-forgecast graph
-```
+**What could disrupt your day?**  
+Enter a home, work, or other location. Forgecast monitors what’s happening nearby and tells you what matters.
 
-Demo portfolio: [`data/portfolios/demo_defense.yaml`](data/portfolios/demo_defense.yaml) (F-35, Virginia-class, Patriot, GMLRS, SATCOM and their material/supplier graph).
+## Live sources (no dummy events)
 
-## Backtesting
-
-The hard part is not reading articles. It is proving the forecasts work.
-
-`forgecast backtest` walks forward in time:
-
-- Train only on labels that would already have been known (`as_of + 180 days` before the test year)
-- Score with Brier and log loss against a base-rate baseline
-- Print a reliability table
-
-On the sample world the ensemble should beat a constant base-rate forecast (positive Brier skill). That is a pipeline test, not a claim about live geopolitical accuracy.
-
-A serious evaluation still needs:
-
-- Real GDELT/ACLED history with as-of cutoffs
-- Independently dated outcome labels (not reconstructed from the same news)
-- Comparison to professional forecasters
-- Published misses, not only hits
-
-## What is real vs. not yet
-
-| Piece | Status |
+| Feed | What it is |
 | --- | --- |
-| Event schema, SQLite graph, analog retrieval | Working |
-| Ensemble + walk-forward Brier/log loss | Working on sample world |
-| Portfolio exposure (programs / suppliers) | Working |
-| Evidence write-up (drivers, analogs, deltas, sources) | Working (templates) |
-| GDELT ingest | Working (network) |
-| ACLED | Not wired (needs a key) |
-| LLM article → event extraction | Not wired; GDELT CAMEO + keywords stand in |
-| Temporal graph neural net | Not in v0; features are tabular |
-| Live production calibration | Not claimed |
+| GDOT / 511 | Metro traffic interruptions, construction, races, filming, major events |
+| Atlanta DOT | Lane / street closure permits |
+| Atlanta Public Works | Utility work with lane or road closures |
+| NWS | Active alerts that hit metro counties |
+| Open-Meteo | Hourly rain / storm windows |
+| MARTA OTP | Rail, streetcar, and bus service alerts |
+| FAA NAS Status | Hartsfield-Jackson (ATL) delays |
+
+If a feed is down, the others still publish. Nothing is invented to fill the gap.
+
+## How it works
+
+```
+Your places (and commute)
+        ↓
+Live Atlanta events with coordinates
+        ↓
+Distance to home / work / gym / route
+        ↓
+Personalized briefing + map pins
+```
+
+Places stay in the browser. One process locally: `forgecast serve`.
 
 ## API
 
-Same process as the map. Nothing else to start.
-
-- `GET /` map
-- `GET /data/demo.json` baked snapshot
-- `GET /api/map?as_of=2024-06-01`
-- `GET /api/forecast?as_of=2024-06-01&horizon=180`
-- `GET /api/report?pin=CN:antimony:export_restriction`
-
-## Why this wedge
-
-Generic “AI that predicts world events” is too broad to score. Defense-industrial supply disruption is valuable, measurable, and dual-use: primes, logistics commands, insurers, shippers, commodity desks.
-
-Detection companies (Dataminr, Primer) already cover breaking news. Forgecast is the 30–180 day probability layer sitting on top of a customer’s bill of materials.
+- `GET /` map + briefing UI
+- `GET /api/events` live city events
+- `GET /api/day?home=...&work=...&gym=...`
+- `POST /api/day` `{ "places": [{ "label": "home", "address": "..." }] }`
+- `GET /api/geocode?q=...`
 
 ## License
 

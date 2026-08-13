@@ -166,3 +166,86 @@ class BacktestScores(BaseModel):
     baseline_brier: float
     brier_skill: float
     reliability: list[dict] = Field(default_factory=list)
+
+
+class EventKind(str, Enum):
+    ROAD = "road"
+    TRANSIT = "transit"
+    WEATHER = "weather"
+    EVENT = "event"
+    UTILITY = "utility"
+    AIRPORT = "airport"
+    PLACE = "place"
+
+
+class CityEvent(BaseModel):
+    id: str
+    kind: EventKind
+    severity: Literal["high", "mid", "low"] = "mid"
+    title: str
+    summary: str = ""
+    lat: float
+    lon: float
+    start: datetime | None = None
+    end: datetime | None = None
+    source: str
+    source_url: str | None = None
+    roads: list[str] = Field(default_factory=list)
+    routes: list[str] = Field(default_factory=list)
+    area: str | None = None
+    raw_type: str | None = None
+    metro: bool = False
+
+
+class Place(BaseModel):
+    label: str
+    address: str
+    lat: float
+    lon: float
+
+
+class ImpactItem(BaseModel):
+    event_id: str
+    kind: EventKind
+    severity: Literal["high", "mid", "low"]
+    title: str
+    summary: str = ""
+    advice: str
+    lat: float
+    lon: float
+    distance_km: float | None = None
+    near: list[str] = Field(default_factory=list)
+    on_commute: bool = False
+    start: datetime | None = None
+    end: datetime | None = None
+    source: str
+    source_url: str | None = None
+    score: float = 0.0
+
+
+class DayReport(BaseModel):
+    as_of: datetime
+    city: str = "Atlanta"
+    weekday: str = ""
+    center_lat: float = 33.749
+    center_lon: float = -84.388
+    zoom: float = 11.0
+    places: list[Place] = Field(default_factory=list)
+    commute: list[list[float]] = Field(default_factory=list)
+    items: list[ImpactItem] = Field(default_factory=list)
+    events: list[CityEvent] = Field(default_factory=list)
+    notes: list[str] = Field(default_factory=list)
+    sources_ok: list[str] = Field(default_factory=list)
+    sources_failed: list[str] = Field(default_factory=list)
+
+
+class CityBundle(BaseModel):
+    as_of: datetime
+    city: str = "Atlanta"
+    center_lat: float = 33.749
+    center_lon: float = -84.388
+    zoom: float = 10.6
+    events: list[CityEvent] = Field(default_factory=list)
+    notes: list[str] = Field(default_factory=list)
+    sources_ok: list[str] = Field(default_factory=list)
+    sources_failed: list[str] = Field(default_factory=list)
