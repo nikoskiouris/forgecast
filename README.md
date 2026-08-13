@@ -1,71 +1,57 @@
-# Forgecast
+# Gridpulse
 
-**Know what will affect your day—before it does.**
+**Calibrated map of the AI power buildout.**
 
-You type in home, work, the gym. Forgecast reads live Atlanta road closures, city permits, MARTA alerts, weather, and airport delays — then tells you only what could hit **you**.
+Dark US map. Where load, permits, and giga-sites land next — then the mechanical ticker book that sits underneath (utilities, IPPs, REITs, grid equipment, regional banks).
 
-The map is evidence. The product is the briefing.
+Publisher, not an adviser.
 
-> Leave 15 minutes earlier: lane closures affect your usual route to work.
-> Avoid Midtown after 5:30 PM: a major event is expected to create heavy traffic.
-> MARTA Red Line delays may affect your backup route.
+> There is a 90% probability that ERCOT West weekly peak load grows ≥8% YoY within 180 days. Exposed: VST, NRG. Analog: ERCOT-West 2025 breakout.
 
-Atlanta metro only.
+Demo date: **2026-06-01**.
 
 ## Quick start
 
-Python 3.10+.
+Python 3.10+ and Node 20+.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 
+cd web && npm install && npm run build && cd ..
 forgecast serve     # http://127.0.0.1:8000
-forgecast day --home "Ponce City Market" --work "Georgia Tech"
-forgecast snapshot  # bake live events into docs/ for GitHub Pages
+forgecast forecast
+forgecast snapshot  # bake docs/ for GitHub Pages
 ```
 
-First screen:
+One process locally: `forgecast serve`.
 
-**What could disrupt your day?**  
-Enter a home, work, or other location. Forgecast monitors what’s happening nearby and tells you what matters.
+## Signals
 
-## Live sources (no dummy events)
-
-| Feed | What it is |
+| Family | Question |
 | --- | --- |
-| GDOT / 511 | Metro traffic interruptions, construction, races, filming, major events |
-| Atlanta DOT | Lane / street closure permits |
-| Atlanta Public Works | Utility work with lane or road closures |
-| NWS | Active alerts that hit metro counties |
-| Open-Meteo | Hourly rain / storm windows |
-| MARTA OTP | Rail, streetcar, and bus service alerts |
-| FAA NAS Status | Hartsfield-Jackson (ATL) delays |
+| `load_growth` | BA weekly peak ≥8% YoY (EIA-930) |
+| `permit_mw` | County permit-MW crosses the giga-site bar |
+| `giga_site` | Named campus announcement within 90 days |
 
-If a feed is down, the others still publish. Nothing is invented to fill the gap.
-
-## How it works
-
-```
-Your places (and commute)
-        ↓
-Live Atlanta events with coordinates
-        ↓
-Distance to home / work / gym / route
-        ↓
-Personalized briefing + map pins
-```
-
-Places stay in the browser. One process locally: `forgecast serve`.
+GDELT is attention only. It never becomes a label.
 
 ## API
 
-- `GET /` map + briefing UI
-- `GET /api/events` live city events
-- `GET /api/day?home=...&work=...&gym=...`
-- `POST /api/day` `{ "places": [{ "label": "home", "address": "..." }] }`
-- `GET /api/geocode?q=...`
+- `GET /` map
+- `GET /api/health`
+- `GET /api/meta`
+- `GET /api/forecast`
+- `GET /api/map`
+- `GET /api/hex/{3|4|5}`
+- `GET /api/cell/{geo_id}`
+- `GET /api/flows`
+- `GET /api/events`
+- `GET /api/report`
+- `GET /api/backtest`
+
+The SPA tries `/api/...` then falls back to baked `data/*.json` so GitHub Pages works with no server.
 
 ## License
 

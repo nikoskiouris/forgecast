@@ -1,0 +1,2852 @@
+{
+  "as_of": "2026-06-01",
+  "horizon_days": 180,
+  "portfolio": "gridpulse-demo",
+  "pins": [
+    {
+      "id": "ERCO-W:load_growth",
+      "lat": 32.45,
+      "lon": -100.4,
+      "kind": "forecast",
+      "label": "ERCOT West",
+      "subtitle": "weekly peak load ≥8% YoY",
+      "site": "ERCOT West",
+      "geo_id": "ERCO-W",
+      "geo_kind": "ba",
+      "signal_type": "load_growth",
+      "probability": 0.9,
+      "previous_probability": 0.9,
+      "delta": 0.0,
+      "rank": 1,
+      "exposed_tickers": [
+        {
+          "ticker": "VST",
+          "name": "Vistra",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NRG",
+          "name": "NRG Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "grid attention (90d)",
+          "direction": "up",
+          "detail": "165 relevant events at ERCOT West."
+        },
+        {
+          "indicator": "load-coded events (90d)",
+          "direction": "up",
+          "detail": "165 load-growth-tagged events in the window."
+        },
+        {
+          "indicator": "historical analog",
+          "direction": "up",
+          "detail": "Closest analog similarity 98%."
+        }
+      ],
+      "analogs": [
+        {
+          "name": "ERCOT-West 2025 breakout",
+          "similarity": 0.977,
+          "year": 2025,
+          "geo_id": "ERCO-W",
+          "geo_name": "ERCOT West",
+          "signal_type": "load_growth",
+          "outcome": "load growth",
+          "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+        },
+        {
+          "name": "CAISO 2024 summer load",
+          "similarity": 0.969,
+          "year": 2024,
+          "geo_id": "CISO",
+          "geo_name": "CAISO",
+          "signal_type": "load_growth",
+          "outcome": "load growth",
+          "difference": "Sequence resembles CAISO, but the node today is ERCOT West."
+        },
+        {
+          "name": "PJM 2024 load step-up",
+          "similarity": 0.967,
+          "year": 2024,
+          "geo_id": "PJM",
+          "geo_name": "PJM Interconnection",
+          "signal_type": "load_growth",
+          "outcome": "load growth",
+          "difference": "Sequence resembles PJM Interconnection, but the node today is ERCOT West."
+        }
+      ],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/ERCO-W/2026-06-01",
+        "https://example.invalid/grid/ERCO-W/2026-05-31",
+        "https://example.invalid/grid/ERCO-W/2026-05-29",
+        "https://example.invalid/grid/ERCO-W/2026-05-28",
+        "https://example.invalid/grid/ERCO-W/2026-05-27"
+      ],
+      "headline": "There is a 90% probability that ERCOT West weekly peak load grows ≥8% YoY within 180 days.",
+      "h3": "8526db8bfffffff"
+    },
+    {
+      "id": "48441:permit_mw",
+      "lat": 32.45,
+      "lon": -99.73,
+      "kind": "forecast",
+      "label": "Taylor County, TX",
+      "subtitle": "permit-MW giga-site threshold",
+      "site": "Taylor County, TX",
+      "geo_id": "48441",
+      "geo_kind": "county",
+      "signal_type": "permit_mw",
+      "probability": 0.9,
+      "previous_probability": 0.9,
+      "delta": 0.0,
+      "rank": 2,
+      "exposed_tickers": [
+        {
+          "ticker": "VST",
+          "name": "Vistra",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NRG",
+          "name": "NRG Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "grid attention (90d)",
+          "direction": "up",
+          "detail": "130 relevant events at Taylor County, TX."
+        },
+        {
+          "indicator": "permit-coded events (90d)",
+          "direction": "up",
+          "detail": "130 permit-MW-tagged events in the window."
+        },
+        {
+          "indicator": "historical analog",
+          "direction": "up",
+          "detail": "Closest analog similarity 81%."
+        }
+      ],
+      "analogs": [
+        {
+          "name": "Abilene 2025 campus permits",
+          "similarity": 0.806,
+          "year": 2025,
+          "geo_id": "48441",
+          "geo_name": "Taylor County, TX",
+          "signal_type": "permit_mw",
+          "outcome": "permit mw",
+          "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+        },
+        {
+          "name": "Abilene 2025 giga-site",
+          "similarity": 0.646,
+          "year": 2025,
+          "geo_id": "48441",
+          "geo_name": "Taylor County, TX",
+          "signal_type": "giga_site",
+          "outcome": "giga site",
+          "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+        },
+        {
+          "name": "Cook County 2024",
+          "similarity": 0.946,
+          "year": 2024,
+          "geo_id": "17031",
+          "geo_name": "Cook County, IL",
+          "signal_type": "permit_mw",
+          "outcome": "permit mw",
+          "difference": "Sequence resembles Cook County, IL, but the node today is Taylor County, TX."
+        }
+      ],
+      "would_increase": [
+        "County issues a data-center building permit above the giga-site MW bar",
+        "Site plan or rezoning approved for a hyperscale campus",
+        "Transmission upgrade filing that names the campus load"
+      ],
+      "would_decrease": [
+        "Permit pipeline goes quiet for two quarters",
+        "Moratorium, lawsuit, or water/power constraint stalls sites",
+        "Filed MW is revised below the giga-site threshold"
+      ],
+      "sources": [
+        "https://example.invalid/grid/48441/2026-06-01",
+        "https://example.invalid/grid/48441/2026-05-31",
+        "https://example.invalid/grid/48441/2026-05-30",
+        "https://example.invalid/grid/48441/2026-05-29",
+        "https://example.invalid/grid/48441/2026-05-27"
+      ],
+      "headline": "There is a 90% probability that permit-MW in Taylor County, TX crosses the giga-site threshold within 180 days.",
+      "h3": "8526d943fffffff"
+    },
+    {
+      "id": "51047:giga_site",
+      "lat": 38.47,
+      "lon": -77.97,
+      "kind": "forecast",
+      "label": "Culpeper County, VA",
+      "subtitle": "named campus announcement",
+      "site": "Culpeper County, VA",
+      "geo_id": "51047",
+      "geo_kind": "county",
+      "signal_type": "giga_site",
+      "probability": 0.9,
+      "previous_probability": 0.9,
+      "delta": 0.0,
+      "rank": 3,
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "USB",
+          "name": "U.S. Bancorp",
+          "role": "bank",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "grid attention (90d)",
+          "direction": "up",
+          "detail": "129 relevant events at Culpeper County, VA."
+        },
+        {
+          "indicator": "campus-coded events (90d)",
+          "direction": "up",
+          "detail": "129 giga-site-tagged events in the window."
+        },
+        {
+          "indicator": "historical analog",
+          "direction": "up",
+          "detail": "Closest analog similarity 97%."
+        }
+      ],
+      "analogs": [
+        {
+          "name": "Loudoun 2024 giga-site",
+          "similarity": 0.97,
+          "year": 2024,
+          "geo_id": "51107",
+          "geo_name": "Loudoun County, VA",
+          "signal_type": "giga_site",
+          "outcome": "giga site",
+          "difference": "Sequence resembles Loudoun County, VA, but the node today is Culpeper County, VA."
+        },
+        {
+          "name": "King County 2024 campus",
+          "similarity": 0.957,
+          "year": 2025,
+          "geo_id": "53033",
+          "geo_name": "King County, WA",
+          "signal_type": "giga_site",
+          "outcome": "giga site",
+          "difference": "Sequence resembles King County, WA, but the node today is Culpeper County, VA."
+        },
+        {
+          "name": "Clark 2023 campus",
+          "similarity": 0.955,
+          "year": 2024,
+          "geo_id": "32003",
+          "geo_name": "Clark County, NV",
+          "signal_type": "giga_site",
+          "outcome": "giga site",
+          "difference": "Sequence resembles Clark County, NV, but the node today is Culpeper County, VA."
+        }
+      ],
+      "would_increase": [
+        "Named hyperscale or AI campus announcement with MW disclosed",
+        "Power-purchase or behind-the-meter generation deal signed",
+        "County economic-development memo confirming the tenant"
+      ],
+      "would_decrease": [
+        "The rumored tenant walks or relocates the campus",
+        "No named announcement by the 90-day mark",
+        "Local opposition or interconnection denial becomes public"
+      ],
+      "sources": [
+        "https://example.invalid/grid/51047/2026-06-01",
+        "https://example.invalid/grid/51047/2026-05-31",
+        "https://example.invalid/grid/51047/2026-05-30",
+        "https://example.invalid/grid/51047/2026-05-29",
+        "https://example.invalid/grid/51047/2026-05-28"
+      ],
+      "headline": "There is a 90% probability that a new giga-site is announced in Culpeper County, VA within 90 days.",
+      "h3": "852aaa2bfffffff"
+    },
+    {
+      "id": "PJM:load_growth",
+      "lat": 40.12,
+      "lon": -77.52,
+      "kind": "forecast",
+      "label": "PJM Interconnection",
+      "subtitle": "weekly peak load ≥8% YoY",
+      "site": "PJM Interconnection",
+      "geo_id": "PJM",
+      "geo_kind": "ba",
+      "signal_type": "load_growth",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 4,
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "AEP",
+          "name": "American Electric Power",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EXC",
+          "name": "Exelon",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "FE",
+          "name": "FirstEnergy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PEG",
+          "name": "PSEG",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PPL",
+          "name": "PPL",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "CEG",
+          "name": "Constellation Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/PJM/2026-05-21",
+        "https://example.invalid/grid/PJM/2025-12-21",
+        "https://example.invalid/grid/PJM/2025-03-17",
+        "https://example.invalid/grid/PJM/2025-01-30",
+        "https://example.invalid/grid/PJM/2024-12-14"
+      ],
+      "headline": "There is a 0% probability that PJM Interconnection weekly peak load grows ≥8% YoY within 180 days.",
+      "h3": "852aaec3fffffff"
+    },
+    {
+      "id": "ERCO:load_growth",
+      "lat": 31.0,
+      "lon": -99.9,
+      "kind": "forecast",
+      "label": "ERCOT",
+      "subtitle": "weekly peak load ≥8% YoY",
+      "site": "ERCOT",
+      "geo_id": "ERCO",
+      "geo_kind": "ba",
+      "signal_type": "load_growth",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 5,
+      "exposed_tickers": [
+        {
+          "ticker": "VST",
+          "name": "Vistra",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NRG",
+          "name": "NRG Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NEE",
+          "name": "NextEra Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/ERCO/2023-09-09",
+        "https://example.invalid/grid/ERCO/2023-08-19",
+        "https://example.invalid/grid/ERCO/2022-08-04",
+        "https://example.invalid/grid/ERCO/2022-04-03",
+        "https://example.invalid/grid/ERCO/2021-10-22"
+      ],
+      "headline": "There is a 0% probability that ERCOT weekly peak load grows ≥8% YoY within 180 days.",
+      "h3": "85489997fffffff"
+    },
+    {
+      "id": "CISO:load_growth",
+      "lat": 37.3,
+      "lon": -120.5,
+      "kind": "forecast",
+      "label": "CAISO",
+      "subtitle": "weekly peak load ≥8% YoY",
+      "site": "CAISO",
+      "geo_id": "CISO",
+      "geo_kind": "ba",
+      "signal_type": "load_growth",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 6,
+      "exposed_tickers": [
+        {
+          "ticker": "EIX",
+          "name": "Edison International",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PCG",
+          "name": "PG&E",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "SRE",
+          "name": "Sempra",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/CISO/2026-04-07",
+        "https://example.invalid/grid/CISO/2025-12-09",
+        "https://example.invalid/grid/CISO/2024-09-14",
+        "https://example.invalid/grid/CISO/2024-09-08",
+        "https://example.invalid/grid/CISO/2024-09-03"
+      ],
+      "headline": "There is a 0% probability that CAISO weekly peak load grows ≥8% YoY within 180 days.",
+      "h3": "852836d3fffffff"
+    },
+    {
+      "id": "MISO:load_growth",
+      "lat": 41.6,
+      "lon": -90.6,
+      "kind": "forecast",
+      "label": "MISO",
+      "subtitle": "weekly peak load ≥8% YoY",
+      "site": "MISO",
+      "geo_id": "MISO",
+      "geo_kind": "ba",
+      "signal_type": "load_growth",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 7,
+      "exposed_tickers": [
+        {
+          "ticker": "AEP",
+          "name": "American Electric Power",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EXC",
+          "name": "Exelon",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EIX",
+          "name": "Edison International",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/MISO/2024-07-07",
+        "https://example.invalid/grid/MISO/2024-04-21",
+        "https://example.invalid/grid/MISO/2023-04-01",
+        "https://example.invalid/grid/MISO/2023-01-17",
+        "https://example.invalid/grid/MISO/2021-11-17"
+      ],
+      "headline": "There is a 0% probability that MISO weekly peak load grows ≥8% YoY within 180 days.",
+      "h3": "852675dbfffffff"
+    },
+    {
+      "id": "SOCO:load_growth",
+      "lat": 33.75,
+      "lon": -84.39,
+      "kind": "forecast",
+      "label": "Southern Company",
+      "subtitle": "weekly peak load ≥8% YoY",
+      "site": "Southern Company",
+      "geo_id": "SOCO",
+      "geo_kind": "ba",
+      "signal_type": "load_growth",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 8,
+      "exposed_tickers": [
+        {
+          "ticker": "SO",
+          "name": "Southern Company",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DUK",
+          "name": "Duke Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/SOCO/2026-03-25",
+        "https://example.invalid/grid/SOCO/2026-02-07",
+        "https://example.invalid/grid/SOCO/2025-07-30",
+        "https://example.invalid/grid/SOCO/2025-04-03",
+        "https://example.invalid/grid/SOCO/2024-09-07"
+      ],
+      "headline": "There is a 0% probability that Southern Company weekly peak load grows ≥8% YoY within 180 days.",
+      "h3": "8544c1abfffffff"
+    },
+    {
+      "id": "51107:permit_mw",
+      "lat": 39.08,
+      "lon": -77.64,
+      "kind": "forecast",
+      "label": "Loudoun County, VA",
+      "subtitle": "permit-MW giga-site threshold",
+      "site": "Loudoun County, VA",
+      "geo_id": "51107",
+      "geo_kind": "county",
+      "signal_type": "permit_mw",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 9,
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "IRM",
+          "name": "Iron Mountain",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "GEV",
+          "name": "GE Vernova",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "County issues a data-center building permit above the giga-site MW bar",
+        "Site plan or rezoning approved for a hyperscale campus",
+        "Transmission upgrade filing that names the campus load"
+      ],
+      "would_decrease": [
+        "Permit pipeline goes quiet for two quarters",
+        "Moratorium, lawsuit, or water/power constraint stalls sites",
+        "Filed MW is revised below the giga-site threshold"
+      ],
+      "sources": [
+        "https://example.invalid/grid/51107/2025-07-04",
+        "https://example.invalid/grid/51107/2025-06-16",
+        "https://example.invalid/grid/51107/2024-12-07",
+        "https://example.invalid/grid/51107/2024-07-08",
+        "https://example.invalid/grid/51107/2024-07-03"
+      ],
+      "headline": "There is a 0% probability that permit-MW in Loudoun County, VA crosses the giga-site threshold within 180 days.",
+      "h3": "852aaa8ffffffff"
+    },
+    {
+      "id": "51153:permit_mw",
+      "lat": 38.7,
+      "lon": -77.48,
+      "kind": "forecast",
+      "label": "Prince William County, VA",
+      "subtitle": "permit-MW giga-site threshold",
+      "site": "Prince William County, VA",
+      "geo_id": "51153",
+      "geo_kind": "county",
+      "signal_type": "permit_mw",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 10,
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "County issues a data-center building permit above the giga-site MW bar",
+        "Site plan or rezoning approved for a hyperscale campus",
+        "Transmission upgrade filing that names the campus load"
+      ],
+      "would_decrease": [
+        "Permit pipeline goes quiet for two quarters",
+        "Moratorium, lawsuit, or water/power constraint stalls sites",
+        "Filed MW is revised below the giga-site threshold"
+      ],
+      "sources": [
+        "https://example.invalid/grid/51153/2026-03-26",
+        "https://example.invalid/grid/51153/2025-11-01",
+        "https://example.invalid/grid/51153/2025-04-14",
+        "https://example.invalid/grid/51153/2024-11-03",
+        "https://example.invalid/grid/51153/2024-10-28"
+      ],
+      "headline": "There is a 0% probability that permit-MW in Prince William County, VA crosses the giga-site threshold within 180 days.",
+      "h3": "852aaaaffffffff"
+    },
+    {
+      "id": "04013:permit_mw",
+      "lat": 33.45,
+      "lon": -112.07,
+      "kind": "forecast",
+      "label": "Maricopa County, AZ",
+      "subtitle": "permit-MW giga-site threshold",
+      "site": "Maricopa County, AZ",
+      "geo_id": "04013",
+      "geo_kind": "county",
+      "signal_type": "permit_mw",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 11,
+      "exposed_tickers": [
+        {
+          "ticker": "PNW",
+          "name": "Pinnacle West",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "County issues a data-center building permit above the giga-site MW bar",
+        "Site plan or rezoning approved for a hyperscale campus",
+        "Transmission upgrade filing that names the campus load"
+      ],
+      "would_decrease": [
+        "Permit pipeline goes quiet for two quarters",
+        "Moratorium, lawsuit, or water/power constraint stalls sites",
+        "Filed MW is revised below the giga-site threshold"
+      ],
+      "sources": [
+        "https://example.invalid/grid/04013/2026-05-18",
+        "https://example.invalid/grid/04013/2026-01-31",
+        "https://example.invalid/grid/04013/2025-05-31",
+        "https://example.invalid/grid/04013/2025-02-28",
+        "https://example.invalid/grid/04013/2025-01-12"
+      ],
+      "headline": "There is a 0% probability that permit-MW in Maricopa County, AZ crosses the giga-site threshold within 180 days.",
+      "h3": "8529b6d3fffffff"
+    },
+    {
+      "id": "51107:giga_site",
+      "lat": 39.08,
+      "lon": -77.64,
+      "kind": "forecast",
+      "label": "Loudoun County, VA",
+      "subtitle": "named campus announcement",
+      "site": "Loudoun County, VA",
+      "geo_id": "51107",
+      "geo_kind": "county",
+      "signal_type": "giga_site",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 12,
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "IRM",
+          "name": "Iron Mountain",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "GEV",
+          "name": "GE Vernova",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Named hyperscale or AI campus announcement with MW disclosed",
+        "Power-purchase or behind-the-meter generation deal signed",
+        "County economic-development memo confirming the tenant"
+      ],
+      "would_decrease": [
+        "The rumored tenant walks or relocates the campus",
+        "No named announcement by the 90-day mark",
+        "Local opposition or interconnection denial becomes public"
+      ],
+      "sources": [
+        "https://example.invalid/grid/51107/2025-07-04",
+        "https://example.invalid/grid/51107/2025-06-16",
+        "https://example.invalid/grid/51107/2024-12-07",
+        "https://example.invalid/grid/51107/2024-07-08",
+        "https://example.invalid/grid/51107/2024-07-03"
+      ],
+      "headline": "There is a 0% probability that a new giga-site is announced in Loudoun County, VA within 90 days.",
+      "h3": "852aaa8ffffffff"
+    },
+    {
+      "id": "48441:giga_site",
+      "lat": 32.45,
+      "lon": -99.73,
+      "kind": "forecast",
+      "label": "Taylor County, TX",
+      "subtitle": "named campus announcement",
+      "site": "Taylor County, TX",
+      "geo_id": "48441",
+      "geo_kind": "county",
+      "signal_type": "giga_site",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 13,
+      "exposed_tickers": [
+        {
+          "ticker": "VST",
+          "name": "Vistra",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NRG",
+          "name": "NRG Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Named hyperscale or AI campus announcement with MW disclosed",
+        "Power-purchase or behind-the-meter generation deal signed",
+        "County economic-development memo confirming the tenant"
+      ],
+      "would_decrease": [
+        "The rumored tenant walks or relocates the campus",
+        "No named announcement by the 90-day mark",
+        "Local opposition or interconnection denial becomes public"
+      ],
+      "sources": [
+        "https://example.invalid/grid/48441/2026-06-01",
+        "https://example.invalid/grid/48441/2026-05-31",
+        "https://example.invalid/grid/48441/2026-05-30",
+        "https://example.invalid/grid/48441/2026-05-29",
+        "https://example.invalid/grid/48441/2026-05-27"
+      ],
+      "headline": "There is a 0% probability that a new giga-site is announced in Taylor County, TX within 90 days.",
+      "h3": "8526d943fffffff"
+    },
+    {
+      "id": "32003:giga_site",
+      "lat": 36.17,
+      "lon": -115.14,
+      "kind": "forecast",
+      "label": "Clark County, NV",
+      "subtitle": "named campus announcement",
+      "site": "Clark County, NV",
+      "geo_id": "32003",
+      "geo_kind": "county",
+      "signal_type": "giga_site",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 14,
+      "exposed_tickers": [
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Named hyperscale or AI campus announcement with MW disclosed",
+        "Power-purchase or behind-the-meter generation deal signed",
+        "County economic-development memo confirming the tenant"
+      ],
+      "would_decrease": [
+        "The rumored tenant walks or relocates the campus",
+        "No named announcement by the 90-day mark",
+        "Local opposition or interconnection denial becomes public"
+      ],
+      "sources": [
+        "https://example.invalid/grid/32003/2026-02-12",
+        "https://example.invalid/grid/32003/2025-09-27",
+        "https://example.invalid/grid/32003/2025-08-22",
+        "https://example.invalid/grid/32003/2024-12-24",
+        "https://example.invalid/grid/32003/2024-07-16"
+      ],
+      "headline": "There is a 0% probability that a new giga-site is announced in Clark County, NV within 90 days.",
+      "h3": "852986bbfffffff"
+    },
+    {
+      "id": "TVA:load_growth",
+      "lat": 35.96,
+      "lon": -83.92,
+      "kind": "forecast",
+      "label": "Tennessee Valley Authority",
+      "subtitle": "weekly peak load ≥8% YoY",
+      "site": "Tennessee Valley Authority",
+      "geo_id": "TVA",
+      "geo_kind": "ba",
+      "signal_type": "load_growth",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 15,
+      "exposed_tickers": [
+        {
+          "ticker": "SO",
+          "name": "Southern Company",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DUK",
+          "name": "Duke Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/TVA/2026-03-10",
+        "https://example.invalid/grid/TVA/2025-04-02",
+        "https://example.invalid/grid/TVA/2024-09-05",
+        "https://example.invalid/grid/TVA/2024-09-02",
+        "https://example.invalid/grid/TVA/2024-07-05"
+      ],
+      "headline": "There is a 0% probability that Tennessee Valley Authority weekly peak load grows ≥8% YoY within 180 days.",
+      "h3": "8544caaffffffff"
+    },
+    {
+      "id": "NYIS:load_growth",
+      "lat": 42.9,
+      "lon": -75.5,
+      "kind": "forecast",
+      "label": "NYISO",
+      "subtitle": "weekly peak load ≥8% YoY",
+      "site": "NYISO",
+      "geo_id": "NYIS",
+      "geo_kind": "ba",
+      "signal_type": "load_growth",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "rank": 16,
+      "exposed_tickers": [
+        {
+          "ticker": "CEG",
+          "name": "Constellation Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NEE",
+          "name": "NextEra Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ],
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/NYIS/2024-06-28",
+        "https://example.invalid/grid/NYIS/2024-06-09",
+        "https://example.invalid/grid/NYIS/2023-08-09",
+        "https://example.invalid/grid/NYIS/2022-12-23",
+        "https://example.invalid/grid/NYIS/2022-03-08"
+      ],
+      "headline": "There is a 0% probability that NYISO weekly peak load grows ≥8% YoY within 180 days.",
+      "h3": "852b8bc7fffffff"
+    }
+  ],
+  "plants": [
+    {
+      "id": "plant-vst-odessa",
+      "lat": 31.85,
+      "lon": -102.37,
+      "kind": "plant",
+      "label": "Odessa combined cycle",
+      "subtitle": "Vistra",
+      "site": null,
+      "geo_id": "ERCO-W",
+      "geo_kind": "ba",
+      "signal_type": null,
+      "probability": null,
+      "previous_probability": null,
+      "delta": null,
+      "rank": 0,
+      "exposed_tickers": [],
+      "drivers": [],
+      "analogs": [],
+      "would_increase": [],
+      "would_decrease": [],
+      "sources": [],
+      "headline": "",
+      "h3": null
+    },
+    {
+      "id": "plant-nrg-waelder",
+      "lat": 29.69,
+      "lon": -97.3,
+      "kind": "plant",
+      "label": "Waelder peakers",
+      "subtitle": "NRG",
+      "site": null,
+      "geo_id": "ERCO",
+      "geo_kind": "ba",
+      "signal_type": null,
+      "probability": null,
+      "previous_probability": null,
+      "delta": null,
+      "rank": 0,
+      "exposed_tickers": [],
+      "drivers": [],
+      "analogs": [],
+      "would_increase": [],
+      "would_decrease": [],
+      "sources": [],
+      "headline": "",
+      "h3": null
+    },
+    {
+      "id": "plant-ceg-calvert",
+      "lat": 38.43,
+      "lon": -76.44,
+      "kind": "plant",
+      "label": "Calvert Cliffs",
+      "subtitle": "Constellation",
+      "site": null,
+      "geo_id": "PJM",
+      "geo_kind": "ba",
+      "signal_type": null,
+      "probability": null,
+      "previous_probability": null,
+      "delta": null,
+      "rank": 0,
+      "exposed_tickers": [],
+      "drivers": [],
+      "analogs": [],
+      "would_increase": [],
+      "would_decrease": [],
+      "sources": [],
+      "headline": "",
+      "h3": null
+    },
+    {
+      "id": "plant-d-northanna",
+      "lat": 38.06,
+      "lon": -77.79,
+      "kind": "plant",
+      "label": "North Anna",
+      "subtitle": "Dominion",
+      "site": null,
+      "geo_id": "PJM",
+      "geo_kind": "ba",
+      "signal_type": null,
+      "probability": null,
+      "previous_probability": null,
+      "delta": null,
+      "rank": 0,
+      "exposed_tickers": [],
+      "drivers": [],
+      "analogs": [],
+      "would_increase": [],
+      "would_decrease": [],
+      "sources": [],
+      "headline": "",
+      "h3": null
+    },
+    {
+      "id": "plant-aep-mountaineer",
+      "lat": 38.98,
+      "lon": -81.93,
+      "kind": "plant",
+      "label": "Mountaineer",
+      "subtitle": "AEP",
+      "site": null,
+      "geo_id": "PJM",
+      "geo_kind": "ba",
+      "signal_type": null,
+      "probability": null,
+      "previous_probability": null,
+      "delta": null,
+      "rank": 0,
+      "exposed_tickers": [],
+      "drivers": [],
+      "analogs": [],
+      "would_increase": [],
+      "would_decrease": [],
+      "sources": [],
+      "headline": "",
+      "h3": null
+    },
+    {
+      "id": "plant-nee-turkey",
+      "lat": 25.43,
+      "lon": -80.33,
+      "kind": "plant",
+      "label": "Turkey Point",
+      "subtitle": "NextEra",
+      "site": null,
+      "geo_id": "FPL",
+      "geo_kind": "ba",
+      "signal_type": null,
+      "probability": null,
+      "previous_probability": null,
+      "delta": null,
+      "rank": 0,
+      "exposed_tickers": [],
+      "drivers": [],
+      "analogs": [],
+      "would_increase": [],
+      "would_decrease": [],
+      "sources": [],
+      "headline": "",
+      "h3": null
+    },
+    {
+      "id": "plant-so-vogtle",
+      "lat": 33.14,
+      "lon": -81.76,
+      "kind": "plant",
+      "label": "Vogtle",
+      "subtitle": "Southern",
+      "site": null,
+      "geo_id": "SOCO",
+      "geo_kind": "ba",
+      "signal_type": null,
+      "probability": null,
+      "previous_probability": null,
+      "delta": null,
+      "rank": 0,
+      "exposed_tickers": [],
+      "drivers": [],
+      "analogs": [],
+      "would_increase": [],
+      "would_decrease": [],
+      "sources": [],
+      "headline": "",
+      "h3": null
+    }
+  ],
+  "pulses": [
+    {
+      "id": "ev-cb28baffcb75bfd3",
+      "lat": 32.674472808020404,
+      "lon": -99.84903007226681,
+      "timestamp": "2026-05-19T03:24:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "reduces relations",
+      "theme": "permit",
+      "tone": -8.621123156521293,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-65e01e39140cdb43",
+      "lat": 32.40416107996714,
+      "lon": -99.83376935480683,
+      "timestamp": "2026-05-19T06:14:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "reduces relations",
+      "theme": "permit",
+      "tone": -5.780693956354467,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-7faf3a527c57f570",
+      "lat": 38.2693546519423,
+      "lon": -78.08088820005227,
+      "timestamp": "2026-05-19T12:38:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "exhibits force",
+      "theme": "campus",
+      "tone": -8.00063055798858,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-211854bd3c22697b",
+      "lat": 38.39098786879583,
+      "lon": -77.98059268006087,
+      "timestamp": "2026-05-19T16:09:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "threatens",
+      "theme": "campus",
+      "tone": -6.015939845144202,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-2a61d14e814d0e72",
+      "lat": 38.496890370085055,
+      "lon": -77.90887140632158,
+      "timestamp": "2026-05-19T16:51:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "reduces relations",
+      "theme": "campus",
+      "tone": -7.812135780342799,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-9e7dec04f3f94b2f",
+      "lat": 32.61075059607568,
+      "lon": -99.85431283813165,
+      "timestamp": "2026-05-20T00:22:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "reduces relations",
+      "theme": "permit",
+      "tone": -6.15990302149178,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-7985ed295ed3f729",
+      "lat": 32.620810688930014,
+      "lon": -100.37351335767602,
+      "timestamp": "2026-05-20T00:50:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "reduces relations",
+      "theme": "load",
+      "tone": -5.815319383297551,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-80438cf23294cb75",
+      "lat": 32.44230892458789,
+      "lon": -100.4239731319987,
+      "timestamp": "2026-05-20T01:33:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -7.078146275658636,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-e41d69c61ca994b1",
+      "lat": 32.45047688771686,
+      "lon": -99.70545097986731,
+      "timestamp": "2026-05-20T02:39:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "threatens",
+      "theme": "permit",
+      "tone": -5.10988655656522,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-3da23289c0418a0b",
+      "lat": 38.4084099704866,
+      "lon": -77.97820451727293,
+      "timestamp": "2026-05-20T17:19:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "protests",
+      "theme": "campus",
+      "tone": -6.593479497733991,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-e1772010ade3a1a3",
+      "lat": 32.52595569960727,
+      "lon": -100.37277897123641,
+      "timestamp": "2026-05-20T17:27:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "threatens",
+      "theme": "load",
+      "tone": -5.831809092438402,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-1a2bd522cd7e01c8",
+      "lat": 32.34133207958335,
+      "lon": -99.86884038966114,
+      "timestamp": "2026-05-21T05:20:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "exhibits force",
+      "theme": "permit",
+      "tone": -9.44210449318227,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-cbe12284e4312b51",
+      "lat": 32.33735991962823,
+      "lon": -99.73248310227915,
+      "timestamp": "2026-05-22T02:24:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "reduces relations",
+      "theme": "permit",
+      "tone": -6.461385827026929,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-e2e7fbde6f635cd6",
+      "lat": 32.44248440328908,
+      "lon": -100.57646783790446,
+      "timestamp": "2026-05-22T06:43:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "protests",
+      "theme": "load",
+      "tone": -8.50724599848019,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-d5c8eab9d42dbe5c",
+      "lat": 32.40413722931256,
+      "lon": -100.40373968926086,
+      "timestamp": "2026-05-22T22:15:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "threatens",
+      "theme": "load",
+      "tone": -6.4344979270755225,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-96848cf94b19e7a0",
+      "lat": 32.41205739838546,
+      "lon": -100.54412306046416,
+      "timestamp": "2026-05-23T03:09:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "reduces relations",
+      "theme": "load",
+      "tone": -8.081455281206786,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-eb938ca5696953c8",
+      "lat": 32.41629851589713,
+      "lon": -100.08190120085177,
+      "timestamp": "2026-05-23T10:29:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "reduces relations",
+      "theme": "load",
+      "tone": -8.692818133702419,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-8be40b5ee3a838bb",
+      "lat": 32.54776941667317,
+      "lon": -99.85992384802715,
+      "timestamp": "2026-05-23T13:17:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "protests",
+      "theme": "permit",
+      "tone": -3.6526742310578917,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-f1fc8d85e114d350",
+      "lat": 32.42900454637578,
+      "lon": -100.00399149824248,
+      "timestamp": "2026-05-23T14:14:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "reduces relations",
+      "theme": "permit",
+      "tone": -8.3401227389121,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-51e55e83e3004ca2",
+      "lat": 32.520075814565544,
+      "lon": -99.75814439587108,
+      "timestamp": "2026-05-23T15:53:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "threatens",
+      "theme": "permit",
+      "tone": -7.448424601309872,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-38c6290508f2ee27",
+      "lat": 32.39537273058488,
+      "lon": -99.79818692129838,
+      "timestamp": "2026-05-23T18:09:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "exhibits force",
+      "theme": "permit",
+      "tone": -7.559039689247837,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-d1b852687a644880",
+      "lat": 38.39472095345388,
+      "lon": -78.06459070257814,
+      "timestamp": "2026-05-23T18:52:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "threatens",
+      "theme": "campus",
+      "tone": -8.194865630620109,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-444b86dbb06a92e4",
+      "lat": 32.34168599092188,
+      "lon": -100.12098421698313,
+      "timestamp": "2026-05-24T00:41:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "protests",
+      "theme": "load",
+      "tone": -5.888122301064648,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-fb2faad002840585",
+      "lat": 32.531418950103536,
+      "lon": -100.38363406985454,
+      "timestamp": "2026-05-24T01:33:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "threatens",
+      "theme": "load",
+      "tone": -6.486592214515826,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-07bff8d13dc7053c",
+      "lat": 32.327163284448304,
+      "lon": -100.49926445012368,
+      "timestamp": "2026-05-24T02:14:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -6.241184340540457,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-becf2efa15447b24",
+      "lat": 38.4337993479228,
+      "lon": -78.11302019920673,
+      "timestamp": "2026-05-24T02:43:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "reduces relations",
+      "theme": "campus",
+      "tone": -6.608450689396842,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-ede7c31296230997",
+      "lat": 32.572656058398685,
+      "lon": -100.40333385034097,
+      "timestamp": "2026-05-24T05:03:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "protests",
+      "theme": "load",
+      "tone": -6.554012839052563,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-7f40b54cbbc9286e",
+      "lat": 38.45042991410992,
+      "lon": -78.0585311575971,
+      "timestamp": "2026-05-24T12:43:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "reduces relations",
+      "theme": "campus",
+      "tone": -8.831918660429789,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-c89d053408164056",
+      "lat": 38.32907071537333,
+      "lon": -78.02205026332328,
+      "timestamp": "2026-05-24T13:42:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "exhibits force",
+      "theme": "campus",
+      "tone": -8.321322037749928,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-46ee0b6d8dffb29b",
+      "lat": 38.39637194501427,
+      "lon": -78.08500505621238,
+      "timestamp": "2026-05-24T16:43:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "protests",
+      "theme": "campus",
+      "tone": -5.9765621906388215,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-7fb5b88b69fd4ffa",
+      "lat": 32.29476010392473,
+      "lon": -99.71343147723087,
+      "timestamp": "2026-05-25T01:47:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "protests",
+      "theme": "permit",
+      "tone": -6.960112309979206,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-3d2767d6195d3af7",
+      "lat": 32.5080372280574,
+      "lon": -99.87636766840643,
+      "timestamp": "2026-05-25T01:56:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "exhibits force",
+      "theme": "permit",
+      "tone": -6.41638062683619,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-368f3f696648b60d",
+      "lat": 32.53277519320784,
+      "lon": -100.37765028032146,
+      "timestamp": "2026-05-25T03:23:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "threatens",
+      "theme": "load",
+      "tone": -4.2161979217831735,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-b508a4f1efd69314",
+      "lat": 32.5112594744866,
+      "lon": -100.53797775695715,
+      "timestamp": "2026-05-25T19:41:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "protests",
+      "theme": "load",
+      "tone": -7.994643701438537,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-e8d4804fb72870c9",
+      "lat": 38.521970988120756,
+      "lon": -78.04102741030455,
+      "timestamp": "2026-05-25T20:18:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "threatens",
+      "theme": "campus",
+      "tone": -5.685210662495927,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-a7a7101d5b94f34b",
+      "lat": 32.39517299438044,
+      "lon": -100.42919487999991,
+      "timestamp": "2026-05-26T00:27:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -7.459552483725907,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-3dd2a6b022d803f8",
+      "lat": 32.516113439723426,
+      "lon": -100.41886286107959,
+      "timestamp": "2026-05-26T02:34:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "protests",
+      "theme": "load",
+      "tone": -5.680322520204093,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-cefafd4b76793c86",
+      "lat": 32.389760973822156,
+      "lon": -100.58382278210847,
+      "timestamp": "2026-05-26T04:10:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -7.422929237053962,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-36fc5165bc736d5b",
+      "lat": 38.41412062566951,
+      "lon": -78.04599297622492,
+      "timestamp": "2026-05-26T05:28:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "exhibits force",
+      "theme": "campus",
+      "tone": -9.4287681312175,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-d823b22383fca64c",
+      "lat": 32.436145022708466,
+      "lon": -100.4519353308292,
+      "timestamp": "2026-05-26T06:07:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "protests",
+      "theme": "load",
+      "tone": -6.709863765555494,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-809adceb145ecbc8",
+      "lat": 32.511321120836286,
+      "lon": -100.32639198225043,
+      "timestamp": "2026-05-26T09:13:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "protests",
+      "theme": "load",
+      "tone": -5.0502514504786475,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-fe4ee5cc7616e7d2",
+      "lat": 32.51852217691007,
+      "lon": -99.66695564132058,
+      "timestamp": "2026-05-26T15:26:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "protests",
+      "theme": "permit",
+      "tone": -5.905730063594139,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-ad5d362c6b4af3bc",
+      "lat": 32.36291851064142,
+      "lon": -100.49145072298373,
+      "timestamp": "2026-05-26T15:29:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -7.578052507036088,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-58829668111e1993",
+      "lat": 32.35868852743114,
+      "lon": -99.64939710115874,
+      "timestamp": "2026-05-26T17:02:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "threatens",
+      "theme": "permit",
+      "tone": -7.668313102638675,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-4443dce2bd762eb6",
+      "lat": 32.346069874748544,
+      "lon": -100.42915600357776,
+      "timestamp": "2026-05-26T18:03:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -6.130833857264772,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-9d242ef3aa50d6b2",
+      "lat": 32.37484716158716,
+      "lon": -99.59830065976604,
+      "timestamp": "2026-05-26T21:47:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "threatens",
+      "theme": "permit",
+      "tone": -5.635252389312849,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-d69c0d72deb4d710",
+      "lat": 32.50042935430949,
+      "lon": -99.8212096745277,
+      "timestamp": "2026-05-27T07:30:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "reduces relations",
+      "theme": "permit",
+      "tone": -7.29812194686751,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-ed20af8793ace821",
+      "lat": 38.37619564904474,
+      "lon": -78.00789363935903,
+      "timestamp": "2026-05-27T15:29:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "reduces relations",
+      "theme": "campus",
+      "tone": -6.755110265223873,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-3ccca7b5d89569f6",
+      "lat": 32.60505834459152,
+      "lon": -100.38288984920347,
+      "timestamp": "2026-05-27T15:36:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "reduces relations",
+      "theme": "load",
+      "tone": -7.3887084423351785,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-e71a237ce02ecb84",
+      "lat": 38.330055407791875,
+      "lon": -78.03799637477383,
+      "timestamp": "2026-05-27T16:57:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "threatens",
+      "theme": "campus",
+      "tone": -4.960596661454474,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-0d9ca8e21bd150ba",
+      "lat": 32.4599451182794,
+      "lon": -100.50023169278224,
+      "timestamp": "2026-05-27T19:01:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -8.102012737430213,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-d6ae4c0da9377289",
+      "lat": 38.504445075259056,
+      "lon": -78.06909091230904,
+      "timestamp": "2026-05-28T05:09:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "threatens",
+      "theme": "campus",
+      "tone": -5.797544639705349,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-3b4e4271f9079177",
+      "lat": 38.50897814950206,
+      "lon": -77.95258975473597,
+      "timestamp": "2026-05-28T06:28:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "threatens",
+      "theme": "campus",
+      "tone": -5.45625625994942,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-94ecd84509c6b08d",
+      "lat": 38.528138033997365,
+      "lon": -77.93694103783373,
+      "timestamp": "2026-05-28T14:41:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "threatens",
+      "theme": "campus",
+      "tone": -5.697654566529583,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-7ed11621c6b4edea",
+      "lat": 32.365788509415,
+      "lon": -100.53008262308673,
+      "timestamp": "2026-05-28T16:21:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "protests",
+      "theme": "load",
+      "tone": -5.996042524110212,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-e00016074398979b",
+      "lat": 32.504131517094066,
+      "lon": -100.44636938604575,
+      "timestamp": "2026-05-28T19:40:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "reduces relations",
+      "theme": "load",
+      "tone": -5.607985249301349,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-d5e13a715277c350",
+      "lat": 32.46284550614891,
+      "lon": -100.42652220179015,
+      "timestamp": "2026-05-28T20:38:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "reduces relations",
+      "theme": "load",
+      "tone": -7.6895356167986755,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-ad3dbcf09883d0f7",
+      "lat": 32.424539348650754,
+      "lon": -100.3271239357241,
+      "timestamp": "2026-05-29T08:43:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -8.973355496127613,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-c77fac1bae1ca8b6",
+      "lat": 32.45679138768837,
+      "lon": -100.33004396469335,
+      "timestamp": "2026-05-29T10:47:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -6.5342385782967805,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-4eae7b4f58a5a04c",
+      "lat": 32.40482678217654,
+      "lon": -100.35577018869193,
+      "timestamp": "2026-05-29T12:14:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "threatens",
+      "theme": "load",
+      "tone": -6.596956300406669,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-bfac9e888e7d345b",
+      "lat": 38.524753010185876,
+      "lon": -78.11797948633777,
+      "timestamp": "2026-05-29T16:07:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "reduces relations",
+      "theme": "campus",
+      "tone": -8.628090006628973,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-8dc1d36160504791",
+      "lat": 32.25569496460034,
+      "lon": -100.4101182671451,
+      "timestamp": "2026-05-29T16:34:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "protests",
+      "theme": "load",
+      "tone": -6.693194473483038,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-0fb9344d5f64ee51",
+      "lat": 32.34495592542152,
+      "lon": -100.3732612746814,
+      "timestamp": "2026-05-29T16:39:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "reduces relations",
+      "theme": "load",
+      "tone": -7.632239410903647,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-441d55fdc9eae338",
+      "lat": 32.37376863447458,
+      "lon": -99.61320370529015,
+      "timestamp": "2026-05-29T19:51:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "exhibits force",
+      "theme": "permit",
+      "tone": -7.538340881123126,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-dc9ca0418ad7d039",
+      "lat": 32.328144554801504,
+      "lon": -99.78390285688832,
+      "timestamp": "2026-05-29T22:10:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "reduces relations",
+      "theme": "permit",
+      "tone": -5.358577100372153,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-980406d8c97147bc",
+      "lat": 38.63474942046196,
+      "lon": -77.9728916968847,
+      "timestamp": "2026-05-30T02:33:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "threatens",
+      "theme": "campus",
+      "tone": -6.247987182703183,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-91e67d32cc32e1e1",
+      "lat": 32.57384926694617,
+      "lon": -99.75721060647805,
+      "timestamp": "2026-05-30T11:34:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "protests",
+      "theme": "permit",
+      "tone": -7.190382067195613,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-3f8de1a918478033",
+      "lat": 32.609484145090796,
+      "lon": -99.83653546981253,
+      "timestamp": "2026-05-30T13:40:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "exhibits force",
+      "theme": "permit",
+      "tone": -6.337270424831082,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-6e2b38f07d021767",
+      "lat": 32.28768873146266,
+      "lon": -100.33531535712,
+      "timestamp": "2026-05-31T01:26:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "exhibits force",
+      "theme": "load",
+      "tone": -6.741087337389961,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-6dac4408e2872b75",
+      "lat": 38.623424101961156,
+      "lon": -77.85752808805164,
+      "timestamp": "2026-05-31T02:22:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "exhibits force",
+      "theme": "campus",
+      "tone": -6.927901290568713,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-69f9abd82e73e1c8",
+      "lat": 32.47107352778946,
+      "lon": -99.88966869117961,
+      "timestamp": "2026-05-31T15:06:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "reduces relations",
+      "theme": "permit",
+      "tone": -4.405942173846926,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-b059b375254bdde9",
+      "lat": 38.46458077929414,
+      "lon": -77.83101563080292,
+      "timestamp": "2026-06-01T03:19:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "protests",
+      "theme": "campus",
+      "tone": -6.789125762502404,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-cadaeb24d013d2f1",
+      "lat": 38.38498605532707,
+      "lon": -77.75298348556471,
+      "timestamp": "2026-06-01T09:27:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "threatens",
+      "theme": "campus",
+      "tone": -6.441077225515071,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-036f42c42f9f68e4",
+      "lat": 32.55640929761138,
+      "lon": -99.59386175075308,
+      "timestamp": "2026-06-01T12:56:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "threatens",
+      "theme": "permit",
+      "tone": -3.7528153654304917,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-d2a9a29134ff3705",
+      "lat": 38.568852516818424,
+      "lon": -77.90932852270542,
+      "timestamp": "2026-06-01T16:29:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "exhibits force",
+      "theme": "campus",
+      "tone": -7.9405784778211315,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-ac2976d82adaae22",
+      "lat": 32.431186192036186,
+      "lon": -100.42138484244235,
+      "timestamp": "2026-06-01T18:10:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "threatens",
+      "theme": "load",
+      "tone": -6.171258456579507,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    },
+    {
+      "id": "ev-d4916bf2a327f95e",
+      "lat": 32.58336834049433,
+      "lon": -99.82175614376838,
+      "timestamp": "2026-06-01T18:21:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "reduces relations",
+      "theme": "permit",
+      "tone": -7.138767663108434,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-6c4bd655c5984253",
+      "lat": 38.65862111997847,
+      "lon": -78.02007231630078,
+      "timestamp": "2026-06-01T18:55:00",
+      "actor_country": "US",
+      "actor_name": "Culpeper County, VA",
+      "action": "reduces relations",
+      "theme": "campus",
+      "tone": -8.396612262329295,
+      "location": "Culpeper County, VA",
+      "geo_id": "51047"
+    },
+    {
+      "id": "ev-4d80a6b85f123c91",
+      "lat": 32.463796268334015,
+      "lon": -99.71780112276856,
+      "timestamp": "2026-06-01T20:11:00",
+      "actor_country": "US",
+      "actor_name": "Taylor County, TX",
+      "action": "protests",
+      "theme": "permit",
+      "tone": -5.337938831055862,
+      "location": "Taylor County, TX",
+      "geo_id": "48441"
+    },
+    {
+      "id": "ev-a793f9b3d09c43b2",
+      "lat": 32.33850014528391,
+      "lon": -100.36741842755067,
+      "timestamp": "2026-06-01T20:57:00",
+      "actor_country": "US",
+      "actor_name": "ERCOT West",
+      "action": "threatens",
+      "theme": "load",
+      "tone": -4.678515583961216,
+      "location": "ERCOT West",
+      "geo_id": "ERCO-W"
+    }
+  ],
+  "flows": [
+    {
+      "src_lat": 39.08,
+      "src_lon": -77.64,
+      "dst_lat": 40.12,
+      "dst_lon": -77.52,
+      "src_id": "51107",
+      "dst_id": "PJM",
+      "weight": 1.0,
+      "label": "Loudoun County, VA → PJM Interconnection"
+    },
+    {
+      "src_lat": 38.7,
+      "src_lon": -77.48,
+      "dst_lat": 40.12,
+      "dst_lon": -77.52,
+      "src_id": "51153",
+      "dst_id": "PJM",
+      "weight": 1.0,
+      "label": "Prince William County, VA → PJM Interconnection"
+    },
+    {
+      "src_lat": 38.85,
+      "src_lon": -77.28,
+      "dst_lat": 40.12,
+      "dst_lon": -77.52,
+      "src_id": "51059",
+      "dst_id": "PJM",
+      "weight": 1.0,
+      "label": "Fairfax County, VA → PJM Interconnection"
+    },
+    {
+      "src_lat": 38.47,
+      "src_lon": -77.97,
+      "dst_lat": 40.12,
+      "dst_lon": -77.52,
+      "src_id": "51047",
+      "dst_id": "PJM",
+      "weight": 1.0,
+      "label": "Culpeper County, VA → PJM Interconnection"
+    },
+    {
+      "src_lat": 39.15,
+      "src_lon": -77.2,
+      "dst_lat": 40.12,
+      "dst_lon": -77.52,
+      "src_id": "24031",
+      "dst_id": "PJM",
+      "weight": 1.0,
+      "label": "Montgomery County, MD → PJM Interconnection"
+    },
+    {
+      "src_lat": 38.83,
+      "src_lon": -76.85,
+      "dst_lat": 40.12,
+      "dst_lon": -77.52,
+      "src_id": "24033",
+      "dst_id": "PJM",
+      "weight": 1.0,
+      "label": "Prince George's County, MD → PJM Interconnection"
+    },
+    {
+      "src_lat": 32.45,
+      "src_lon": -99.73,
+      "dst_lat": 32.45,
+      "dst_lon": -100.4,
+      "src_id": "48441",
+      "dst_id": "ERCO-W",
+      "weight": 1.0,
+      "label": "Taylor County, TX → ERCOT West"
+    },
+    {
+      "src_lat": 32.78,
+      "src_lon": -97.8,
+      "dst_lat": 32.45,
+      "dst_lon": -100.4,
+      "src_id": "48367",
+      "dst_id": "ERCO-W",
+      "weight": 1.0,
+      "label": "Parker County, TX → ERCOT West"
+    },
+    {
+      "src_lat": 32.75,
+      "src_lon": -97.33,
+      "dst_lat": 31.0,
+      "dst_lon": -99.9,
+      "src_id": "48439",
+      "dst_id": "ERCO",
+      "weight": 1.0,
+      "label": "Tarrant County, TX → ERCOT"
+    },
+    {
+      "src_lat": 32.78,
+      "src_lon": -96.8,
+      "dst_lat": 31.0,
+      "dst_lon": -99.9,
+      "src_id": "48113",
+      "dst_id": "ERCO",
+      "weight": 1.0,
+      "label": "Dallas County, TX → ERCOT"
+    },
+    {
+      "src_lat": 29.76,
+      "src_lon": -95.37,
+      "dst_lat": 31.0,
+      "dst_lon": -99.9,
+      "src_id": "48201",
+      "dst_id": "ERCO",
+      "weight": 1.0,
+      "label": "Harris County, TX → ERCOT"
+    },
+    {
+      "src_lat": 33.95,
+      "src_lon": -117.4,
+      "dst_lat": 37.3,
+      "dst_lon": -120.5,
+      "src_id": "06065",
+      "dst_id": "CISO",
+      "weight": 1.0,
+      "label": "Riverside County, CA → CAISO"
+    },
+    {
+      "src_lat": 34.83,
+      "src_lon": -116.19,
+      "dst_lat": 37.3,
+      "dst_lon": -120.5,
+      "src_id": "06071",
+      "dst_id": "CISO",
+      "weight": 1.0,
+      "label": "San Bernardino County, CA → CAISO"
+    },
+    {
+      "src_lat": 33.45,
+      "src_lon": -112.07,
+      "dst_lat": 33.45,
+      "dst_lon": -112.07,
+      "src_id": "04013",
+      "dst_id": "AZPS",
+      "weight": 1.0,
+      "label": "Maricopa County, AZ → Arizona Public Service"
+    },
+    {
+      "src_lat": 36.17,
+      "src_lon": -115.14,
+      "dst_lat": 36.17,
+      "dst_lon": -115.14,
+      "src_id": "32003",
+      "dst_id": "NEVP",
+      "weight": 1.0,
+      "label": "Clark County, NV → NV Energy"
+    },
+    {
+      "src_lat": 40.67,
+      "src_lon": -111.89,
+      "dst_lat": 45.5,
+      "dst_lon": -122.7,
+      "src_id": "49035",
+      "dst_id": "PACW",
+      "weight": 1.0,
+      "label": "Salt Lake County, UT → PacifiCorp West"
+    },
+    {
+      "src_lat": 39.74,
+      "src_lon": -104.99,
+      "dst_lat": 39.74,
+      "dst_lon": -104.99,
+      "src_id": "08031",
+      "dst_id": "PSCO",
+      "weight": 1.0,
+      "label": "Denver County, CO → Public Service of Colorado"
+    },
+    {
+      "src_lat": 41.84,
+      "src_lon": -87.68,
+      "dst_lat": 40.12,
+      "dst_lon": -77.52,
+      "src_id": "17031",
+      "dst_id": "PJM",
+      "weight": 1.0,
+      "label": "Cook County, IL → PJM Interconnection"
+    },
+    {
+      "src_lat": 39.96,
+      "src_lon": -83.0,
+      "dst_lat": 40.12,
+      "dst_lon": -77.52,
+      "src_id": "39049",
+      "dst_id": "PJM",
+      "weight": 1.0,
+      "label": "Franklin County, OH → PJM Interconnection"
+    },
+    {
+      "src_lat": 39.95,
+      "src_lon": -75.16,
+      "dst_lat": 40.12,
+      "dst_lon": -77.52,
+      "src_id": "42101",
+      "dst_id": "PJM",
+      "weight": 1.0,
+      "label": "Philadelphia County, PA → PJM Interconnection"
+    },
+    {
+      "src_lat": 40.78,
+      "src_lon": -73.97,
+      "dst_lat": 42.9,
+      "dst_lon": -75.5,
+      "src_id": "36061",
+      "dst_id": "NYIS",
+      "weight": 1.0,
+      "label": "New York County, NY → NYISO"
+    },
+    {
+      "src_lat": 42.36,
+      "src_lon": -71.06,
+      "dst_lat": 42.36,
+      "dst_lon": -71.06,
+      "src_id": "25025",
+      "dst_id": "ISNE",
+      "weight": 1.0,
+      "label": "Suffolk County, MA → ISO-NE"
+    },
+    {
+      "src_lat": 47.61,
+      "src_lon": -122.33,
+      "dst_lat": 45.5,
+      "dst_lon": -122.7,
+      "src_id": "53033",
+      "dst_id": "BPAT",
+      "weight": 1.0,
+      "label": "King County, WA → Bonneville Power"
+    },
+    {
+      "src_lat": 45.51,
+      "src_lon": -122.65,
+      "dst_lat": 45.5,
+      "dst_lon": -122.7,
+      "src_id": "41051",
+      "dst_id": "BPAT",
+      "weight": 1.0,
+      "label": "Multnomah County, OR → Bonneville Power"
+    },
+    {
+      "src_lat": 33.75,
+      "src_lon": -84.39,
+      "dst_lat": 33.75,
+      "dst_lon": -84.39,
+      "src_id": "13121",
+      "dst_id": "SOCO",
+      "weight": 1.0,
+      "label": "Fulton County, GA → Southern Company"
+    },
+    {
+      "src_lat": 36.16,
+      "src_lon": -86.78,
+      "dst_lat": 35.96,
+      "dst_lon": -83.92,
+      "src_id": "47037",
+      "dst_id": "TVA",
+      "weight": 1.0,
+      "label": "Davidson County, TN → Tennessee Valley Authority"
+    },
+    {
+      "src_lat": 25.76,
+      "src_lon": -80.19,
+      "dst_lat": 26.6,
+      "dst_lon": -80.4,
+      "src_id": "12086",
+      "dst_id": "FPL",
+      "weight": 1.0,
+      "label": "Miami-Dade County, FL → Florida Power & Light"
+    },
+    {
+      "src_lat": 26.39,
+      "src_lon": -98.18,
+      "dst_lat": 31.0,
+      "dst_lon": -99.9,
+      "src_id": "48215",
+      "dst_id": "ERCO",
+      "weight": 1.0,
+      "label": "Hidalgo County, TX → ERCOT"
+    },
+    {
+      "src_lat": 31.76,
+      "src_lon": -106.49,
+      "dst_lat": 32.45,
+      "dst_lon": -100.4,
+      "src_id": "48141",
+      "dst_id": "ERCO-W",
+      "weight": 1.0,
+      "label": "El Paso County, TX → ERCOT West"
+    },
+    {
+      "src_lat": 35.08,
+      "src_lon": -106.65,
+      "dst_lat": 35.08,
+      "dst_lon": -106.65,
+      "src_id": "35001",
+      "dst_id": "PNM",
+      "weight": 1.0,
+      "label": "Bernalillo County, NM → PNM"
+    }
+  ],
+  "notes": [
+    "Publisher, not an adviser. Mechanical ticker exposure is not a recommendation.",
+    "Probabilities are calibrated ensemble outputs, not declarations that an event will happen.",
+    "GDELT is attention only and never a label. Sample-world backtests prove the pipeline."
+  ]
+}

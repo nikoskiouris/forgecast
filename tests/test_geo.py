@@ -1,27 +1,36 @@
+from forgecast.explain import headline
 from forgecast.forecast import WATCHLIST
-from forgecast.geo import locate_node, make_pin_id, supplier_pins
-from forgecast.schema import DisruptionType
+from forgecast.geo import locate, make_pin_id
+from forgecast.schema import ForecastItem, SignalType
+from forgecast.staticdata import coords
 
 
 def test_every_watch_item_has_coords():
     for ent in WATCHLIST:
-        chokepoint = None
-        if ent.disruption is DisruptionType.SHIPPING_THREAT:
-            chokepoint = {
-                "YE": "Bab el-Mandeb / Red Sea",
-                "EG": "Suez Canal",
-                "IR": "Strait of Hormuz",
-            }.get(ent.country)
-        lat, lon, site = locate_node(ent.country, ent.material, chokepoint)
+        lat, lon, site = locate(ent.geo_id)
         assert -90 <= lat <= 90
         assert -180 <= lon <= 180
         assert site
-        assert make_pin_id(ent.country, ent.material, ent.disruption).startswith(ent.country)
+        assert make_pin_id(ent.geo_id, ent.signal).startswith(ent.geo_id)
+        plat, plon = coords(ent.geo_id)
+        assert plat == lat
 
 
-def test_allied_suppliers_are_the_only_extra_pins():
-    pins = supplier_pins()
-    names = {p.label for p in pins}
-    assert "MP Materials" in names
-    assert "Lynas" in names
-    assert "VSMPO-AVISMA" not in names
+def test_headline_grammar():
+    permit = ForecastItem(
+        signal_type=SignalType.PERMIT_MW,
+        geo_id="48441",
+        geo_kind="county",
+        geo_name="Taylor County, TX",
+        probability=0.9,
+    )
+    text = headline(permit, 180)
+    assert "permit-MW in Taylor County" in text
+    giga = ForecastItem(
+        signal_type=SignalType.GIGA_SITE,
+        geo_id="51047",
+        geo_kind="county",
+        geo_name="Culpeper County, VA",
+        probability=0.9,
+    )
+    assert "announced in Culpeper County" in headline(giga, 180)

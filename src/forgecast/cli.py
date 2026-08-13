@@ -6,7 +6,15 @@ from typing import Optional
 
 import typer
 
-from forgecast.config import DEFAULT_DB, DEFAULT_HORIZON_DAYS, DEFAULT_PORTFOLIO, DEMO_AS_OF
+from forgecast.config import (
+    DEFAULT_DB,
+    DEFAULT_HORIZON_DAYS,
+    DEFAULT_PORTFOLIO,
+    DEMO_AS_OF,
+    HEX_PARQUET,
+    MAP_DIR,
+    ROOT,
+)
 from forgecast.explain import headline, render_markdown
 from forgecast.graph import Store, dump_timeline
 from forgecast.sample import generate_world
@@ -14,7 +22,7 @@ from forgecast.sample import generate_world
 app = typer.Typer(
     no_args_is_help=True,
     add_completion=False,
-    help="Atlanta day briefing: what will affect your places, routes, and routine.",
+    help="Gridpulse: calibrated map of the AI power buildout.",
 )
 
 
@@ -26,7 +34,7 @@ def _store(db: Path) -> Store:
 def seed(
     db: Path = typer.Option(DEFAULT_DB, help="SQLite path"),
 ) -> None:
-    """Load the historically-inspired sample world into SQLite."""
+    """Load the sample world into SQLite."""
     world = generate_world()
     store = _store(db)
     n = store.upsert_events(world.events)
@@ -35,30 +43,69 @@ def seed(
 
 @app.command()
 def ingest(
+    source: str = typer.Option("gdelt", help="gdelt | eia | permits"),
     start: str = typer.Option(..., help="YYYY-MM-DD"),
     end: str = typer.Option(..., help="YYYY-MM-DD"),
     db: Path = typer.Option(DEFAULT_DB),
 ) -> None:
-    """Pull GDELT daily events into the store (network)."""
-    from forgecast.ingest.gdelt import fetch_gdelt_range
-
+    """Pull optional live feeds (network). Demo does not need this."""
     s = date.fromisoformat(start)
     e = date.fromisoformat(end)
-    events = fetch_gdelt_range(s, e)
+    events = []
+    src = source.lower()
+    if src == "gdelt":
+        from forgecast.ingest.gdelt import fetch_gdelt_range
+
+        events = fetch_gdelt_range(s, e)
+    elif src == "eia":
+        from forgecast.ingest.eia import fetch_eia_load
+
+        events = fetch_eia_load(s, e)
+    elif src == "permits":
+        from forgecast.ingest.permits import fetch_permits
+
+        events = fetch_permits(s, e)
+    else:
+        raise typer.BadParameter("source must be gdelt, eia, or permits")
     store = _store(db)
     n = store.upsert_events(events)
-    typer.echo(f"ingested {n} GDELT events {s} → {e}")
+    typer.echo(f"ingested {n} {src} events {s} → {e}")
+
+
+@app.command()
+def hexbin(
+    res: int = typer.Option(4, help="H3 resolution 3–5"),
+    out: Path = typer.Option(HEX_PARQUET),
+) -> None:
+    """Bake weekly H3 activity parquet from the sample world."""
+    from forgecast.hexagg import hex_series, write_hex_parquet
+
+    world = generate_world()
+    series = hex_series(world.events, res=res)
+    path = write_hex_parquet(series, out)
+    typer.echo(f"hexbin {len(series.h3)} cells → {path}")
+
+
+@app.command()
+def bake(
+    out: Path = typer.Option(MAP_DIR, help="Folder for map JSON"),
+) -> None:
+    """Write map / hex / meta JSON under data/map."""
+    from forgecast.snapshot import write_json
+
+    write_json(out)
+    typer.echo(f"baked JSON → {out}")
 
 
 @app.command()
 def forecast(
-    as_of: Optional[str] = typer.Option(None, help="YYYY-MM-DD (default: 2024-06-01 demo date)"),
+    as_of: Optional[str] = typer.Option(None, help="YYYY-MM-DD (default: 2026-06-01)"),
     horizon: int = typer.Option(DEFAULT_HORIZON_DAYS),
     portfolio: Path = typer.Option(DEFAULT_PORTFOLIO),
     db: Path = typer.Option(DEFAULT_DB),
     json_out: bool = typer.Option(False, "--json"),
 ) -> None:
-    """Print calibrated disruption probabilities for the demo portfolio."""
+    """Print calibrated probabilities for the AI power buildout."""
     from forgecast.forecast import forecast as run
 
     day = date.fromisoformat(as_of) if as_of else DEMO_AS_OF
@@ -67,20 +114,19 @@ def forecast(
     if json_out:
         typer.echo(report.model_dump_json(indent=2))
         return
-    typer.echo(f"Forgecast  |  as of {report.as_of}  |  horizon {report.horizon_days}d  |  {report.portfolio}")
+    skill = f"  |  Brier {report.brier:.2f}  skill {report.brier_skill:+.2f}" if report.brier is not None else ""
+    typer.echo(f"Gridpulse  |  as of {report.as_of}  |  horizon {report.horizon_days}d{skill}")
     typer.echo("")
-    for item in report.items:
+    shown = [i for i in report.items if i.probability >= 0.05][:8] or report.items[:8]
+    for item in shown:
         typer.echo(headline(item, report.horizon_days))
-        if item.exposed_programs:
-            typer.echo(
-                f"  exposed: {', '.join(item.exposed_programs[:4])}"
-                f"  |  suppliers {len(item.exposed_suppliers)}"
-            )
+        if item.exposed_tickers:
+            typer.echo(f"  exposed: {', '.join(t.ticker for t in item.exposed_tickers)}")
         if item.analogs:
             a = item.analogs[0]
             typer.echo(f"  analog: {a.name} ({a.similarity:.0%} similar)")
         typer.echo("")
-    typer.echo("Use `forgecast report` for the full evidence write-up.")
+    typer.echo("Publisher, not an adviser. Use `forgecast report` for the write-up.")
 
 
 @app.command()
@@ -104,19 +150,18 @@ def report(
 
 @app.command()
 def backtest(
-    start: str = typer.Option("2014-01-01"),
-    end: str = typer.Option("2023-07-01"),
+    start: str = typer.Option("2016-01-01"),
+    end: str = typer.Option("2025-07-01"),
 ) -> None:
     """Walk-forward evaluation. Prints Brier score vs a base-rate baseline."""
     from forgecast.backtest import walk_forward
-    from forgecast.forecast import WATCHLIST
-    from forgecast.sample import generate_world
+    from forgecast.staticdata import train_watchlist
 
     world = generate_world()
     scores, _ = walk_forward(
         world.events,
         world.outcomes,
-        WATCHLIST,
+        train_watchlist(),
         start=date.fromisoformat(start),
         end=date.fromisoformat(end),
     )
@@ -146,40 +191,10 @@ def graph(
 
 
 @app.command()
-def day(
-    home: str = typer.Option(..., help="Home address in metro Atlanta"),
-    work: Optional[str] = typer.Option(None, help="Work address"),
-    gym: Optional[str] = typer.Option(None, help="Gym or other place"),
-) -> None:
-    """Live briefing for your Atlanta places. Real GDOT / MARTA / NWS / permits."""
-    from forgecast.day import build_day
-
-    raw = [{"label": "home", "address": home}]
-    if work:
-        raw.append({"label": "work", "address": work})
-    if gym:
-        raw.append({"label": "gym", "address": gym})
-    report = build_day(raw)
-    typer.echo(f"Your {report.weekday}  ·  {report.as_of.strftime('%Y-%m-%d %H:%M %Z')}")
-    typer.echo(f"feeds: {', '.join(report.sources_ok) or 'none'}")
-    if report.sources_failed:
-        typer.echo(f"missed: {', '.join(report.sources_failed)}")
-    typer.echo("")
-    if not report.items:
-        typer.echo("Nothing loud on your places. Map still has citywide events.")
-        return
-    for item in report.items:
-        flag = "↔ commute" if item.on_commute else ", ".join(item.near)
-        typer.echo(f"• {item.advice}")
-        typer.echo(f"    {item.kind.value} · {item.source} · {flag}")
-        typer.echo("")
-
-
-@app.command()
 def snapshot(
     out: Path = typer.Option(Path("docs"), help="Folder for the static demo site"),
 ) -> None:
-    """Bake live Atlanta events + the map UI. GitHub Pages can host it."""
+    """Bake the map SPA + JSON. GitHub Pages hosts docs/."""
     from forgecast.snapshot import write_site
 
     path = write_site(out)
@@ -192,10 +207,10 @@ def serve(
     host: str = "127.0.0.1",
     port: int = 8000,
 ) -> None:
-    """One process: Atlanta map + live briefing. Open http://127.0.0.1:8000"""
+    """One process: Gridpulse map + API. Open http://127.0.0.1:8000"""
     import uvicorn
 
-    typer.echo(f"Forgecast  →  http://{host}:{port}")
+    typer.echo(f"Gridpulse  →  http://{host}:{port}")
     uvicorn.run("forgecast.api:app", host=host, port=port, reload=False)
 
 

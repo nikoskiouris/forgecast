@@ -1,8 +1,8 @@
-"""CAMEO / GDELT action codes mapped onto DIB disruption language."""
+"""CAMEO / GDELT action codes. GDELT is attention only — never a label."""
 
 from __future__ import annotations
 
-from forgecast.schema import DisruptionType
+from forgecast.schema import SignalType
 
 GOLDSTEIN = {
     "01": 0.0,
@@ -38,16 +38,6 @@ ACTION_LABEL = {
     "19": "fights",
 }
 
-ROOT_TO_DISRUPTION: dict[str, DisruptionType | None] = {
-    "14": DisruptionType.CIVIL_UNREST,
-    "15": DisruptionType.CONFLICT_ESCALATION,
-    "16": DisruptionType.SANCTIONS,
-    "163": DisruptionType.SANCTIONS,
-    "17": DisruptionType.ASSET_SEIZURE,
-    "18": DisruptionType.CONFLICT_ESCALATION,
-    "19": DisruptionType.CONFLICT_ESCALATION,
-}
-
 WATCH_CODES = {"10", "11", "12", "13", "14", "15", "16", "163", "17", "18", "19", "20"}
 
 
@@ -62,18 +52,14 @@ def action_label(code: str) -> str:
     return ACTION_LABEL.get(code, ACTION_LABEL.get(root_code(code), "acts"))
 
 
-def disruption_for_code(
-    code: str,
-    material: str | None = None,
-    location: str | None = None,
-) -> DisruptionType | None:
-    root = root_code(code)
-    loc = (location or "").lower()
-    if "red sea" in loc or "suez" in loc or "hormuz" in loc or "bab" in loc:
-        if root in {"15", "18", "19", "13"}:
-            return DisruptionType.SHIPPING_THREAT
-    if code.startswith("163") or root == "163":
-        return DisruptionType.EXPORT_RESTRICTION if material else DisruptionType.SANCTIONS
-    if root == "16" and material:
-        return DisruptionType.EXPORT_RESTRICTION
-    return ROOT_TO_DISRUPTION.get(root)
+def signal_for_theme(theme: str | None = None, text: str = "") -> SignalType | None:
+    blob = f"{theme or ''} {text}".lower()
+    if any(k in blob for k in ("giga", "campus", "hyperscale", "data center", "datacenter")):
+        if "permit" in blob or "megawatt" in blob or "mw" in blob:
+            return SignalType.PERMIT_MW
+        return SignalType.GIGA_SITE
+    if any(k in blob for k in ("permit", "megawatt", "mega-watt")):
+        return SignalType.PERMIT_MW
+    if any(k in blob for k in ("load", "ercot", "peak demand", "weekly peak")):
+        return SignalType.LOAD_GROWTH
+    return None

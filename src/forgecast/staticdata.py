@@ -1,273 +1,310 @@
-"""Static DIB context: critical materials, exporters, alliances, named episodes."""
+"""Named US grid entities, mechanical ticker book, and sample-world episodes."""
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import date
 
-from forgecast.schema import DisruptionType, Outcome
+from forgecast.schema import Entity, Outcome, SignalType, TickerHit
 
-COUNTRY_NAMES = {
-    "CN": "China",
-    "RU": "Russia",
-    "IR": "Iran",
-    "YE": "Yemen",
-    "UA": "Ukraine",
-    "TW": "Taiwan",
-    "CD": "DR Congo",
-    "ID": "Indonesia",
-    "ZA": "South Africa",
-    "AU": "Australia",
-    "CL": "Chile",
-    "MM": "Myanmar",
-    "TR": "Turkey",
-    "EG": "Egypt",
-    "US": "United States",
-    "JP": "Japan",
-    "DE": "Germany",
-    "KR": "South Korea",
-    "GB": "United Kingdom",
-    "AU2": "Australia",
+BAS: dict[str, dict] = {
+    "PJM": {"name": "PJM Interconnection", "lat": 40.12, "lon": -77.52, "iso": "PJM"},
+    "ERCO": {"name": "ERCOT", "lat": 31.0, "lon": -99.9, "iso": "ERCOT"},
+    "ERCO-W": {"name": "ERCOT West", "lat": 32.45, "lon": -100.4, "iso": "ERCOT"},
+    "MISO": {"name": "MISO", "lat": 41.6, "lon": -90.6, "iso": "MISO"},
+    "SOCO": {"name": "Southern Company", "lat": 33.75, "lon": -84.39, "iso": "SOCO"},
+    "TVA": {"name": "Tennessee Valley Authority", "lat": 35.96, "lon": -83.92, "iso": "TVA"},
+    "NYIS": {"name": "NYISO", "lat": 42.9, "lon": -75.5, "iso": "NYISO"},
+    "ISNE": {"name": "ISO-NE", "lat": 42.36, "lon": -71.06, "iso": "ISNE"},
+    "SWPP": {"name": "SPP", "lat": 38.0, "lon": -97.5, "iso": "SWPP"},
+    "CISO": {"name": "CAISO", "lat": 37.3, "lon": -120.5, "iso": "CISO"},
+    "BPAT": {"name": "Bonneville Power", "lat": 45.5, "lon": -122.7, "iso": "BPAT"},
+    "FPL": {"name": "Florida Power & Light", "lat": 26.6, "lon": -80.4, "iso": "FPL"},
+    "DUK": {"name": "Duke Energy", "lat": 35.78, "lon": -78.64, "iso": "DUK"},
+    "PACW": {"name": "PacifiCorp West", "lat": 45.5, "lon": -122.7, "iso": "PACW"},
+    "PSCO": {"name": "Public Service of Colorado", "lat": 39.74, "lon": -104.99, "iso": "PSCO"},
+    "NEVP": {"name": "NV Energy", "lat": 36.17, "lon": -115.14, "iso": "NEVP"},
+    "AZPS": {"name": "Arizona Public Service", "lat": 33.45, "lon": -112.07, "iso": "AZPS"},
+    "PNM": {"name": "PNM", "lat": 35.08, "lon": -106.65, "iso": "PNM"},
+    "WACM": {"name": "WAPA Colorado-Missouri", "lat": 39.7, "lon": -105.0, "iso": "WACM"},
+    "LGEE": {"name": "LG&E / KU", "lat": 38.25, "lon": -85.76, "iso": "LGEE"},
 }
 
-MATERIALS = [
-    "titanium",
-    "rare_earths",
-    "gallium",
-    "germanium",
-    "antimony",
-    "graphite",
-    "cobalt",
-    "nickel",
-    "palladium",
-    "neon",
-    "semiconductors",
-    "tungsten",
-    "beryllium",
-    "aluminum",
-    "steel",
-    "carbon_fiber",
-]
-
-# Approximate exporter concentration (0-1). Higher = more chokepoint risk.
-EXPORTER_SHARE = {
-    ("CN", "rare_earths"): 0.70,
-    ("CN", "gallium"): 0.98,
-    ("CN", "germanium"): 0.68,
-    ("CN", "antimony"): 0.56,
-    ("CN", "graphite"): 0.65,
-    ("CN", "tungsten"): 0.82,
-    ("CN", "aluminum"): 0.55,
-    ("RU", "titanium"): 0.30,
-    ("RU", "palladium"): 0.40,
-    ("RU", "nickel"): 0.09,
-    ("UA", "neon"): 0.50,
-    ("CD", "cobalt"): 0.70,
-    ("ID", "nickel"): 0.48,
-    ("ZA", "palladium"): 0.35,
-    ("TW", "semiconductors"): 0.60,
-    ("CL", "aluminum"): 0.05,
-    ("MM", "rare_earths"): 0.15,
-    ("AU", "rare_earths"): 0.08,
-    ("AU", "lithium"): 0.25,
+COUNTIES: dict[str, dict] = {
+    "51107": {"name": "Loudoun County, VA", "lat": 39.08, "lon": -77.64, "state": "VA", "ba": "PJM"},
+    "51153": {"name": "Prince William County, VA", "lat": 38.70, "lon": -77.48, "state": "VA", "ba": "PJM"},
+    "51059": {"name": "Fairfax County, VA", "lat": 38.85, "lon": -77.28, "state": "VA", "ba": "PJM"},
+    "51047": {"name": "Culpeper County, VA", "lat": 38.47, "lon": -77.97, "state": "VA", "ba": "PJM"},
+    "24031": {"name": "Montgomery County, MD", "lat": 39.15, "lon": -77.20, "state": "MD", "ba": "PJM"},
+    "24033": {"name": "Prince George's County, MD", "lat": 38.83, "lon": -76.85, "state": "MD", "ba": "PJM"},
+    "48441": {"name": "Taylor County, TX", "lat": 32.45, "lon": -99.73, "state": "TX", "ba": "ERCO-W"},
+    "48367": {"name": "Parker County, TX", "lat": 32.78, "lon": -97.80, "state": "TX", "ba": "ERCO-W"},
+    "48439": {"name": "Tarrant County, TX", "lat": 32.75, "lon": -97.33, "state": "TX", "ba": "ERCO"},
+    "48113": {"name": "Dallas County, TX", "lat": 32.78, "lon": -96.80, "state": "TX", "ba": "ERCO"},
+    "48201": {"name": "Harris County, TX", "lat": 29.76, "lon": -95.37, "state": "TX", "ba": "ERCO"},
+    "06065": {"name": "Riverside County, CA", "lat": 33.95, "lon": -117.40, "state": "CA", "ba": "CISO"},
+    "06071": {"name": "San Bernardino County, CA", "lat": 34.83, "lon": -116.19, "state": "CA", "ba": "CISO"},
+    "04013": {"name": "Maricopa County, AZ", "lat": 33.45, "lon": -112.07, "state": "AZ", "ba": "AZPS"},
+    "32003": {"name": "Clark County, NV", "lat": 36.17, "lon": -115.14, "state": "NV", "ba": "NEVP"},
+    "49035": {"name": "Salt Lake County, UT", "lat": 40.67, "lon": -111.89, "state": "UT", "ba": "PACW"},
+    "08031": {"name": "Denver County, CO", "lat": 39.74, "lon": -104.99, "state": "CO", "ba": "PSCO"},
+    "17031": {"name": "Cook County, IL", "lat": 41.84, "lon": -87.68, "state": "IL", "ba": "PJM"},
+    "39049": {"name": "Franklin County, OH", "lat": 39.96, "lon": -83.00, "state": "OH", "ba": "PJM"},
+    "42101": {"name": "Philadelphia County, PA", "lat": 39.95, "lon": -75.16, "state": "PA", "ba": "PJM"},
+    "36061": {"name": "New York County, NY", "lat": 40.78, "lon": -73.97, "state": "NY", "ba": "NYIS"},
+    "25025": {"name": "Suffolk County, MA", "lat": 42.36, "lon": -71.06, "state": "MA", "ba": "ISNE"},
+    "53033": {"name": "King County, WA", "lat": 47.61, "lon": -122.33, "state": "WA", "ba": "BPAT"},
+    "41051": {"name": "Multnomah County, OR", "lat": 45.51, "lon": -122.65, "state": "OR", "ba": "BPAT"},
+    "13121": {"name": "Fulton County, GA", "lat": 33.75, "lon": -84.39, "state": "GA", "ba": "SOCO"},
+    "47037": {"name": "Davidson County, TN", "lat": 36.16, "lon": -86.78, "state": "TN", "ba": "TVA"},
+    "12086": {"name": "Miami-Dade County, FL", "lat": 25.76, "lon": -80.19, "state": "FL", "ba": "FPL"},
+    "48215": {"name": "Hidalgo County, TX", "lat": 26.39, "lon": -98.18, "state": "TX", "ba": "ERCO"},
+    "48141": {"name": "El Paso County, TX", "lat": 31.76, "lon": -106.49, "state": "TX", "ba": "ERCO-W"},
+    "35001": {"name": "Bernalillo County, NM", "lat": 35.08, "lon": -106.65, "state": "NM", "ba": "PNM"},
 }
 
-US_ALLIES = {"US", "JP", "DE", "KR", "GB", "AU", "TW"}
+PLACE_HINTS: dict[str, str] = {
+    "ashburn": "51107",
+    "loudoun": "51107",
+    "manassas": "51153",
+    "prince william": "51153",
+    "culpeper": "51047",
+    "abilene": "48441",
+    "taylor county": "48441",
+    "ercot west": "ERCO-W",
+    "ercot": "ERCO",
+    "pjm": "PJM",
+}
 
-# Trade interdependence with the US / allies (0-1). Time-aware via year.
-def interdependence(country: str, year: int) -> float:
-    base = {
-        "CN": 0.82,
-        "RU": 0.35 if year < 2022 else 0.12,
-        "IR": 0.05,
-        "YE": 0.02,
-        "UA": 0.28,
-        "TW": 0.75,
-        "CD": 0.18,
-        "ID": 0.40,
-        "ZA": 0.32,
-        "AU": 0.70,
-        "CL": 0.45,
-        "MM": 0.10,
-        "TR": 0.48,
-        "EG": 0.30,
-        "JP": 0.88,
-        "DE": 0.85,
-        "KR": 0.80,
-        "GB": 0.90,
-        "US": 1.0,
-    }.get(country, 0.2)
-    return base
+TICKERS: dict[str, list[str]] = {
+    "PJM": ["D", "AEP", "EXC", "FE", "PEG", "PPL", "CEG"],
+    "ERCO": ["VST", "NRG", "NEE"],
+    "ERCO-W": ["VST", "NRG"],
+    "MISO": ["AEP", "EXC", "EIX"],
+    "SOCO": ["SO", "DUK"],
+    "TVA": ["SO", "DUK"],
+    "NYIS": ["CEG", "NEE"],
+    "ISNE": ["ES", "NEE"],
+    "SWPP": ["AEP", "XEL"],
+    "CISO": ["EIX", "PCG", "SRE"],
+    "BPAT": ["POR"],
+    "FPL": ["NEE"],
+    "DUK": ["DUK"],
+    "PACW": ["POR"],
+    "PSCO": ["XEL"],
+    "NEVP": ["NEE"],
+    "AZPS": ["PNW"],
+    "PNM": ["PNM"],
+    "WACM": ["XEL"],
+    "LGEE": ["PPL"],
+    "51107": ["D", "DLR", "EQIX", "IRM", "ETN", "PWR", "VRT", "GEV"],
+    "51153": ["D", "DLR", "EQIX", "ETN", "VRT"],
+    "51059": ["D", "DLR", "EQIX"],
+    "51047": ["D", "DLR", "EQIX", "ETN", "VRT", "USB"],
+    "24031": ["D", "EXC", "DLR"],
+    "24033": ["EXC", "D"],
+    "48441": ["VST", "NRG", "PWR", "DLR", "ETN", "VRT"],
+    "48367": ["VST", "NRG", "PWR"],
+    "48439": ["VST", "NRG", "DLR"],
+    "48113": ["VST", "NRG", "DLR"],
+    "48201": ["VST", "NRG", "NEE", "PWR"],
+    "48215": ["VST", "NRG"],
+    "48141": ["VST", "PNM"],
+    "06065": ["EIX", "SRE", "DLR", "EQIX"],
+    "06071": ["EIX", "SRE", "DLR"],
+    "04013": ["PNW", "DLR", "EQIX", "ETN"],
+    "32003": ["EQIX", "DLR"],
+    "49035": ["IRM"],
+    "08031": ["XEL", "DLR"],
+    "35001": ["PNM"],
+    "17031": ["EXC", "AEP", "EQIX", "DLR"],
+    "39049": ["AEP", "FE", "EQIX"],
+    "42101": ["EXC", "PPL", "EQIX"],
+    "36061": ["CEG", "EQIX", "DLR", "IRM"],
+    "25025": ["ES", "EQIX", "DLR"],
+    "53033": ["POR", "EQIX", "IRM"],
+    "41051": ["POR", "EQIX"],
+    "13121": ["SO", "EQIX", "DLR"],
+    "47037": ["SO", "DUK"],
+    "12086": ["NEE", "EQIX", "DLR"],
+}
 
+TICKER_BOOK: dict[str, tuple[str, str]] = {
+    "D": ("Dominion Energy", "utility"),
+    "AEP": ("American Electric Power", "utility"),
+    "SO": ("Southern Company", "utility"),
+    "DUK": ("Duke Energy", "utility"),
+    "EXC": ("Exelon", "utility"),
+    "FE": ("FirstEnergy", "utility"),
+    "PEG": ("PSEG", "utility"),
+    "PPL": ("PPL", "utility"),
+    "ES": ("Eversource", "utility"),
+    "EIX": ("Edison International", "utility"),
+    "PCG": ("PG&E", "utility"),
+    "SRE": ("Sempra", "utility"),
+    "XEL": ("Xcel Energy", "utility"),
+    "NEE": ("NextEra Energy", "utility"),
+    "POR": ("Portland General Electric", "utility"),
+    "PNW": ("Pinnacle West", "utility"),
+    "PNM": ("PNM Resources", "utility"),
+    "VST": ("Vistra", "ipp"),
+    "NRG": ("NRG Energy", "ipp"),
+    "CEG": ("Constellation Energy", "ipp"),
+    "DLR": ("Digital Realty", "reit"),
+    "EQIX": ("Equinix", "reit"),
+    "IRM": ("Iron Mountain", "reit"),
+    "ETN": ("Eaton", "equipment"),
+    "PWR": ("Quanta Services", "equipment"),
+    "VRT": ("Vertiv", "equipment"),
+    "GEV": ("GE Vernova", "equipment"),
+    "USB": ("U.S. Bancorp", "bank"),
+    "FITB": ("Fifth Third", "bank"),
+}
 
-# Named historical episodes used as analog anchors and outcome labels.
-EPISODES: list[dict] = [
-    {
-        "id": "cn_re_2010",
-        "name": "China–Japan rare earth export cutoff",
-        "start": date(2010, 7, 1),
-        "peak": date(2010, 10, 8),
-        "country": "CN",
-        "material": "rare_earths",
-        "disruption": DisruptionType.EXPORT_RESTRICTION,
-        "notes": "After the Senkaku/Diaoyu incident, China halted rare earth shipments to Japan.",
-        "sources": [
-            "https://www.cfr.org/backgrounder/chinas-rare-earth-industry",
-            "https://www.usgs.gov/centers/national-minerals-information-center/rare-earths-statistics-and-information",
-        ],
-    },
-    {
-        "id": "suez_2021",
-        "name": "Ever Given blockage of the Suez Canal",
-        "start": date(2021, 3, 1),
-        "peak": date(2021, 3, 23),
-        "country": "EG",
-        "material": None,
-        "disruption": DisruptionType.SHIPPING_THREAT,
-        "notes": "A grounded container ship closed the canal for six days.",
-        "sources": ["https://en.wikipedia.org/wiki/2021_Suez_Canal_obstruction"],
-    },
-    {
-        "id": "ru_ti_2022",
-        "name": "Russia invasion shock to aerospace titanium",
-        "start": date(2021, 11, 1),
-        "peak": date(2022, 2, 24),
-        "country": "RU",
-        "material": "titanium",
-        "disruption": DisruptionType.EXPORT_RESTRICTION,
-        "notes": "VSMPO-AVISMA was a major titanium source for Western aerospace primes.",
-        "sources": [
-            "https://www.reuters.com/business/aerospace-defense/wests-jet-makers-scramble-replace-russian-titanium-2022-03-14/"
-        ],
-    },
-    {
-        "id": "ua_neon_2022",
-        "name": "Ukraine neon plant shutdown",
-        "start": date(2021, 11, 1),
-        "peak": date(2022, 2, 24),
-        "country": "UA",
-        "material": "neon",
-        "disruption": DisruptionType.FACTORY_SHUTDOWN,
-        "notes": "Ukrainian firms supplied a large share of semiconductor-grade neon.",
-        "sources": [
-            "https://www.reuters.com/technology/exclusive-ukraine-halts-half-worlds-neon-output-chips-clouding-outlook-2022-03-11/"
-        ],
-    },
-    {
-        "id": "ru_pd_2022",
-        "name": "Russia palladium and nickel shock",
-        "start": date(2021, 11, 1),
-        "peak": date(2022, 2, 24),
-        "country": "RU",
-        "material": "palladium",
-        "disruption": DisruptionType.SANCTIONS,
-        "notes": "Sanctions and self-sanctioning disrupted PGM and nickel flows.",
-        "sources": ["https://www.usgs.gov/centers/national-minerals-information-center"],
-    },
-    {
-        "id": "cn_ga_ge_2023",
-        "name": "China gallium and germanium export controls",
-        "start": date(2023, 5, 1),
-        "peak": date(2023, 8, 1),
-        "country": "CN",
-        "material": "gallium",
-        "disruption": DisruptionType.EXPORT_RESTRICTION,
-        "notes": "MOFCOM licensing requirements on gallium and germanium products.",
-        "sources": [
-            "https://www.csis.org/analysis/chinas-new-export-restrictions-semiconductor-materials"
-        ],
-    },
-    {
-        "id": "cn_ge_2023",
-        "name": "China germanium export controls",
-        "start": date(2023, 5, 1),
-        "peak": date(2023, 8, 1),
-        "country": "CN",
-        "material": "germanium",
-        "disruption": DisruptionType.EXPORT_RESTRICTION,
-        "notes": "Paired with gallium controls, August 2023.",
-        "sources": [
-            "https://www.csis.org/analysis/chinas-new-export-restrictions-semiconductor-materials"
-        ],
-    },
-    {
-        "id": "redsea_2023",
-        "name": "Houthi attacks on Red Sea shipping",
-        "start": date(2023, 10, 15),
-        "peak": date(2023, 12, 15),
-        "country": "YE",
-        "material": None,
-        "disruption": DisruptionType.SHIPPING_THREAT,
-        "notes": "Attacks forced carriers to divert around the Cape of Good Hope.",
-        "sources": [
-            "https://www.eia.gov/todayinenergy/detail.php?id=61645"
-        ],
-    },
-    {
-        "id": "cn_sb_2024",
-        "name": "China antimony export controls",
-        "start": date(2024, 6, 1),
-        "peak": date(2024, 9, 15),
-        "country": "CN",
-        "material": "antimony",
-        "disruption": DisruptionType.EXPORT_RESTRICTION,
-        "notes": "Export licensing on antimony and related products.",
-        "sources": ["https://www.usgs.gov/centers/national-minerals-information-center"],
-    },
-    {
-        "id": "cn_graphite_2023",
-        "name": "China graphite export controls",
-        "start": date(2023, 8, 1),
-        "peak": date(2023, 12, 1),
-        "country": "CN",
-        "material": "graphite",
-        "disruption": DisruptionType.EXPORT_RESTRICTION,
-        "notes": "Graphite licensing followed gallium/germanium controls.",
-        "sources": ["https://www.csis.org/analysis"],
-    },
-    {
-        "id": "mm_coup_2021",
-        "name": "Myanmar coup and rare earth disruption",
-        "start": date(2020, 12, 1),
-        "peak": date(2021, 2, 1),
-        "country": "MM",
-        "material": "rare_earths",
-        "disruption": DisruptionType.CIVIL_UNREST,
-        "notes": "Coup and subsequent conflict affected Kachin rare earth mining.",
-        "sources": ["https://acleddata.com/"],
-    },
-    {
-        "id": "cn_re_threat_2019",
-        "name": "China rare earth threats during US trade war (near miss)",
-        "start": date(2019, 4, 1),
-        "peak": date(2019, 5, 21),
-        "country": "CN",
-        "material": "rare_earths",
-        "disruption": None,  # near miss — precursors without a cutoff
-        "notes": "Xi visited a rare earth magnet plant; no full export ban followed.",
-        "sources": [
-            "https://www.reuters.com/article/us-usa-trade-china-rareearths-idUSKCN1SS23B"
-        ],
-    },
+PLANTS: list[dict] = [
+    {"id": "plant-vst-odessa", "name": "Odessa combined cycle", "lat": 31.85, "lon": -102.37, "ba": "ERCO-W", "operator": "Vistra"},
+    {"id": "plant-nrg-waelder", "name": "Waelder peakers", "lat": 29.69, "lon": -97.30, "ba": "ERCO", "operator": "NRG"},
+    {"id": "plant-ceg-calvert", "name": "Calvert Cliffs", "lat": 38.43, "lon": -76.44, "ba": "PJM", "operator": "Constellation"},
+    {"id": "plant-d-northanna", "name": "North Anna", "lat": 38.06, "lon": -77.79, "ba": "PJM", "operator": "Dominion"},
+    {"id": "plant-aep-mountaineer", "name": "Mountaineer", "lat": 38.98, "lon": -81.93, "ba": "PJM", "operator": "AEP"},
+    {"id": "plant-nee-turkey", "name": "Turkey Point", "lat": 25.43, "lon": -80.33, "ba": "FPL", "operator": "NextEra"},
+    {"id": "plant-so-vogtle", "name": "Vogtle", "lat": 33.14, "lon": -81.76, "ba": "SOCO", "operator": "Southern"},
 ]
+
+
+@dataclass(frozen=True)
+class Episode:
+    id: str
+    geo_id: str
+    signal: SignalType
+    start: date
+    peak: date
+    intensity: float
+    analog_label: str
+
+
+# Peaks after demo as_of (2026-06-01) so ramps are visible without leaking labels into training.
+EPISODES: list[Episode] = [
+    Episode("loudoun_2023", "51107", SignalType.PERMIT_MW, date(2023, 2, 1), date(2023, 8, 15), 0.95, "Loudoun 2023 campus wave"),
+    Episode("loudoun_2024", "51107", SignalType.GIGA_SITE, date(2024, 1, 10), date(2024, 6, 1), 0.88, "Loudoun 2024 giga-site"),
+    Episode("pwc_2024", "51153", SignalType.PERMIT_MW, date(2024, 3, 1), date(2024, 9, 20), 0.82, "Prince William 2024 permits"),
+    Episode("ercow_2025", "ERCO-W", SignalType.LOAD_GROWTH, date(2025, 1, 15), date(2025, 7, 1), 0.97, "ERCOT-West 2025 breakout"),
+    Episode("abilene_2025", "48441", SignalType.PERMIT_MW, date(2025, 2, 1), date(2025, 8, 10), 0.91, "Abilene 2025 campus permits"),
+    Episode("abilene_giga_2025", "48441", SignalType.GIGA_SITE, date(2025, 4, 1), date(2025, 9, 15), 0.86, "Abilene 2025 giga-site"),
+    Episode("pjm_2024", "PJM", SignalType.LOAD_GROWTH, date(2024, 5, 1), date(2024, 11, 1), 0.78, "PJM 2024 load step-up"),
+    Episode("maricopa_2024", "04013", SignalType.PERMIT_MW, date(2024, 6, 1), date(2024, 12, 1), 0.70, "Maricopa 2024 industrial"),
+    Episode("clark_2023", "32003", SignalType.GIGA_SITE, date(2023, 8, 1), date(2024, 1, 15), 0.65, "Clark 2023 campus"),
+    Episode("ciso_2024", "CISO", SignalType.LOAD_GROWTH, date(2024, 2, 1), date(2024, 8, 1), 0.60, "CAISO 2024 summer load"),
+    Episode("cook_2024", "17031", SignalType.PERMIT_MW, date(2024, 4, 1), date(2024, 10, 1), 0.55, "Cook County 2024"),
+    Episode("fulton_2025", "13121", SignalType.PERMIT_MW, date(2025, 3, 1), date(2025, 9, 1), 0.58, "Fulton 2025 industrial"),
+    Episode("king_2024", "53033", SignalType.GIGA_SITE, date(2024, 7, 1), date(2025, 1, 1), 0.52, "King County 2024 campus"),
+    Episode("ercow_2026", "ERCO-W", SignalType.LOAD_GROWTH, date(2026, 1, 15), date(2026, 9, 20), 0.96, "ERCOT-West 2026 continuation"),
+    Episode("abilene_permits_2026", "48441", SignalType.PERMIT_MW, date(2026, 2, 1), date(2026, 10, 5), 0.93, "Abilene 2026 campus permits"),
+    Episode("culpeper_2026", "51047", SignalType.GIGA_SITE, date(2026, 1, 1), date(2026, 11, 1), 0.84, "Culpeper 2026 giga-site"),
+]
+
+
+def watchlist() -> list[Entity]:
+    items: list[Entity] = []
+    for ba in BAS:
+        items.append(Entity(geo_id=ba, geo_kind="ba", signal=SignalType.LOAD_GROWTH))
+    for fips in COUNTIES:
+        items.append(Entity(geo_id=fips, geo_kind="county", signal=SignalType.PERMIT_MW))
+        items.append(Entity(geo_id=fips, geo_kind="county", signal=SignalType.GIGA_SITE))
+    return items
+
+
+def train_watchlist() -> list[Entity]:
+    """Short subset so first forecast() stays fast enough for tests."""
+    return [
+        Entity("PJM", "ba", SignalType.LOAD_GROWTH),
+        Entity("ERCO", "ba", SignalType.LOAD_GROWTH),
+        Entity("ERCO-W", "ba", SignalType.LOAD_GROWTH),
+        Entity("CISO", "ba", SignalType.LOAD_GROWTH),
+        Entity("MISO", "ba", SignalType.LOAD_GROWTH),
+        Entity("SOCO", "ba", SignalType.LOAD_GROWTH),
+        Entity("51107", "county", SignalType.PERMIT_MW),
+        Entity("48441", "county", SignalType.PERMIT_MW),
+        Entity("51153", "county", SignalType.PERMIT_MW),
+        Entity("04013", "county", SignalType.PERMIT_MW),
+        Entity("51107", "county", SignalType.GIGA_SITE),
+        Entity("48441", "county", SignalType.GIGA_SITE),
+        Entity("51047", "county", SignalType.GIGA_SITE),
+        Entity("32003", "county", SignalType.GIGA_SITE),
+    ]
+
+
+def place_name(geo_id: str) -> str:
+    if geo_id in BAS:
+        return str(BAS[geo_id]["name"])
+    if geo_id in COUNTIES:
+        return str(COUNTIES[geo_id]["name"])
+    return geo_id
+
+
+def coords(geo_id: str) -> tuple[float, float]:
+    if geo_id in BAS:
+        return float(BAS[geo_id]["lat"]), float(BAS[geo_id]["lon"])
+    if geo_id in COUNTIES:
+        return float(COUNTIES[geo_id]["lat"]), float(COUNTIES[geo_id]["lon"])
+    return 39.0, -98.0
+
+
+def geo_kind_of(geo_id: str) -> str:
+    if geo_id in BAS:
+        return "ba"
+    return "county"
+
+
+def tickers_for(geo_id: str) -> list[str]:
+    return list(TICKERS.get(geo_id, []))
+
+
+def ticker_hit(symbol: str) -> TickerHit | None:
+    meta = TICKER_BOOK.get(symbol)
+    if not meta:
+        return None
+    name, role = meta
+    return TickerHit(ticker=symbol, name=name, role=role)  # type: ignore[arg-type]
 
 
 def outcomes_from_episodes() -> list[Outcome]:
     out: list[Outcome] = []
     for ep in EPISODES:
-        if ep["disruption"] is None:
-            continue
         out.append(
             Outcome(
-                occurred_on=ep["peak"],
-                country=ep["country"],
-                material=ep["material"],
-                disruption_type=ep["disruption"],
-                name=ep["name"],
-                notes=ep["notes"],
+                occurred_on=ep.peak,
+                geo_id=ep.geo_id,
+                geo_kind=geo_kind_of(ep.geo_id),  # type: ignore[arg-type]
+                signal_type=ep.signal,
+                name=ep.analog_label,
             )
         )
     return out
 
 
-def country_name(code: str) -> str:
-    return COUNTRY_NAMES.get(code, code)
+def resolve_geo(name: str | None, lat: float | None = None, lon: float | None = None) -> tuple[str | None, str | None]:
+    blob = (name or "").lower()
+    for hint, geo_id in PLACE_HINTS.items():
+        if hint in blob:
+            return geo_id, geo_kind_of(geo_id)
+    for fips, meta in COUNTIES.items():
+        county = str(meta["name"]).split(",")[0].lower()
+        if county in blob:
+            return fips, "county"
+    for ba, meta in BAS.items():
+        if str(meta["name"]).lower() in blob or ba.lower() in blob:
+            return ba, "ba"
+    if lat is None or lon is None:
+        return None, None
+    best_id = None
+    best_d = 1e9
+    for geo_id in list(COUNTIES) + list(BAS):
+        glat, glon = coords(geo_id)
+        d = (glat - lat) ** 2 + (glon - lon) ** 2
+        if d < best_d:
+            best_d = d
+            best_id = geo_id
+    if best_id is None or best_d > 4.0:
+        return None, None
+    return best_id, geo_kind_of(best_id)

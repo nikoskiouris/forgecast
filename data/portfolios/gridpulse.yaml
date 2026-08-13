@@ -1,0 +1,31 @@
+name: gridpulse-demo
+holdings:
+  - {ticker: D, name: Dominion Energy, role: utility}
+  - {ticker: AEP, name: American Electric Power, role: utility}
+  - {ticker: SO, name: Southern Company, role: utility}
+  - {ticker: DUK, name: Duke Energy, role: utility}
+  - {ticker: EXC, name: Exelon, role: utility}
+  - {ticker: FE, name: FirstEnergy, role: utility}
+  - {ticker: PEG, name: PSEG, role: utility}
+  - {ticker: PPL, name: PPL, role: utility}
+  - {ticker: ES, name: Eversource, role: utility}
+  - {ticker: EIX, name: Edison International, role: utility}
+  - {ticker: PCG, name: PG&E, role: utility}
+  - {ticker: SRE, name: Sempra, role: utility}
+  - {ticker: XEL, name: Xcel Energy, role: utility}
+  - {ticker: NEE, name: NextEra Energy, role: utility}
+  - {ticker: POR, name: Portland General Electric, role: utility}
+  - {ticker: PNW, name: Pinnacle West, role: utility}
+  - {ticker: PNM, name: PNM Resources, role: utility}
+  - {ticker: VST, name: Vistra, role: ipp}
+  - {ticker: NRG, name: NRG Energy, role: ipp}
+  - {ticker: CEG, name: Constellation Energy, role: ipp}
+  - {ticker: DLR, name: Digital Realty, role: reit}
+  - {ticker: EQIX, name: Equinix, role: reit}
+  - {ticker: IRM, name: Iron Mountain, role: reit}
+  - {ticker: ETN, name: Eaton, role: equipment}
+  - {ticker: PWR, name: Quanta Services, role: equipment}
+  - {ticker: VRT, name: Vertiv, role: equipment}
+  - {ticker: GEV, name: GE Vernova, role: equipment}
+  - {ticker: USB, name: U.S. Bancorp, role: bank}
+  - {ticker: FITB, name: Fifth Third, role: bank}

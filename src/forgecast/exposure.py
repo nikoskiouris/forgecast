@@ -1,4 +1,4 @@
-"""Map forecasts onto a customer's programs and suppliers."""
+"""Mechanical ticker exposure. Filter to the portfolio — never dump the whole book."""
 
 from __future__ import annotations
 
@@ -7,40 +7,32 @@ from typing import Any
 
 import yaml
 
-from forgecast.schema import ForecastItem
+from forgecast.schema import ForecastItem, TickerHit
+from forgecast.staticdata import ticker_hit, tickers_for
 
 
 def load_portfolio(path: Path) -> dict[str, Any]:
-    return yaml.safe_load(path.read_text())
+    return yaml.safe_load(path.read_text()) or {}
+
+
+def portfolio_tickers(portfolio: dict[str, Any]) -> set[str]:
+    held: set[str] = set()
+    for row in portfolio.get("holdings") or []:
+        t = row.get("ticker")
+        if t:
+            held.add(str(t).upper())
+    return held
 
 
 def apply_exposure(item: ForecastItem, portfolio: dict[str, Any]) -> ForecastItem:
-    programs = []
-    suppliers = []
-    mat = item.material
-    country = item.actor_country
-    for prog in portfolio.get("programs", []):
-        mats = prog.get("materials") or []
-        if mat and mat in mats:
-            programs.append(prog.get("name") or prog.get("id"))
-        elif item.chokepoint or item.disruption_type.value in {
-            "shipping_threat",
-            "port_border_closure",
-        }:
-            programs.append(prog.get("name") or prog.get("id"))
-    for sup in portfolio.get("suppliers", []):
-        smats = sup.get("materials") or []
-        scountry = sup.get("country")
-        if mat and mat in smats and (scountry == country or not country):
-            suppliers.append(sup.get("name") or sup.get("id"))
-        elif scountry == country and item.disruption_type.value in {
-            "civil_unrest",
-            "conflict_escalation",
-            "asset_seizure",
-            "sanctions",
-        }:
-            suppliers.append(sup.get("name") or sup.get("id"))
-    # Deduplicate, keep order.
-    item.exposed_programs = list(dict.fromkeys(programs))
-    item.exposed_suppliers = list(dict.fromkeys(suppliers))
+    held = portfolio_tickers(portfolio)
+    hits: list[TickerHit] = []
+    for symbol in tickers_for(item.geo_id):
+        if held and symbol not in held:
+            continue
+        hit = ticker_hit(symbol)
+        if hit is None:
+            continue
+        hits.append(hit)
+    item.exposed_tickers = hits
     return item
