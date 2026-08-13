@@ -2,6 +2,32 @@
 
 Calibrated **probabilities** of disruption to the U.S. and allied defense industrial base — not declarations that something will happen.
 
+## See it
+
+One map. No stack of servers.
+
+**Live demo:** [nikoskiouris.github.io/forgecast](https://nikoskiouris.github.io/forgecast/)
+
+(First time only: repo **Settings → Pages → Source: GitHub Actions**. After that, push to `main` is the whole deploy.)
+
+That is a static snapshot of the sample world (as-of 2023-06-01 / 2024-01-01 / 2024-06-01). Click pins. Read the briefing. Same files as `docs/` in this repo.
+
+Local, still one process:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+forgecast serve          # http://127.0.0.1:8000
+```
+
+If `docs/data/demo.json` is missing, bake it first (also what GitHub Pages hosts):
+
+```bash
+forgecast snapshot       # writes docs/
+forgecast serve
+```
+
 A defense manufacturer can ask:
 
 > What foreign events are most likely to disrupt our supply chain during the next 180 days?
@@ -56,7 +82,8 @@ pip install -e ".[dev]"
 forgecast forecast
 forgecast report
 forgecast backtest
-forgecast serve     # http://127.0.0.1:8000
+forgecast serve     # one process: map + API
+forgecast snapshot  # bake the static GitHub Pages demo
 ```
 
 Default `as_of` is **2024-06-01** so the sample world still has a future (China antimony controls land later that year). Pass `--as-of` to change it.
@@ -104,9 +131,13 @@ A serious evaluation still needs:
 
 ## API
 
-- `GET /` dashboard
+Same process as the map. Nothing else to start.
+
+- `GET /` map
+- `GET /data/demo.json` baked snapshot
+- `GET /api/map?as_of=2024-06-01`
 - `GET /api/forecast?as_of=2024-06-01&horizon=180`
-- `GET /api/report?rank=1`
+- `GET /api/report?pin=CN:antimony:export_restriction`
 
 ## Why this wedge
 

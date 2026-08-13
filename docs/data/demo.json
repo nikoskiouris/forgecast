@@ -1,0 +1,5241 @@
+{
+  "default_as_of": "2024-06-01",
+  "horizon_days": 180,
+  "dates": [
+    "2023-06-01",
+    "2024-01-01",
+    "2024-06-01"
+  ],
+  "snapshots": {
+    "2023-06-01": {
+      "as_of": "2023-06-01",
+      "horizon_days": 180,
+      "portfolio": "demo_defense",
+      "programs": [
+        "F-35 Lightning II",
+        "Virginia-class submarine",
+        "Patriot",
+        "GMLRS",
+        "Protected SATCOM"
+      ],
+      "pins": [
+        {
+          "id": "CN:germanium:export_restriction",
+          "lat": 23.36,
+          "lon": 103.15,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · germanium",
+          "site": "Gejiu",
+          "country": "CN",
+          "material": "germanium",
+          "disruption_type": "export_restriction",
+          "probability": 0.9,
+          "previous_probability": 0.165,
+          "delta": 0.735,
+          "chokepoint": null,
+          "rank": 1,
+          "exposed_programs": [
+            "Patriot",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [
+            "China germanium"
+          ],
+          "drivers": [
+            {
+              "indicator": "threat rhetoric (90d)",
+              "direction": "up",
+              "detail": "24 threat-class events involving China."
+            },
+            {
+              "indicator": "sanctions / embargo actions (90d)",
+              "direction": "up",
+              "detail": "6 reduce-relations or embargo-coded events."
+            },
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 68%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            }
+          ],
+          "analogs": [
+            {
+              "name": "Russia invasion shock to aerospace titanium",
+              "similarity": 0.973,
+              "year": 2022,
+              "country": "RU",
+              "material": "titanium",
+              "outcome": "export_restriction",
+              "difference": "Economic interdependence with the US/allies is substantially higher today (0.82 vs 0.12 in 2022)."
+            },
+            {
+              "name": "China–Japan rare earth export cutoff",
+              "similarity": 0.972,
+              "year": 2010,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "export_restriction",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            },
+            {
+              "name": "China rare earth threats during US trade war (near miss)",
+              "similarity": 0.971,
+              "year": 2019,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "no disruption (near miss)",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            }
+          ],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-06-01",
+            "https://example.invalid/events/CN/2023-05-31",
+            "https://example.invalid/events/CN/2023-05-30",
+            "https://example.invalid/events/CN/2023-05-29",
+            "https://example.invalid/events/CN/2023-05-28"
+          ],
+          "headline": "There is a 90% probability of export restriction affecting germanium (China) within 180 days, up from 16%."
+        },
+        {
+          "id": "CN:gallium:export_restriction",
+          "lat": 24.69,
+          "lon": 108.09,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · gallium",
+          "site": "Hechi",
+          "country": "CN",
+          "material": "gallium",
+          "disruption_type": "export_restriction",
+          "probability": 0.357,
+          "previous_probability": 0.1424,
+          "delta": 0.2147,
+          "chokepoint": null,
+          "rank": 2,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [
+            "China gallium metal"
+          ],
+          "drivers": [
+            {
+              "indicator": "threat rhetoric (90d)",
+              "direction": "up",
+              "detail": "18 threat-class events involving China."
+            },
+            {
+              "indicator": "sanctions / embargo actions (90d)",
+              "direction": "up",
+              "detail": "4 reduce-relations or embargo-coded events."
+            },
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 98%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            }
+          ],
+          "analogs": [
+            {
+              "name": "China rare earth threats during US trade war (near miss)",
+              "similarity": 0.972,
+              "year": 2019,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "no disruption (near miss)",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            },
+            {
+              "name": "Russia invasion shock to aerospace titanium",
+              "similarity": 0.971,
+              "year": 2022,
+              "country": "RU",
+              "material": "titanium",
+              "outcome": "export_restriction",
+              "difference": "Economic interdependence with the US/allies is substantially higher today (0.82 vs 0.12 in 2022)."
+            },
+            {
+              "name": "China–Japan rare earth export cutoff",
+              "similarity": 0.97,
+              "year": 2010,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "export_restriction",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            }
+          ],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-06-01",
+            "https://example.invalid/events/CN/2023-05-31",
+            "https://example.invalid/events/CN/2023-05-30",
+            "https://example.invalid/events/CN/2023-05-29",
+            "https://example.invalid/events/CN/2023-05-28"
+          ],
+          "headline": "There is a 36% probability of export restriction affecting gallium (China) within 180 days, up from 14%."
+        },
+        {
+          "id": "IR:na:shipping_threat",
+          "lat": 26.57,
+          "lon": 56.25,
+          "kind": "forecast",
+          "label": "Iran",
+          "subtitle": "shipping threat · Strait of Hormuz",
+          "site": "Strait of Hormuz",
+          "country": "IR",
+          "material": null,
+          "disruption_type": "shipping_threat",
+          "probability": 0.1053,
+          "previous_probability": 0.0213,
+          "delta": 0.084,
+          "chokepoint": "Strait of Hormuz",
+          "rank": 3,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Successful attack on a commercial vessel in the chokepoint",
+            "Major carriers announce a full route diversion",
+            "War-risk premiums spike above a prior crisis peak"
+          ],
+          "would_decrease": [
+            "Sustained period without attacks and carriers returning to the route",
+            "Credible multinational escort corridor with high compliance"
+          ],
+          "sources": [
+            "https://example.invalid/events/IR/2023-05-24",
+            "https://example.invalid/events/IR/2023-05-10",
+            "https://example.invalid/events/IR/2023-03-27",
+            "https://example.invalid/events/IR/2023-01-21",
+            "https://example.invalid/events/IR/2022-10-23"
+          ],
+          "headline": "There is a 11% probability of shipping threat affecting Strait of Hormuz (Iran) within 180 days, up from 2%."
+        },
+        {
+          "id": "RU:titanium:export_restriction",
+          "lat": 58.05,
+          "lon": 60.56,
+          "kind": "forecast",
+          "label": "Russia",
+          "subtitle": "export restriction · titanium",
+          "site": "Verkhnyaya Salda",
+          "country": "RU",
+          "material": "titanium",
+          "disruption_type": "export_restriction",
+          "probability": 0.0213,
+          "previous_probability": 0.0213,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 4,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine"
+          ],
+          "exposed_suppliers": [
+            "VSMPO-AVISMA"
+          ],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/RU/2023-05-22",
+            "https://example.invalid/events/RU/2023-02-19",
+            "https://example.invalid/events/RU/2023-02-11",
+            "https://example.invalid/events/RU/2022-08-18",
+            "https://example.invalid/events/RU/2022-08-10"
+          ],
+          "headline": "There is a 2% probability of export restriction affecting titanium (Russia) within 180 days."
+        },
+        {
+          "id": "RU:palladium:sanctions",
+          "lat": 69.36,
+          "lon": 88.19,
+          "kind": "forecast",
+          "label": "Russia",
+          "subtitle": "sanctions · palladium",
+          "site": "Norilsk",
+          "country": "RU",
+          "material": "palladium",
+          "disruption_type": "sanctions",
+          "probability": 0.0213,
+          "previous_probability": 0.0213,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 5,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "VSMPO-AVISMA"
+          ],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 40%."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Coordinated G7/allied designation of the producer or bank",
+            "Secondary-sanctions warning to freight and insurers"
+          ],
+          "would_decrease": [
+            "Carve-outs for the material or wind-down licenses expanded",
+            "De-escalatory diplomacy that historically preceded relief"
+          ],
+          "sources": [
+            "https://example.invalid/events/RU/2023-05-22",
+            "https://example.invalid/events/RU/2023-02-19",
+            "https://example.invalid/events/RU/2023-02-11",
+            "https://example.invalid/events/RU/2022-08-18",
+            "https://example.invalid/events/RU/2022-08-10"
+          ],
+          "headline": "There is a 2% probability of sanctions affecting palladium (Russia) within 180 days."
+        },
+        {
+          "id": "YE:na:shipping_threat",
+          "lat": 12.58,
+          "lon": 43.33,
+          "kind": "forecast",
+          "label": "Yemen",
+          "subtitle": "shipping threat · Bab el-Mandeb / Red Sea",
+          "site": "Bab el-Mandeb",
+          "country": "YE",
+          "material": null,
+          "disruption_type": "shipping_threat",
+          "probability": 0.0213,
+          "previous_probability": 0.1053,
+          "delta": -0.084,
+          "chokepoint": "Bab el-Mandeb / Red Sea",
+          "rank": 6,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Successful attack on a commercial vessel in the chokepoint",
+            "Major carriers announce a full route diversion",
+            "War-risk premiums spike above a prior crisis peak"
+          ],
+          "would_decrease": [
+            "Sustained period without attacks and carriers returning to the route",
+            "Credible multinational escort corridor with high compliance"
+          ],
+          "sources": [
+            "https://example.invalid/events/YE/2023-03-20",
+            "https://example.invalid/events/YE/2023-03-10",
+            "https://example.invalid/events/YE/2023-03-03",
+            "https://example.invalid/events/YE/2023-01-19",
+            "https://example.invalid/events/YE/2023-01-14"
+          ],
+          "headline": "There is a 2% probability of shipping threat affecting Bab el-Mandeb / Red Sea (Yemen) within 180 days, down from 11%."
+        },
+        {
+          "id": "EG:na:shipping_threat",
+          "lat": 30.45,
+          "lon": 32.35,
+          "kind": "forecast",
+          "label": "Egypt",
+          "subtitle": "shipping threat · Suez Canal",
+          "site": "Suez Canal",
+          "country": "EG",
+          "material": null,
+          "disruption_type": "shipping_threat",
+          "probability": 0.0213,
+          "previous_probability": 0.0213,
+          "delta": 0.0,
+          "chokepoint": "Suez Canal",
+          "rank": 7,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Successful attack on a commercial vessel in the chokepoint",
+            "Major carriers announce a full route diversion",
+            "War-risk premiums spike above a prior crisis peak"
+          ],
+          "would_decrease": [
+            "Sustained period without attacks and carriers returning to the route",
+            "Credible multinational escort corridor with high compliance"
+          ],
+          "sources": [
+            "https://example.invalid/events/EG/2023-05-31",
+            "https://example.invalid/events/EG/2023-05-19",
+            "https://example.invalid/events/EG/2023-04-08",
+            "https://example.invalid/events/EG/2022-11-20",
+            "https://example.invalid/events/EG/2022-11-12"
+          ],
+          "headline": "There is a 2% probability of shipping threat affecting Suez Canal (Egypt) within 180 days."
+        },
+        {
+          "id": "ID:nickel:export_restriction",
+          "lat": -2.22,
+          "lon": 121.59,
+          "kind": "forecast",
+          "label": "Indonesia",
+          "subtitle": "export restriction · nickel",
+          "site": "Morowali",
+          "country": "ID",
+          "material": "nickel",
+          "disruption_type": "export_restriction",
+          "probability": 0.0213,
+          "previous_probability": 0.005,
+          "delta": 0.0163,
+          "chokepoint": null,
+          "rank": 8,
+          "exposed_programs": [],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 48%."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/ID/2023-05-13",
+            "https://example.invalid/events/ID/2023-03-01",
+            "https://example.invalid/events/ID/2022-11-30",
+            "https://example.invalid/events/ID/2022-11-21",
+            "https://example.invalid/events/ID/2022-11-08"
+          ],
+          "headline": "There is a 2% probability of export restriction affecting nickel (Indonesia) within 180 days, up from 0%."
+        },
+        {
+          "id": "CN:rare_earths:export_restriction",
+          "lat": 40.66,
+          "lon": 109.84,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · rare earths",
+          "site": "Baotou",
+          "country": "CN",
+          "material": "rare_earths",
+          "disruption_type": "export_restriction",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 9,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 70%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-01-30",
+            "https://example.invalid/events/CN/2023-01-11",
+            "https://example.invalid/events/CN/2022-12-20",
+            "https://example.invalid/events/CN/2022-09-09",
+            "https://example.invalid/events/CN/2022-08-12"
+          ],
+          "headline": "There is a 0.5% probability of export restriction affecting rare earths (China) within 180 days."
+        },
+        {
+          "id": "CN:antimony:export_restriction",
+          "lat": 27.69,
+          "lon": 111.44,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · antimony",
+          "site": "Xikuangshan",
+          "country": "CN",
+          "material": "antimony",
+          "disruption_type": "export_restriction",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 10,
+          "exposed_programs": [
+            "GMLRS"
+          ],
+          "exposed_suppliers": [
+            "China antimony"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 56%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-01-30",
+            "https://example.invalid/events/CN/2023-01-11",
+            "https://example.invalid/events/CN/2022-12-20",
+            "https://example.invalid/events/CN/2022-09-09",
+            "https://example.invalid/events/CN/2022-08-12"
+          ],
+          "headline": "There is a 0.5% probability of export restriction affecting antimony (China) within 180 days."
+        },
+        {
+          "id": "CN:graphite:export_restriction",
+          "lat": 47.58,
+          "lon": 130.83,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · graphite",
+          "site": "Luobei",
+          "country": "CN",
+          "material": "graphite",
+          "disruption_type": "export_restriction",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 11,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "China spherical graphite"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 65%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-01-30",
+            "https://example.invalid/events/CN/2023-01-11",
+            "https://example.invalid/events/CN/2022-12-20",
+            "https://example.invalid/events/CN/2022-09-09",
+            "https://example.invalid/events/CN/2022-08-12"
+          ],
+          "headline": "There is a 0.5% probability of export restriction affecting graphite (China) within 180 days."
+        },
+        {
+          "id": "UA:neon:factory_shutdown",
+          "lat": 46.48,
+          "lon": 30.73,
+          "kind": "forecast",
+          "label": "Ukraine",
+          "subtitle": "factory shutdown · neon",
+          "site": "Odesa",
+          "country": "UA",
+          "material": "neon",
+          "disruption_type": "factory_shutdown",
+          "probability": 0.005,
+          "previous_probability": 0.0213,
+          "delta": -0.0163,
+          "chokepoint": null,
+          "rank": 12,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "Ukraine semiconductor neon"
+          ],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 50%."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Confirmed halt at a plant that is a single-source node",
+            "Grid, siege, or safety shutdown lasting more than 14 days"
+          ],
+          "would_decrease": [
+            "Plant restart confirmed by shippers and power-grid load"
+          ],
+          "sources": [
+            "https://example.invalid/events/UA/2023-05-01",
+            "https://example.invalid/events/UA/2023-04-10",
+            "https://example.invalid/events/UA/2023-02-01",
+            "https://example.invalid/events/UA/2022-12-07",
+            "https://example.invalid/events/UA/2022-11-16"
+          ],
+          "headline": "There is a 0.5% probability of factory shutdown affecting neon (Ukraine) within 180 days, down from 2%."
+        },
+        {
+          "id": "CD:cobalt:civil_unrest",
+          "lat": -10.72,
+          "lon": 25.47,
+          "kind": "forecast",
+          "label": "DR Congo",
+          "subtitle": "civil unrest · cobalt",
+          "site": "Kolwezi",
+          "country": "CD",
+          "material": "cobalt",
+          "disruption_type": "civil_unrest",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 13,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "DRC cobalt node"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 70%."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Security forces fire on protesters in a mining/port region",
+            "Opposition calls a general strike covering export infrastructure"
+          ],
+          "would_decrease": [
+            "Negotiated pause and reopening of mines/ports",
+            "Protest activity falling below the 90-day median"
+          ],
+          "sources": [
+            "https://example.invalid/events/CD/2023-03-23",
+            "https://example.invalid/events/CD/2022-12-05",
+            "https://example.invalid/events/CD/2022-11-06",
+            "https://example.invalid/events/CD/2022-10-24",
+            "https://example.invalid/events/CD/2022-10-06"
+          ],
+          "headline": "There is a 0.5% probability of civil unrest affecting cobalt (DR Congo) within 180 days."
+        },
+        {
+          "id": "TW:semiconductors:conflict_escalation",
+          "lat": 24.81,
+          "lon": 120.97,
+          "kind": "forecast",
+          "label": "Taiwan",
+          "subtitle": "conflict escalation · semiconductors",
+          "site": "Hsinchu",
+          "country": "TW",
+          "material": "semiconductors",
+          "disruption_type": "conflict_escalation",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 14,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [
+            "TSMC"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 60%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Cross-border fires or blockade of a producing region",
+            "Mobilization orders or no-fly/maritime exclusion zone"
+          ],
+          "would_decrease": [
+            "Ceasefire that restores commercial access",
+            "Force posture returning to baseline"
+          ],
+          "sources": [
+            "https://example.invalid/events/TW/2023-02-18",
+            "https://example.invalid/events/TW/2023-02-05",
+            "https://example.invalid/events/TW/2022-11-19",
+            "https://example.invalid/events/TW/2022-09-29",
+            "https://example.invalid/events/TW/2022-08-07"
+          ],
+          "headline": "There is a 0.5% probability of conflict escalation affecting semiconductors (Taiwan) within 180 days."
+        },
+        {
+          "id": "MM:rare_earths:civil_unrest",
+          "lat": 25.87,
+          "lon": 98.13,
+          "kind": "forecast",
+          "label": "Myanmar",
+          "subtitle": "civil unrest · rare earths",
+          "site": "Kachin",
+          "country": "MM",
+          "material": "rare_earths",
+          "disruption_type": "civil_unrest",
+          "probability": 0.005,
+          "previous_probability": 0.0213,
+          "delta": -0.0163,
+          "chokepoint": null,
+          "rank": 15,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Security forces fire on protesters in a mining/port region",
+            "Opposition calls a general strike covering export infrastructure"
+          ],
+          "would_decrease": [
+            "Negotiated pause and reopening of mines/ports",
+            "Protest activity falling below the 90-day median"
+          ],
+          "sources": [
+            "https://example.invalid/events/MM/2023-04-21",
+            "https://example.invalid/events/MM/2023-03-09",
+            "https://example.invalid/events/MM/2023-02-28",
+            "https://example.invalid/events/MM/2023-02-25",
+            "https://example.invalid/events/MM/2023-02-15"
+          ],
+          "headline": "There is a 0.5% probability of civil unrest affecting rare earths (Myanmar) within 180 days, down from 2%."
+        }
+      ],
+      "suppliers": [
+        {
+          "id": "sup:mp_materials",
+          "lat": 35.48,
+          "lon": -115.53,
+          "kind": "supplier",
+          "label": "MP Materials",
+          "subtitle": "rare earths",
+          "site": "Mountain Pass",
+          "country": "US",
+          "material": "rare_earths",
+          "disruption_type": null,
+          "probability": null,
+          "previous_probability": null,
+          "delta": null,
+          "chokepoint": null,
+          "rank": 0,
+          "exposed_programs": [
+            "F-35",
+            "PATRIOT"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [],
+          "analogs": [],
+          "would_increase": [],
+          "would_decrease": [],
+          "sources": [],
+          "headline": ""
+        },
+        {
+          "id": "sup:lynas",
+          "lat": -28.86,
+          "lon": 122.42,
+          "kind": "supplier",
+          "label": "Lynas",
+          "subtitle": "rare earths",
+          "site": "Mount Weld",
+          "country": "AU",
+          "material": "rare_earths",
+          "disruption_type": null,
+          "probability": null,
+          "previous_probability": null,
+          "delta": null,
+          "chokepoint": null,
+          "rank": 0,
+          "exposed_programs": [
+            "F-35"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [],
+          "analogs": [],
+          "would_increase": [],
+          "would_decrease": [],
+          "sources": [],
+          "headline": ""
+        }
+      ],
+      "pulse": [
+        {
+          "id": "ev-a5dc81a4bd1c8d92",
+          "lat": 39.51,
+          "lon": 117.08666666666666,
+          "timestamp": "2023-05-09T01:32:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": "germanium",
+          "tone": -3.511719073960109,
+          "location": null
+        },
+        {
+          "id": "ev-2cb6d8973b1b58c6",
+          "lat": 39.36,
+          "lon": 33.70333333333333,
+          "timestamp": "2023-05-09T20:01:00",
+          "actor_country": "TR",
+          "actor_name": "Turkey",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 4.21631987767968,
+          "location": null
+        },
+        {
+          "id": "ev-7fff2ee7f9bd0cda",
+          "lat": 35.446666666666665,
+          "lon": 51.60666666666667,
+          "timestamp": "2023-05-10T20:17:00",
+          "actor_country": "IR",
+          "actor_name": "Iran",
+          "action": "demands",
+          "material": null,
+          "tone": -6.221872116321263,
+          "location": null
+        },
+        {
+          "id": "ev-9ae31cf9715090a7",
+          "lat": 39.57,
+          "lon": 115.58,
+          "timestamp": "2023-05-11T00:34:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "demands",
+          "material": "germanium",
+          "tone": -5.701913372280191,
+          "location": null
+        },
+        {
+          "id": "ev-e76267e2e72e1c82",
+          "lat": 40.026666666666664,
+          "lon": 32.36333333333333,
+          "timestamp": "2023-05-11T00:44:00",
+          "actor_country": "TR",
+          "actor_name": "Turkey",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 4.753965558736042,
+          "location": null
+        },
+        {
+          "id": "ev-936e31aa5d0166bc",
+          "lat": 40.31666666666666,
+          "lon": 115.78666666666666,
+          "timestamp": "2023-05-11T07:57:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "demands",
+          "material": "germanium",
+          "tone": -4.677774225847081,
+          "location": null
+        },
+        {
+          "id": "ev-dedcab1b247369d9",
+          "lat": 39.056666666666665,
+          "lon": 116.58666666666666,
+          "timestamp": "2023-05-11T09:43:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -4.873051481393059,
+          "location": null
+        },
+        {
+          "id": "ev-f5e7bcff2b40a795",
+          "lat": 40.41,
+          "lon": 116.52666666666666,
+          "timestamp": "2023-05-11T17:13:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": "germanium",
+          "tone": -4.9325557782335565,
+          "location": null
+        },
+        {
+          "id": "ev-4683189413932a3d",
+          "lat": 40.269999999999996,
+          "lon": 115.78,
+          "timestamp": "2023-05-11T19:00:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": "gallium",
+          "tone": -3.9003868860714914,
+          "location": null
+        },
+        {
+          "id": "ev-36b9e17d206f1c4b",
+          "lat": 40.10333333333333,
+          "lon": 117.09333333333333,
+          "timestamp": "2023-05-11T22:37:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "demands",
+          "material": "germanium",
+          "tone": -3.6489341355052973,
+          "location": null
+        },
+        {
+          "id": "ev-b8f190708efe9e8e",
+          "lat": 39.236666666666665,
+          "lon": 115.82,
+          "timestamp": "2023-05-12T00:45:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": "germanium",
+          "tone": -3.6676078299035857,
+          "location": null
+        },
+        {
+          "id": "ev-f7774885b6496695",
+          "lat": 39.32333333333333,
+          "lon": 115.82666666666667,
+          "timestamp": "2023-05-12T11:00:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": "germanium",
+          "tone": -3.5914776139556963,
+          "location": null
+        },
+        {
+          "id": "ev-a9e6f42498882ac2",
+          "lat": 39.82333333333333,
+          "lon": 117.0,
+          "timestamp": "2023-05-12T19:13:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": "germanium",
+          "tone": -2.7140989698944793,
+          "location": null
+        },
+        {
+          "id": "ev-dbb84dde7a50ef54",
+          "lat": 39.65,
+          "lon": 115.76666666666667,
+          "timestamp": "2023-05-12T21:08:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "demands",
+          "material": "germanium",
+          "tone": -3.849714766157713,
+          "location": null
+        },
+        {
+          "id": "ev-8097578d41c5920e",
+          "lat": 40.06333333333333,
+          "lon": 116.8,
+          "timestamp": "2023-05-13T07:14:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "demands",
+          "material": "gallium",
+          "tone": -3.3951903545204676,
+          "location": null
+        },
+        {
+          "id": "ev-6fd2d61835dc830b",
+          "lat": 39.08333333333333,
+          "lon": 116.82,
+          "timestamp": "2023-05-13T07:15:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "gallium",
+          "tone": -7.1059003484043535,
+          "location": null
+        },
+        {
+          "id": "ev-778339cc8749b648",
+          "lat": 40.03,
+          "lon": 117.13333333333333,
+          "timestamp": "2023-05-13T12:02:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "demands",
+          "material": "germanium",
+          "tone": -3.1654901967484617,
+          "location": null
+        },
+        {
+          "id": "ev-7323f10b8761fb98",
+          "lat": -5.766666666666667,
+          "lon": 106.64,
+          "timestamp": "2023-05-13T18:52:00",
+          "actor_country": "ID",
+          "actor_name": "Indonesia",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 2.69464271394739,
+          "location": null
+        },
+        {
+          "id": "ev-bc9e465618a68ad6",
+          "lat": 39.943333333333335,
+          "lon": 115.60666666666667,
+          "timestamp": "2023-05-14T00:26:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": "germanium",
+          "tone": -4.389297250512458,
+          "location": null
+        },
+        {
+          "id": "ev-f7755393ae69e25b",
+          "lat": 40.38333333333333,
+          "lon": 117.12666666666667,
+          "timestamp": "2023-05-14T06:04:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "gallium",
+          "tone": -2.091503184584122,
+          "location": null
+        },
+        {
+          "id": "ev-932af30269435187",
+          "lat": 39.35,
+          "lon": 116.01333333333334,
+          "timestamp": "2023-05-14T09:25:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -7.305164641299766,
+          "location": null
+        },
+        {
+          "id": "ev-e4fed5585d7ff498",
+          "lat": 40.49,
+          "lon": 116.30666666666666,
+          "timestamp": "2023-05-14T10:28:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "demands",
+          "material": "gallium",
+          "tone": -5.242892466304496,
+          "location": null
+        },
+        {
+          "id": "ev-1072ca35480c888e",
+          "lat": 39.82333333333333,
+          "lon": 115.92,
+          "timestamp": "2023-05-15T07:49:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -4.819723321579416,
+          "location": null
+        },
+        {
+          "id": "ev-e71553930e9ca526",
+          "lat": 39.92333333333333,
+          "lon": 116.62666666666667,
+          "timestamp": "2023-05-15T21:28:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "gallium",
+          "tone": -7.886397335127853,
+          "location": null
+        },
+        {
+          "id": "ev-26c0b44140d8f88d",
+          "lat": 39.39666666666667,
+          "lon": 116.34,
+          "timestamp": "2023-05-16T21:04:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "gallium",
+          "tone": -6.112509870149294,
+          "location": null
+        },
+        {
+          "id": "ev-7db135784fce0a70",
+          "lat": 39.58333333333333,
+          "lon": 116.6,
+          "timestamp": "2023-05-18T00:02:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -6.275715611577972,
+          "location": null
+        },
+        {
+          "id": "ev-9f2cb77ad4ca2dee",
+          "lat": 39.85666666666666,
+          "lon": 116.94666666666666,
+          "timestamp": "2023-05-18T04:35:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -6.228517840357226,
+          "location": null
+        },
+        {
+          "id": "ev-e97df42436d361c5",
+          "lat": 39.836666666666666,
+          "lon": 115.56666666666666,
+          "timestamp": "2023-05-18T15:11:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "protests",
+          "material": "gallium",
+          "tone": -7.802821314437299,
+          "location": null
+        },
+        {
+          "id": "ev-ac4d90575f43fce6",
+          "lat": 39.803333333333335,
+          "lon": 117.23333333333333,
+          "timestamp": "2023-05-19T00:12:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "gallium",
+          "tone": -6.5324501585331864,
+          "location": null
+        },
+        {
+          "id": "ev-44a233239e1f95cf",
+          "lat": 39.19,
+          "lon": 117.22,
+          "timestamp": "2023-05-19T03:34:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "germanium",
+          "tone": -7.793324460272465,
+          "location": null
+        },
+        {
+          "id": "ev-b2acf9bb9df576ca",
+          "lat": 39.85666666666666,
+          "lon": 115.92666666666666,
+          "timestamp": "2023-05-19T05:57:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -5.918869441466153,
+          "location": null
+        },
+        {
+          "id": "ev-1b53495ec50fb8b9",
+          "lat": 39.33,
+          "lon": 116.73333333333333,
+          "timestamp": "2023-05-19T09:15:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "protests",
+          "material": "gallium",
+          "tone": -5.8278188134358775,
+          "location": null
+        },
+        {
+          "id": "ev-e808465adb81e619",
+          "lat": 29.849999999999998,
+          "lon": 31.569999999999997,
+          "timestamp": "2023-05-19T16:51:00",
+          "actor_country": "EG",
+          "actor_name": "Egypt",
+          "action": "disapproves",
+          "material": null,
+          "tone": -3.545281552280893,
+          "location": null
+        },
+        {
+          "id": "ev-7f785c89adf493ee",
+          "lat": 40.269999999999996,
+          "lon": 116.22,
+          "timestamp": "2023-05-19T18:54:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "protests",
+          "material": "germanium",
+          "tone": -8.781450350031527,
+          "location": null
+        },
+        {
+          "id": "ev-66ced35aaeccd2f5",
+          "lat": 39.769999999999996,
+          "lon": 115.64,
+          "timestamp": "2023-05-20T01:09:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -6.970249826326401,
+          "location": null
+        },
+        {
+          "id": "ev-d12b14ee42481d55",
+          "lat": 40.15,
+          "lon": 115.56,
+          "timestamp": "2023-05-21T10:37:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -7.972479372974269,
+          "location": null
+        },
+        {
+          "id": "ev-830ffed04459e006",
+          "lat": 40.52333333333333,
+          "lon": 116.72666666666666,
+          "timestamp": "2023-05-21T10:51:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -6.5756514023307675,
+          "location": null
+        },
+        {
+          "id": "ev-bb0f1dee44536bbe",
+          "lat": 40.04333333333333,
+          "lon": 116.09333333333333,
+          "timestamp": "2023-05-21T14:51:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -6.657284755200641,
+          "location": null
+        },
+        {
+          "id": "ev-285f4aed054fc741",
+          "lat": 39.29666666666667,
+          "lon": 116.67333333333333,
+          "timestamp": "2023-05-22T04:09:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -5.76048791668777,
+          "location": null
+        },
+        {
+          "id": "ev-f19cea85a153d4aa",
+          "lat": 55.32,
+          "lon": 37.61666666666667,
+          "timestamp": "2023-05-22T11:27:00",
+          "actor_country": "RU",
+          "actor_name": "Russia",
+          "action": "disapproves",
+          "material": null,
+          "tone": -2.8689310677243474,
+          "location": null
+        },
+        {
+          "id": "ev-d538932f7785acdc",
+          "lat": 40.656666666666666,
+          "lon": 115.84,
+          "timestamp": "2023-05-22T12:56:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -9.461547347256431,
+          "location": null
+        },
+        {
+          "id": "ev-d2ef14f2350a094a",
+          "lat": 40.18333333333333,
+          "lon": 116.38,
+          "timestamp": "2023-05-22T15:38:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -6.038975883258566,
+          "location": null
+        },
+        {
+          "id": "ev-b02e677e628b4657",
+          "lat": 40.61666666666667,
+          "lon": 115.65333333333334,
+          "timestamp": "2023-05-22T19:04:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "germanium",
+          "tone": -8.313471082070281,
+          "location": null
+        },
+        {
+          "id": "ev-45e9b2ffdba735c9",
+          "lat": 39.19,
+          "lon": 115.95333333333333,
+          "timestamp": "2023-05-22T20:50:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "gallium",
+          "tone": -5.666256603480405,
+          "location": null
+        },
+        {
+          "id": "ev-125cd0450df85b6b",
+          "lat": 40.13666666666666,
+          "lon": 116.03999999999999,
+          "timestamp": "2023-05-23T08:43:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "protests",
+          "material": "germanium",
+          "tone": -5.1508456715737605,
+          "location": null
+        },
+        {
+          "id": "ev-ceed6d828682374c",
+          "lat": 39.089999999999996,
+          "lon": 116.53333333333333,
+          "timestamp": "2023-05-23T15:12:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -6.337690447892236,
+          "location": null
+        },
+        {
+          "id": "ev-1e2c154942e48f14",
+          "lat": 40.60333333333333,
+          "lon": 117.19333333333333,
+          "timestamp": "2023-05-23T16:47:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "protests",
+          "material": "gallium",
+          "tone": -7.751184298756057,
+          "location": null
+        },
+        {
+          "id": "ev-22e99f73319b69b0",
+          "lat": -36.03666666666667,
+          "lon": 148.29333333333332,
+          "timestamp": "2023-05-23T17:24:00",
+          "actor_country": "AU",
+          "actor_name": "Australia",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 3.824335480682471,
+          "location": null
+        },
+        {
+          "id": "ev-68e78ba3131e8598",
+          "lat": 40.11,
+          "lon": 117.06,
+          "timestamp": "2023-05-23T20:00:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "gallium",
+          "tone": -4.8274851373298695,
+          "location": null
+        },
+        {
+          "id": "ev-f13657efbfa2afb1",
+          "lat": 39.65,
+          "lon": 116.28666666666666,
+          "timestamp": "2023-05-24T05:24:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -5.753021404043205,
+          "location": null
+        },
+        {
+          "id": "ev-00f4f9d2e4f2f52d",
+          "lat": 36.126666666666665,
+          "lon": 50.74666666666667,
+          "timestamp": "2023-05-24T13:57:00",
+          "actor_country": "IR",
+          "actor_name": "Iran",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 3.7998562715921524,
+          "location": null
+        },
+        {
+          "id": "ev-a18063088ce262d1",
+          "lat": 39.75,
+          "lon": 116.42666666666666,
+          "timestamp": "2023-05-24T22:42:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "gallium",
+          "tone": -7.672810133867967,
+          "location": null
+        },
+        {
+          "id": "ev-8f0fc203bc7626d0",
+          "lat": 40.53666666666666,
+          "lon": 116.11333333333333,
+          "timestamp": "2023-05-24T22:56:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "gallium",
+          "tone": -7.081820497511015,
+          "location": null
+        },
+        {
+          "id": "ev-509e9e342024596f",
+          "lat": 39.36333333333333,
+          "lon": 116.3,
+          "timestamp": "2023-05-25T06:51:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -5.817223848066892,
+          "location": null
+        },
+        {
+          "id": "ev-bfdb65c74a29f4b3",
+          "lat": 40.71,
+          "lon": 116.47333333333333,
+          "timestamp": "2023-05-25T11:47:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "gallium",
+          "tone": -5.18088043478413,
+          "location": null
+        },
+        {
+          "id": "ev-c2ad58fe3918cd06",
+          "lat": 40.13666666666666,
+          "lon": 115.95333333333333,
+          "timestamp": "2023-05-26T00:50:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -8.393607660295256,
+          "location": null
+        },
+        {
+          "id": "ev-5f273633612005b4",
+          "lat": 40.29,
+          "lon": 116.88666666666667,
+          "timestamp": "2023-05-26T10:24:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -6.610009337449853,
+          "location": null
+        },
+        {
+          "id": "ev-c9efa7c6b63b66a1",
+          "lat": 39.88333333333333,
+          "lon": 115.93333333333332,
+          "timestamp": "2023-05-27T07:28:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "protests",
+          "material": "germanium",
+          "tone": -6.816324431768737,
+          "location": null
+        },
+        {
+          "id": "ev-efe8018d6f11c177",
+          "lat": 40.33,
+          "lon": 116.44,
+          "timestamp": "2023-05-27T19:33:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "gallium",
+          "tone": -4.292893847522624,
+          "location": null
+        },
+        {
+          "id": "ev-5ae3b44fcbcf161b",
+          "lat": 39.736666666666665,
+          "lon": 116.96666666666667,
+          "timestamp": "2023-05-28T00:51:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "gallium",
+          "tone": -5.673303502046957,
+          "location": null
+        },
+        {
+          "id": "ev-d232e05a09270a28",
+          "lat": 39.47,
+          "lon": 115.86,
+          "timestamp": "2023-05-28T04:37:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "germanium",
+          "tone": -7.0348007351865,
+          "location": null
+        },
+        {
+          "id": "ev-1c0e26f5caa10185",
+          "lat": 40.24333333333333,
+          "lon": 116.25333333333333,
+          "timestamp": "2023-05-28T04:55:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "protests",
+          "material": "germanium",
+          "tone": -5.740152320136653,
+          "location": null
+        },
+        {
+          "id": "ev-813009ba128c890c",
+          "lat": 40.54333333333333,
+          "lon": 116.3,
+          "timestamp": "2023-05-28T06:37:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "gallium",
+          "tone": -5.990235583070618,
+          "location": null
+        },
+        {
+          "id": "ev-22a532f586ec0c7d",
+          "lat": 39.70333333333333,
+          "lon": 115.98666666666666,
+          "timestamp": "2023-05-28T08:52:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "gallium",
+          "tone": -4.328092315041603,
+          "location": null
+        },
+        {
+          "id": "ev-d4527a69829f84dc",
+          "lat": 39.11,
+          "lon": 116.22666666666666,
+          "timestamp": "2023-05-28T10:25:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "gallium",
+          "tone": -6.322903720377786,
+          "location": null
+        },
+        {
+          "id": "ev-cdf890078aba55c7",
+          "lat": 39.38333333333333,
+          "lon": 117.18666666666667,
+          "timestamp": "2023-05-29T05:57:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "germanium",
+          "tone": -7.334830904186007,
+          "location": null
+        },
+        {
+          "id": "ev-dc5bce812659dc4c",
+          "lat": 39.943333333333335,
+          "lon": 117.1,
+          "timestamp": "2023-05-29T12:14:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "gallium",
+          "tone": -5.117267809180751,
+          "location": null
+        },
+        {
+          "id": "ev-606bf1f1f471f43d",
+          "lat": 40.016666666666666,
+          "lon": 116.33333333333333,
+          "timestamp": "2023-05-29T13:08:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -6.3927944040935225,
+          "location": null
+        },
+        {
+          "id": "ev-7b0dcd8942b22127",
+          "lat": 39.35,
+          "lon": 115.62666666666667,
+          "timestamp": "2023-05-29T15:26:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -5.123374282453483,
+          "location": null
+        },
+        {
+          "id": "ev-51a1cc8ca1b42c6d",
+          "lat": 39.40333333333333,
+          "lon": 116.78666666666666,
+          "timestamp": "2023-05-30T02:31:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "gallium",
+          "tone": -5.319052893626436,
+          "location": null
+        },
+        {
+          "id": "ev-679d93325de3c8fd",
+          "lat": 40.35,
+          "lon": 116.59333333333333,
+          "timestamp": "2023-05-30T08:33:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "protests",
+          "material": "germanium",
+          "tone": -6.9809018989904725,
+          "location": null
+        },
+        {
+          "id": "ev-e4bc1e1c0811f467",
+          "lat": 40.63666666666666,
+          "lon": 117.2,
+          "timestamp": "2023-05-30T13:20:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -5.89178680818445,
+          "location": null
+        },
+        {
+          "id": "ev-c23721c55e4da937",
+          "lat": 39.65,
+          "lon": 116.26666666666667,
+          "timestamp": "2023-05-30T20:00:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "protests",
+          "material": "gallium",
+          "tone": -6.817312641876952,
+          "location": null
+        },
+        {
+          "id": "ev-1f25157779163a92",
+          "lat": 39.129999999999995,
+          "lon": 116.93333333333332,
+          "timestamp": "2023-05-31T07:04:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "germanium",
+          "tone": -6.598932895432064,
+          "location": null
+        },
+        {
+          "id": "ev-01b6f63ad80b1561",
+          "lat": 30.356666666666666,
+          "lon": 31.16333333333333,
+          "timestamp": "2023-05-31T07:36:00",
+          "actor_country": "EG",
+          "actor_name": "Egypt",
+          "action": "rejects",
+          "material": null,
+          "tone": -3.6278765338063765,
+          "location": null
+        },
+        {
+          "id": "ev-38c94ea9bb75ee92",
+          "lat": 39.25,
+          "lon": 115.75333333333333,
+          "timestamp": "2023-05-31T10:56:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "gallium",
+          "tone": -4.150103851030025,
+          "location": null
+        },
+        {
+          "id": "ev-c2acc4061eec2d1c",
+          "lat": 40.25666666666667,
+          "lon": 117.07333333333332,
+          "timestamp": "2023-06-01T04:39:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "germanium",
+          "tone": -8.440074053542952,
+          "location": null
+        },
+        {
+          "id": "ev-b1ecaa18a09a6230",
+          "lat": 39.36333333333333,
+          "lon": 117.15333333333334,
+          "timestamp": "2023-06-01T07:07:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "germanium",
+          "tone": -4.525294661715559,
+          "location": null
+        },
+        {
+          "id": "ev-77086f5acdf9577f",
+          "lat": 40.35666666666666,
+          "lon": 115.88,
+          "timestamp": "2023-06-01T11:03:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "germanium",
+          "tone": -6.177472837885968,
+          "location": null
+        },
+        {
+          "id": "ev-83a969aeab2f8585",
+          "lat": 40.53,
+          "lon": 115.72666666666666,
+          "timestamp": "2023-06-01T21:06:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "gallium",
+          "tone": -6.107968854330218,
+          "location": null
+        }
+      ],
+      "notes": [
+        "Probabilities are calibrated ensemble outputs, not declarations that an event will happen.",
+        "Historical similarity is one input. Structural differences are called out explicitly.",
+        "Sample-world backtests prove the pipeline. Live GDELT ingest improves coverage, not automatic accuracy."
+      ]
+    },
+    "2024-01-01": {
+      "as_of": "2024-01-01",
+      "horizon_days": 180,
+      "portfolio": "demo_defense",
+      "programs": [
+        "F-35 Lightning II",
+        "Virginia-class submarine",
+        "Patriot",
+        "GMLRS",
+        "Protected SATCOM"
+      ],
+      "pins": [
+        {
+          "id": "CN:graphite:export_restriction",
+          "lat": 47.58,
+          "lon": 130.83,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · graphite",
+          "site": "Luobei",
+          "country": "CN",
+          "material": "graphite",
+          "disruption_type": "export_restriction",
+          "probability": 0.4452,
+          "previous_probability": 0.9,
+          "delta": -0.4548,
+          "chokepoint": null,
+          "rank": 1,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "China spherical graphite"
+          ],
+          "drivers": [
+            {
+              "indicator": "threat rhetoric (90d)",
+              "direction": "up",
+              "detail": "32 threat-class events involving China."
+            },
+            {
+              "indicator": "sanctions / embargo actions (90d)",
+              "direction": "up",
+              "detail": "48 reduce-relations or embargo-coded events."
+            },
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 65%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            }
+          ],
+          "analogs": [
+            {
+              "name": "China rare earth threats during US trade war (near miss)",
+              "similarity": 0.998,
+              "year": 2019,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "no disruption (near miss)",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            },
+            {
+              "name": "Russia invasion shock to aerospace titanium",
+              "similarity": 0.997,
+              "year": 2022,
+              "country": "RU",
+              "material": "titanium",
+              "outcome": "export_restriction",
+              "difference": "Economic interdependence with the US/allies is substantially higher today (0.82 vs 0.12 in 2022)."
+            },
+            {
+              "name": "China–Japan rare earth export cutoff",
+              "similarity": 0.996,
+              "year": 2010,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "export_restriction",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            }
+          ],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-12-31",
+            "https://example.invalid/events/CN/2023-12-28",
+            "https://example.invalid/events/CN/2023-12-27",
+            "https://example.invalid/events/CN/2023-12-26",
+            "https://example.invalid/events/CN/2023-12-25"
+          ],
+          "headline": "There is a 45% probability of export restriction affecting graphite (China) within 180 days, down from 90%."
+        },
+        {
+          "id": "YE:na:shipping_threat",
+          "lat": 12.58,
+          "lon": 43.33,
+          "kind": "forecast",
+          "label": "Yemen",
+          "subtitle": "shipping threat · Bab el-Mandeb / Red Sea",
+          "site": "Bab el-Mandeb",
+          "country": "YE",
+          "material": null,
+          "disruption_type": "shipping_threat",
+          "probability": 0.2848,
+          "previous_probability": 0.9,
+          "delta": -0.6152,
+          "chokepoint": "Bab el-Mandeb / Red Sea",
+          "rank": 2,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "threat rhetoric (90d)",
+              "direction": "up",
+              "detail": "38 threat-class events involving Yemen."
+            },
+            {
+              "indicator": "sanctions / embargo actions (90d)",
+              "direction": "up",
+              "detail": "57 reduce-relations or embargo-coded events."
+            },
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            }
+          ],
+          "analogs": [
+            {
+              "name": "Houthi attacks on Red Sea shipping",
+              "similarity": 0.998,
+              "year": 2023,
+              "country": "YE",
+              "material": null,
+              "outcome": "shipping_threat",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            },
+            {
+              "name": "Ever Given blockage of the Suez Canal",
+              "similarity": 0.944,
+              "year": 2021,
+              "country": "EG",
+              "material": null,
+              "outcome": "shipping_threat",
+              "difference": "Economic interdependence is lower today (0.02 vs 0.30 in 2021), so a break may be politically cheaper."
+            }
+          ],
+          "would_increase": [
+            "Successful attack on a commercial vessel in the chokepoint",
+            "Major carriers announce a full route diversion",
+            "War-risk premiums spike above a prior crisis peak"
+          ],
+          "would_decrease": [
+            "Sustained period without attacks and carriers returning to the route",
+            "Credible multinational escort corridor with high compliance"
+          ],
+          "sources": [
+            "https://example.invalid/events/YE/2023-12-31",
+            "https://example.invalid/events/YE/2023-12-29",
+            "https://example.invalid/events/YE/2023-12-28",
+            "https://example.invalid/events/YE/2023-12-26",
+            "https://example.invalid/events/YE/2023-12-24"
+          ],
+          "headline": "There is a 28% probability of shipping threat affecting Bab el-Mandeb / Red Sea (Yemen) within 180 days, down from 90%."
+        },
+        {
+          "id": "CN:gallium:export_restriction",
+          "lat": 24.69,
+          "lon": 108.09,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · gallium",
+          "site": "Hechi",
+          "country": "CN",
+          "material": "gallium",
+          "disruption_type": "export_restriction",
+          "probability": 0.2778,
+          "previous_probability": 0.2778,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 3,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [
+            "China gallium metal"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 98%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            }
+          ],
+          "analogs": [
+            {
+              "name": "China graphite export controls",
+              "similarity": 0.749,
+              "year": 2023,
+              "country": "CN",
+              "material": "graphite",
+              "outcome": "export_restriction",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            },
+            {
+              "name": "Russia invasion shock to aerospace titanium",
+              "similarity": 0.691,
+              "year": 2022,
+              "country": "RU",
+              "material": "titanium",
+              "outcome": "export_restriction",
+              "difference": "Economic interdependence with the US/allies is substantially higher today (0.82 vs 0.12 in 2022)."
+            },
+            {
+              "name": "China rare earth threats during US trade war (near miss)",
+              "similarity": 0.686,
+              "year": 2019,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "no disruption (near miss)",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            }
+          ],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-12-26",
+            "https://example.invalid/events/CN/2023-11-09",
+            "https://example.invalid/events/CN/2023-11-08",
+            "https://example.invalid/events/CN/2023-09-10",
+            "https://example.invalid/events/CN/2023-09-06"
+          ],
+          "headline": "There is a 28% probability of export restriction affecting gallium (China) within 180 days."
+        },
+        {
+          "id": "CN:germanium:export_restriction",
+          "lat": 23.36,
+          "lon": 103.15,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · germanium",
+          "site": "Gejiu",
+          "country": "CN",
+          "material": "germanium",
+          "disruption_type": "export_restriction",
+          "probability": 0.2778,
+          "previous_probability": 0.2778,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 4,
+          "exposed_programs": [
+            "Patriot",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [
+            "China germanium"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 68%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            }
+          ],
+          "analogs": [
+            {
+              "name": "China graphite export controls",
+              "similarity": 0.743,
+              "year": 2023,
+              "country": "CN",
+              "material": "graphite",
+              "outcome": "export_restriction",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            },
+            {
+              "name": "Russia invasion shock to aerospace titanium",
+              "similarity": 0.685,
+              "year": 2022,
+              "country": "RU",
+              "material": "titanium",
+              "outcome": "export_restriction",
+              "difference": "Economic interdependence with the US/allies is substantially higher today (0.82 vs 0.12 in 2022)."
+            },
+            {
+              "name": "China rare earth threats during US trade war (near miss)",
+              "similarity": 0.682,
+              "year": 2019,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "no disruption (near miss)",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            }
+          ],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-12-26",
+            "https://example.invalid/events/CN/2023-11-09",
+            "https://example.invalid/events/CN/2023-11-08",
+            "https://example.invalid/events/CN/2023-09-11",
+            "https://example.invalid/events/CN/2023-09-09"
+          ],
+          "headline": "There is a 28% probability of export restriction affecting germanium (China) within 180 days."
+        },
+        {
+          "id": "CN:antimony:export_restriction",
+          "lat": 27.69,
+          "lon": 111.44,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · antimony",
+          "site": "Xikuangshan",
+          "country": "CN",
+          "material": "antimony",
+          "disruption_type": "export_restriction",
+          "probability": 0.0248,
+          "previous_probability": 0.0248,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 5,
+          "exposed_programs": [
+            "GMLRS"
+          ],
+          "exposed_suppliers": [
+            "China antimony"
+          ],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 56%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-12-26",
+            "https://example.invalid/events/CN/2023-11-09",
+            "https://example.invalid/events/CN/2023-11-08",
+            "https://example.invalid/events/CN/2023-08-27",
+            "https://example.invalid/events/CN/2023-01-30"
+          ],
+          "headline": "There is a 2% probability of export restriction affecting antimony (China) within 180 days."
+        },
+        {
+          "id": "UA:neon:factory_shutdown",
+          "lat": 46.48,
+          "lon": 30.73,
+          "kind": "forecast",
+          "label": "Ukraine",
+          "subtitle": "factory shutdown · neon",
+          "site": "Odesa",
+          "country": "UA",
+          "material": "neon",
+          "disruption_type": "factory_shutdown",
+          "probability": 0.0248,
+          "previous_probability": 0.0248,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 6,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "Ukraine semiconductor neon"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 50%."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Confirmed halt at a plant that is a single-source node",
+            "Grid, siege, or safety shutdown lasting more than 14 days"
+          ],
+          "would_decrease": [
+            "Plant restart confirmed by shippers and power-grid load"
+          ],
+          "sources": [
+            "https://example.invalid/events/UA/2023-10-30",
+            "https://example.invalid/events/UA/2023-07-17",
+            "https://example.invalid/events/UA/2023-06-06",
+            "https://example.invalid/events/UA/2023-05-01",
+            "https://example.invalid/events/UA/2023-04-10"
+          ],
+          "headline": "There is a 2% probability of factory shutdown affecting neon (Ukraine) within 180 days."
+        },
+        {
+          "id": "CD:cobalt:civil_unrest",
+          "lat": -10.72,
+          "lon": 25.47,
+          "kind": "forecast",
+          "label": "DR Congo",
+          "subtitle": "civil unrest · cobalt",
+          "site": "Kolwezi",
+          "country": "CD",
+          "material": "cobalt",
+          "disruption_type": "civil_unrest",
+          "probability": 0.0248,
+          "previous_probability": 0.0248,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 7,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "DRC cobalt node"
+          ],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 70%."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Security forces fire on protesters in a mining/port region",
+            "Opposition calls a general strike covering export infrastructure"
+          ],
+          "would_decrease": [
+            "Negotiated pause and reopening of mines/ports",
+            "Protest activity falling below the 90-day median"
+          ],
+          "sources": [
+            "https://example.invalid/events/CD/2023-12-01",
+            "https://example.invalid/events/CD/2023-10-14",
+            "https://example.invalid/events/CD/2023-10-09",
+            "https://example.invalid/events/CD/2023-10-04",
+            "https://example.invalid/events/CD/2023-03-23"
+          ],
+          "headline": "There is a 2% probability of civil unrest affecting cobalt (DR Congo) within 180 days."
+        },
+        {
+          "id": "IR:na:shipping_threat",
+          "lat": 26.57,
+          "lon": 56.25,
+          "kind": "forecast",
+          "label": "Iran",
+          "subtitle": "shipping threat · Strait of Hormuz",
+          "site": "Strait of Hormuz",
+          "country": "IR",
+          "material": null,
+          "disruption_type": "shipping_threat",
+          "probability": 0.0248,
+          "previous_probability": 0.0248,
+          "delta": 0.0,
+          "chokepoint": "Strait of Hormuz",
+          "rank": 8,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Successful attack on a commercial vessel in the chokepoint",
+            "Major carriers announce a full route diversion",
+            "War-risk premiums spike above a prior crisis peak"
+          ],
+          "would_decrease": [
+            "Sustained period without attacks and carriers returning to the route",
+            "Credible multinational escort corridor with high compliance"
+          ],
+          "sources": [
+            "https://example.invalid/events/IR/2023-12-23",
+            "https://example.invalid/events/IR/2023-12-17",
+            "https://example.invalid/events/IR/2023-07-26",
+            "https://example.invalid/events/IR/2023-07-11",
+            "https://example.invalid/events/IR/2023-05-24"
+          ],
+          "headline": "There is a 2% probability of shipping threat affecting Strait of Hormuz (Iran) within 180 days."
+        },
+        {
+          "id": "ID:nickel:export_restriction",
+          "lat": -2.22,
+          "lon": 121.59,
+          "kind": "forecast",
+          "label": "Indonesia",
+          "subtitle": "export restriction · nickel",
+          "site": "Morowali",
+          "country": "ID",
+          "material": "nickel",
+          "disruption_type": "export_restriction",
+          "probability": 0.0248,
+          "previous_probability": 0.0248,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 9,
+          "exposed_programs": [],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 48%."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/ID/2023-09-28",
+            "https://example.invalid/events/ID/2023-09-09",
+            "https://example.invalid/events/ID/2023-08-10",
+            "https://example.invalid/events/ID/2023-06-17",
+            "https://example.invalid/events/ID/2023-05-13"
+          ],
+          "headline": "There is a 2% probability of export restriction affecting nickel (Indonesia) within 180 days."
+        },
+        {
+          "id": "CN:rare_earths:export_restriction",
+          "lat": 40.66,
+          "lon": 109.84,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · rare earths",
+          "site": "Baotou",
+          "country": "CN",
+          "material": "rare_earths",
+          "disruption_type": "export_restriction",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 10,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 70%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2023-12-26",
+            "https://example.invalid/events/CN/2023-11-09",
+            "https://example.invalid/events/CN/2023-11-08",
+            "https://example.invalid/events/CN/2023-08-27",
+            "https://example.invalid/events/CN/2023-01-30"
+          ],
+          "headline": "There is a 0.5% probability of export restriction affecting rare earths (China) within 180 days."
+        },
+        {
+          "id": "RU:titanium:export_restriction",
+          "lat": 58.05,
+          "lon": 60.56,
+          "kind": "forecast",
+          "label": "Russia",
+          "subtitle": "export restriction · titanium",
+          "site": "Verkhnyaya Salda",
+          "country": "RU",
+          "material": "titanium",
+          "disruption_type": "export_restriction",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 11,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine"
+          ],
+          "exposed_suppliers": [
+            "VSMPO-AVISMA"
+          ],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/RU/2023-11-14",
+            "https://example.invalid/events/RU/2023-08-26",
+            "https://example.invalid/events/RU/2023-07-29",
+            "https://example.invalid/events/RU/2023-07-14",
+            "https://example.invalid/events/RU/2023-07-07"
+          ],
+          "headline": "There is a 0.5% probability of export restriction affecting titanium (Russia) within 180 days."
+        },
+        {
+          "id": "RU:palladium:sanctions",
+          "lat": 69.36,
+          "lon": 88.19,
+          "kind": "forecast",
+          "label": "Russia",
+          "subtitle": "sanctions · palladium",
+          "site": "Norilsk",
+          "country": "RU",
+          "material": "palladium",
+          "disruption_type": "sanctions",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 12,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "VSMPO-AVISMA"
+          ],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 40%."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Coordinated G7/allied designation of the producer or bank",
+            "Secondary-sanctions warning to freight and insurers"
+          ],
+          "would_decrease": [
+            "Carve-outs for the material or wind-down licenses expanded",
+            "De-escalatory diplomacy that historically preceded relief"
+          ],
+          "sources": [
+            "https://example.invalid/events/RU/2023-11-14",
+            "https://example.invalid/events/RU/2023-08-26",
+            "https://example.invalid/events/RU/2023-07-29",
+            "https://example.invalid/events/RU/2023-07-14",
+            "https://example.invalid/events/RU/2023-07-07"
+          ],
+          "headline": "There is a 0.5% probability of sanctions affecting palladium (Russia) within 180 days."
+        },
+        {
+          "id": "TW:semiconductors:conflict_escalation",
+          "lat": 24.81,
+          "lon": 120.97,
+          "kind": "forecast",
+          "label": "Taiwan",
+          "subtitle": "conflict escalation · semiconductors",
+          "site": "Hsinchu",
+          "country": "TW",
+          "material": "semiconductors",
+          "disruption_type": "conflict_escalation",
+          "probability": 0.005,
+          "previous_probability": 0.0248,
+          "delta": -0.0198,
+          "chokepoint": null,
+          "rank": 13,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [
+            "TSMC"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 60%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Cross-border fires or blockade of a producing region",
+            "Mobilization orders or no-fly/maritime exclusion zone"
+          ],
+          "would_decrease": [
+            "Ceasefire that restores commercial access",
+            "Force posture returning to baseline"
+          ],
+          "sources": [
+            "https://example.invalid/events/TW/2023-12-21",
+            "https://example.invalid/events/TW/2023-10-26",
+            "https://example.invalid/events/TW/2023-09-11",
+            "https://example.invalid/events/TW/2023-02-18",
+            "https://example.invalid/events/TW/2023-02-05"
+          ],
+          "headline": "There is a 0.5% probability of conflict escalation affecting semiconductors (Taiwan) within 180 days, down from 2%."
+        },
+        {
+          "id": "EG:na:shipping_threat",
+          "lat": 30.45,
+          "lon": 32.35,
+          "kind": "forecast",
+          "label": "Egypt",
+          "subtitle": "shipping threat · Suez Canal",
+          "site": "Suez Canal",
+          "country": "EG",
+          "material": null,
+          "disruption_type": "shipping_threat",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": "Suez Canal",
+          "rank": 14,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Successful attack on a commercial vessel in the chokepoint",
+            "Major carriers announce a full route diversion",
+            "War-risk premiums spike above a prior crisis peak"
+          ],
+          "would_decrease": [
+            "Sustained period without attacks and carriers returning to the route",
+            "Credible multinational escort corridor with high compliance"
+          ],
+          "sources": [
+            "https://example.invalid/events/EG/2023-12-22",
+            "https://example.invalid/events/EG/2023-11-15",
+            "https://example.invalid/events/EG/2023-10-22",
+            "https://example.invalid/events/EG/2023-05-31",
+            "https://example.invalid/events/EG/2023-05-19"
+          ],
+          "headline": "There is a 0.5% probability of shipping threat affecting Suez Canal (Egypt) within 180 days."
+        },
+        {
+          "id": "MM:rare_earths:civil_unrest",
+          "lat": 25.87,
+          "lon": 98.13,
+          "kind": "forecast",
+          "label": "Myanmar",
+          "subtitle": "civil unrest · rare earths",
+          "site": "Kachin",
+          "country": "MM",
+          "material": "rare_earths",
+          "disruption_type": "civil_unrest",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 15,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Security forces fire on protesters in a mining/port region",
+            "Opposition calls a general strike covering export infrastructure"
+          ],
+          "would_decrease": [
+            "Negotiated pause and reopening of mines/ports",
+            "Protest activity falling below the 90-day median"
+          ],
+          "sources": [
+            "https://example.invalid/events/MM/2023-11-28",
+            "https://example.invalid/events/MM/2023-10-21",
+            "https://example.invalid/events/MM/2023-10-05",
+            "https://example.invalid/events/MM/2023-09-07",
+            "https://example.invalid/events/MM/2023-08-07"
+          ],
+          "headline": "There is a 0.5% probability of civil unrest affecting rare earths (Myanmar) within 180 days."
+        }
+      ],
+      "suppliers": [
+        {
+          "id": "sup:mp_materials",
+          "lat": 35.48,
+          "lon": -115.53,
+          "kind": "supplier",
+          "label": "MP Materials",
+          "subtitle": "rare earths",
+          "site": "Mountain Pass",
+          "country": "US",
+          "material": "rare_earths",
+          "disruption_type": null,
+          "probability": null,
+          "previous_probability": null,
+          "delta": null,
+          "chokepoint": null,
+          "rank": 0,
+          "exposed_programs": [
+            "F-35",
+            "PATRIOT"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [],
+          "analogs": [],
+          "would_increase": [],
+          "would_decrease": [],
+          "sources": [],
+          "headline": ""
+        },
+        {
+          "id": "sup:lynas",
+          "lat": -28.86,
+          "lon": 122.42,
+          "kind": "supplier",
+          "label": "Lynas",
+          "subtitle": "rare earths",
+          "site": "Mount Weld",
+          "country": "AU",
+          "material": "rare_earths",
+          "disruption_type": null,
+          "probability": null,
+          "previous_probability": null,
+          "delta": null,
+          "chokepoint": null,
+          "rank": 0,
+          "exposed_programs": [
+            "F-35"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [],
+          "analogs": [],
+          "would_increase": [],
+          "would_decrease": [],
+          "sources": [],
+          "headline": ""
+        }
+      ],
+      "pulse": [
+        {
+          "id": "ev-a0c533475cf5cff7",
+          "lat": 40.60333333333333,
+          "lon": 115.75333333333333,
+          "timestamp": "2023-11-29T06:15:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "graphite",
+          "tone": -5.053944367795157,
+          "location": null
+        },
+        {
+          "id": "ev-7967b0840e8545f6",
+          "lat": 14.586470588235294,
+          "lon": 42.38058823529412,
+          "timestamp": "2023-11-29T06:28:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "threatens",
+          "material": null,
+          "tone": -5.740611834478472,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-1dc049bfb48a3f87",
+          "lat": 14.451960784313725,
+          "lon": 42.81980392156863,
+          "timestamp": "2023-11-29T09:06:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -5.668974909117959,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-db3f95ed2b5a0294",
+          "lat": 14.207647058823529,
+          "lon": 42.82529411764706,
+          "timestamp": "2023-11-29T15:39:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -8.377377961263331,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-eddede2903dea42d",
+          "lat": 40.70333333333333,
+          "lon": 115.89333333333333,
+          "timestamp": "2023-11-30T02:58:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "fights",
+          "material": "graphite",
+          "tone": -7.924049157612519,
+          "location": null
+        },
+        {
+          "id": "ev-3a065065fd5f968d",
+          "lat": 14.72372549019608,
+          "lon": 42.778627450980395,
+          "timestamp": "2023-11-30T05:38:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -5.134214238509278,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-63271198ecb6c7fa",
+          "lat": 39.556666666666665,
+          "lon": 115.94,
+          "timestamp": "2023-11-30T14:07:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "graphite",
+          "tone": -6.377036729305658,
+          "location": null
+        },
+        {
+          "id": "ev-34c5bddc6648bc3e",
+          "lat": 14.160980392156862,
+          "lon": 42.15274509803922,
+          "timestamp": "2023-11-30T14:15:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -7.17098565909515,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-bc5472d2c83fde87",
+          "lat": 14.440980392156863,
+          "lon": 42.27901960784314,
+          "timestamp": "2023-11-30T18:26:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -5.578019211410895,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-de0c239bda54afcb",
+          "lat": 39.763333333333335,
+          "lon": 117.14666666666666,
+          "timestamp": "2023-11-30T18:43:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "graphite",
+          "tone": -6.250113450349169,
+          "location": null
+        },
+        {
+          "id": "ev-eb743496d5cf07da",
+          "lat": 39.83,
+          "lon": 117.10666666666667,
+          "timestamp": "2023-11-30T19:53:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "imposes embargo or sanctions",
+          "material": "graphite",
+          "tone": -8.343945618496488,
+          "location": null
+        },
+        {
+          "id": "ev-24de0c8beb1f5717",
+          "lat": 14.622156862745099,
+          "lon": 42.259803921568626,
+          "timestamp": "2023-11-30T22:18:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "fights",
+          "material": null,
+          "tone": -9.549144815304189,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-9471b6652a87ccb8",
+          "lat": 39.29666666666667,
+          "lon": 116.00666666666666,
+          "timestamp": "2023-12-01T01:56:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "exhibits force",
+          "material": "graphite",
+          "tone": -6.741916992930975,
+          "location": null
+        },
+        {
+          "id": "ev-b5a49ff6e867ea19",
+          "lat": 40.39666666666667,
+          "lon": 116.17999999999999,
+          "timestamp": "2023-12-01T07:54:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "reduces relations",
+          "material": "graphite",
+          "tone": -4.944873528647172,
+          "location": null
+        },
+        {
+          "id": "ev-a6f199ffceca19e9",
+          "lat": 14.839019607843138,
+          "lon": 42.82254901960784,
+          "timestamp": "2023-12-01T15:20:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -4.2830937264232665,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-ea06719f7c44b1c0",
+          "lat": -4.430000000000001,
+          "lon": 14.886666666666667,
+          "timestamp": "2023-12-01T16:30:00",
+          "actor_country": "CD",
+          "actor_name": "DR Congo",
+          "action": "disapproves",
+          "material": null,
+          "tone": -2.088647321049315,
+          "location": null
+        },
+        {
+          "id": "ev-d37148aa88c0ecc8",
+          "lat": 39.39666666666667,
+          "lon": 115.57333333333332,
+          "timestamp": "2023-12-01T19:38:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "imposes embargo or sanctions",
+          "material": "graphite",
+          "tone": -7.355116297230385,
+          "location": null
+        },
+        {
+          "id": "ev-dd8e3d625011fd46",
+          "lat": 40.303333333333335,
+          "lon": 116.79333333333334,
+          "timestamp": "2023-12-02T20:08:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "graphite",
+          "tone": -1.4151067891709195,
+          "location": null
+        },
+        {
+          "id": "ev-d3ebc251c665fe3d",
+          "lat": 39.44,
+          "lon": 33.71,
+          "timestamp": "2023-12-03T08:02:00",
+          "actor_country": "TR",
+          "actor_name": "Turkey",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 4.28151956601282,
+          "location": null
+        },
+        {
+          "id": "ev-67a02ba8cd84fe5a",
+          "lat": 14.355882352941176,
+          "lon": 42.15549019607843,
+          "timestamp": "2023-12-03T08:48:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -6.314143687002144,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-a61d8929b00393ad",
+          "lat": 14.322941176470588,
+          "lon": 42.15274509803922,
+          "timestamp": "2023-12-03T14:11:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -6.468298226416657,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-10e12f95a7986b62",
+          "lat": 14.292745098039216,
+          "lon": 42.53156862745098,
+          "timestamp": "2023-12-03T21:53:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "imposes embargo or sanctions",
+          "material": null,
+          "tone": -8.179558684431477,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-0a55c4acc226f33d",
+          "lat": 14.155490196078432,
+          "lon": 42.2021568627451,
+          "timestamp": "2023-12-04T14:26:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "fights",
+          "material": null,
+          "tone": -11.853535716233011,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-320e95a37437760b",
+          "lat": 14.515098039215687,
+          "lon": 42.298235294117646,
+          "timestamp": "2023-12-05T09:10:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -6.695963931405479,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-7be9523aac56c432",
+          "lat": 14.476666666666667,
+          "lon": 42.74294117647059,
+          "timestamp": "2023-12-05T16:01:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -6.399594660616632,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-6fd42ca455c6694a",
+          "lat": 14.630392156862746,
+          "lon": 42.81980392156863,
+          "timestamp": "2023-12-06T12:32:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -5.688421034672814,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-3cd0947aeabd6f6c",
+          "lat": 14.61392156862745,
+          "lon": 42.196666666666665,
+          "timestamp": "2023-12-07T00:28:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "imposes embargo or sanctions",
+          "material": null,
+          "tone": -8.041306533255181,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-9a74d3158dbd7c03",
+          "lat": 14.15,
+          "lon": 42.60568627450981,
+          "timestamp": "2023-12-07T01:34:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "threatens",
+          "material": null,
+          "tone": -6.825661794233085,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-2201e0bac7b69118",
+          "lat": 14.83078431372549,
+          "lon": 42.29,
+          "timestamp": "2023-12-07T06:25:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "threatens",
+          "material": null,
+          "tone": -7.378358413236154,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-9b0994186ee6c4c0",
+          "lat": 14.586470588235294,
+          "lon": 42.40803921568627,
+          "timestamp": "2023-12-07T17:13:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -5.826191887590725,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-6cd94ffec1633afb",
+          "lat": 14.699019607843137,
+          "lon": 42.46843137254902,
+          "timestamp": "2023-12-07T19:25:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "threatens",
+          "material": null,
+          "tone": -6.822964448278987,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-fa3e168e2ba4f052",
+          "lat": 14.539803921568627,
+          "lon": 42.18019607843137,
+          "timestamp": "2023-12-08T08:50:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -8.977932098644086,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-d3157727940ddd51",
+          "lat": 14.388823529411765,
+          "lon": 42.64137254901961,
+          "timestamp": "2023-12-09T04:11:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "threatens",
+          "material": null,
+          "tone": -7.900123563474173,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-5fcdf0e1d15223a3",
+          "lat": -25.193333333333335,
+          "lon": 28.44,
+          "timestamp": "2023-12-09T07:08:00",
+          "actor_country": "ZA",
+          "actor_name": "South Africa",
+          "action": "consults",
+          "material": "semiconductors",
+          "tone": -0.3324128315571384,
+          "location": null
+        },
+        {
+          "id": "ev-06081b8405463241",
+          "lat": 14.537058823529412,
+          "lon": 42.487647058823526,
+          "timestamp": "2023-12-09T13:58:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -6.300000443970812,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-af4c041d071b1b5b",
+          "lat": 14.248823529411764,
+          "lon": 42.48490196078431,
+          "timestamp": "2023-12-09T21:58:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -6.259255213004718,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-d53443ab5d741da4",
+          "lat": 14.196666666666667,
+          "lon": 42.18019607843137,
+          "timestamp": "2023-12-10T03:32:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -5.622671919283098,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-3fadc45dd5eb4247",
+          "lat": 14.419019607843138,
+          "lon": 42.44647058823529,
+          "timestamp": "2023-12-10T04:34:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "threatens",
+          "material": null,
+          "tone": -7.123455826871111,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-6bb6cc3b2c9bd721",
+          "lat": 14.26529411764706,
+          "lon": 42.6221568627451,
+          "timestamp": "2023-12-10T11:42:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -4.091297721213875,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-2d7497875d4e112c",
+          "lat": 14.462941176470588,
+          "lon": 42.6221568627451,
+          "timestamp": "2023-12-10T14:42:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -3.533015206952476,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-1ebaac9712457729",
+          "lat": 15.393333333333333,
+          "lon": 45.0,
+          "timestamp": "2023-12-11T06:16:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "consults",
+          "material": null,
+          "tone": -0.5756295941051006,
+          "location": null
+        },
+        {
+          "id": "ev-6dda04c5d595a52b",
+          "lat": 40.663333333333334,
+          "lon": 116.37333333333333,
+          "timestamp": "2023-12-11T15:30:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "graphite",
+          "tone": -2.2589322213842493,
+          "location": null
+        },
+        {
+          "id": "ev-0183ced63009f04e",
+          "lat": 14.300980392156863,
+          "lon": 42.259803921568626,
+          "timestamp": "2023-12-11T18:25:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -7.744608652233581,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-156ad955292cacc1",
+          "lat": 14.336666666666666,
+          "lon": 42.62764705882353,
+          "timestamp": "2023-12-11T19:57:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -6.269518768726702,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-3c8f006f4ebc9aeb",
+          "lat": 14.567254901960784,
+          "lon": 42.58372549019608,
+          "timestamp": "2023-12-11T21:58:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "threatens",
+          "material": null,
+          "tone": -5.8176283993831115,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-e93bc8845cac85db",
+          "lat": 14.756666666666666,
+          "lon": 42.652352941176474,
+          "timestamp": "2023-12-11T22:19:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -8.156582718721118,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-b4d1ffd671970bc6",
+          "lat": 14.311960784313726,
+          "lon": 42.73470588235294,
+          "timestamp": "2023-12-12T14:17:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -6.472844288428785,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-6cb7e12e59922948",
+          "lat": 14.781372549019608,
+          "lon": 42.41078431372549,
+          "timestamp": "2023-12-12T21:44:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "fights",
+          "material": null,
+          "tone": -10.607487954810239,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-25f0ec8e382ed5b8",
+          "lat": 14.325686274509804,
+          "lon": 42.58098039215686,
+          "timestamp": "2023-12-12T22:06:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -7.257123317802437,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-b57d9aac0c4ff7f6",
+          "lat": 14.679803921568627,
+          "lon": 42.814313725490194,
+          "timestamp": "2023-12-13T06:17:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -7.5858539975146915,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-af4b4afc0c3bfca3",
+          "lat": 14.38607843137255,
+          "lon": 42.677058823529414,
+          "timestamp": "2023-12-13T11:51:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "fights",
+          "material": null,
+          "tone": -9.288069147127027,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-580e709f2b84f45b",
+          "lat": 14.16921568627451,
+          "lon": 42.688039215686274,
+          "timestamp": "2023-12-13T16:41:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -5.432888909641321,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-146caef1e8ea3eef",
+          "lat": 15.346666666666666,
+          "lon": 44.25333333333333,
+          "timestamp": "2023-12-13T19:30:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "rejects",
+          "material": null,
+          "tone": -4.616042522579268,
+          "location": null
+        },
+        {
+          "id": "ev-2ae4486fcdcdaba5",
+          "lat": 14.350392156862744,
+          "lon": 42.60568627450981,
+          "timestamp": "2023-12-13T20:35:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "threatens",
+          "material": null,
+          "tone": -6.079155459875753,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-a9f05c30025ea449",
+          "lat": 14.235098039215686,
+          "lon": 42.19392156862745,
+          "timestamp": "2023-12-13T21:26:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "fights",
+          "material": null,
+          "tone": -11.460452440035931,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-508f78e6f4087c7c",
+          "lat": 14.759411764705883,
+          "lon": 42.33941176470588,
+          "timestamp": "2023-12-14T03:32:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "fights",
+          "material": null,
+          "tone": -9.792216564636984,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-8a958ec754e76473",
+          "lat": 14.726470588235294,
+          "lon": 42.42725490196079,
+          "timestamp": "2023-12-14T06:16:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "exhibits force",
+          "material": null,
+          "tone": -8.00879323874516,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-75d4503552fa5577",
+          "lat": 14.517843137254902,
+          "lon": 42.300980392156866,
+          "timestamp": "2023-12-14T16:50:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "imposes embargo or sanctions",
+          "material": null,
+          "tone": -9.672350921779767,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-795c108abeb2260f",
+          "lat": 14.580980392156862,
+          "lon": 42.235098039215686,
+          "timestamp": "2023-12-15T08:27:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "fights",
+          "material": null,
+          "tone": -9.423707999011935,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-2613c8a92ce611af",
+          "lat": 14.83078431372549,
+          "lon": 42.25156862745098,
+          "timestamp": "2023-12-15T12:36:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "reduces relations",
+          "material": null,
+          "tone": -6.781483484576118,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-ef754e3f7566954c",
+          "lat": 14.534313725490197,
+          "lon": 42.322941176470586,
+          "timestamp": "2023-12-15T14:44:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "threatens",
+          "material": null,
+          "tone": -4.813761098116074,
+          "location": "Red Sea"
+        },
+        {
+          "id": "ev-e3386d989b9b03ac",
+          "lat": 35.0,
+          "lon": 51.56666666666667,
+          "timestamp": "2023-12-17T02:01:00",
+          "actor_country": "IR",
+          "actor_name": "Iran",
+          "action": "disapproves",
+          "material": null,
+          "tone": -3.101880154886506,
+          "location": null
+        },
+        {
+          "id": "ev-0180c2dbbd83def0",
+          "lat": -4.303333333333334,
+          "lon": 14.713333333333335,
+          "timestamp": "2023-12-19T11:40:00",
+          "actor_country": "CD",
+          "actor_name": "DR Congo",
+          "action": "disapproves",
+          "material": "tungsten",
+          "tone": -0.33296083296155077,
+          "location": null
+        },
+        {
+          "id": "ev-3576e223896e0863",
+          "lat": 39.46333333333333,
+          "lon": 117.25999999999999,
+          "timestamp": "2023-12-19T21:36:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "graphite",
+          "tone": -1.7506735212678541,
+          "location": null
+        },
+        {
+          "id": "ev-c5ba17b34126d569",
+          "lat": 15.953333333333333,
+          "lon": 43.519999999999996,
+          "timestamp": "2023-12-20T07:18:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "disapproves",
+          "material": null,
+          "tone": -2.8500444219779144,
+          "location": null
+        },
+        {
+          "id": "ev-a0498aa40436bffb",
+          "lat": 24.486666666666668,
+          "lon": 121.67333333333333,
+          "timestamp": "2023-12-21T04:00:00",
+          "actor_country": "TW",
+          "actor_name": "Taiwan",
+          "action": "states",
+          "material": null,
+          "tone": 0.010649725700353626,
+          "location": null
+        },
+        {
+          "id": "ev-5c1cbdd205a44ca0",
+          "lat": 29.94333333333333,
+          "lon": 31.82333333333333,
+          "timestamp": "2023-12-22T06:45:00",
+          "actor_country": "EG",
+          "actor_name": "Egypt",
+          "action": "rejects",
+          "material": null,
+          "tone": -4.928959530219261,
+          "location": null
+        },
+        {
+          "id": "ev-ef74bd8d62747569",
+          "lat": 15.166666666666666,
+          "lon": 44.96666666666666,
+          "timestamp": "2023-12-22T10:58:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "disapproves",
+          "material": null,
+          "tone": -1.8503539173948944,
+          "location": null
+        },
+        {
+          "id": "ev-17fba967add97141",
+          "lat": 40.71,
+          "lon": 115.63333333333333,
+          "timestamp": "2023-12-22T11:29:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "graphite",
+          "tone": -0.6481540618610089,
+          "location": null
+        },
+        {
+          "id": "ev-b4f5733414b2f7aa",
+          "lat": 35.22,
+          "lon": 51.78666666666667,
+          "timestamp": "2023-12-23T19:49:00",
+          "actor_country": "IR",
+          "actor_name": "Iran",
+          "action": "disapproves",
+          "material": null,
+          "tone": -1.149519738012881,
+          "location": null
+        },
+        {
+          "id": "ev-df94dd717ceb8657",
+          "lat": 15.54,
+          "lon": 44.96666666666666,
+          "timestamp": "2023-12-24T07:09:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "disapproves",
+          "material": null,
+          "tone": 0.19221318502119678,
+          "location": null
+        },
+        {
+          "id": "ev-a0d1391593afbb19",
+          "lat": 40.06333333333333,
+          "lon": 116.70666666666666,
+          "timestamp": "2023-12-25T20:55:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "graphite",
+          "tone": -2.4838581876075727,
+          "location": null
+        },
+        {
+          "id": "ev-4e4892c30418d6ff",
+          "lat": 39.51,
+          "lon": 115.72,
+          "timestamp": "2023-12-26T01:19:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": null,
+          "tone": -4.448334930416168,
+          "location": null
+        },
+        {
+          "id": "ev-281d8a0f3342eb22",
+          "lat": 15.293333333333333,
+          "lon": 44.79333333333333,
+          "timestamp": "2023-12-26T15:12:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "disapproves",
+          "material": null,
+          "tone": -2.4874809498715584,
+          "location": null
+        },
+        {
+          "id": "ev-98490fa303dd6cfe",
+          "lat": 40.05,
+          "lon": 117.18666666666667,
+          "timestamp": "2023-12-27T17:02:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "graphite",
+          "tone": -3.3943307387601873,
+          "location": null
+        },
+        {
+          "id": "ev-1c09ebce9f76d301",
+          "lat": 15.52,
+          "lon": 44.96,
+          "timestamp": "2023-12-28T00:54:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "disapproves",
+          "material": null,
+          "tone": -2.6654842988994596,
+          "location": null
+        },
+        {
+          "id": "ev-8198880ce7f4a016",
+          "lat": 39.39666666666667,
+          "lon": 115.90666666666667,
+          "timestamp": "2023-12-28T10:09:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "graphite",
+          "tone": 0.13367393042742792,
+          "location": null
+        },
+        {
+          "id": "ev-62a10b491f446468",
+          "lat": 15.659999999999998,
+          "lon": 44.19333333333333,
+          "timestamp": "2023-12-29T18:49:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "disapproves",
+          "material": null,
+          "tone": -3.617331177956711,
+          "location": null
+        },
+        {
+          "id": "ev-04ecb6dce1219e25",
+          "lat": 15.693333333333333,
+          "lon": 44.26,
+          "timestamp": "2023-12-31T14:26:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "disapproves",
+          "material": null,
+          "tone": 0.0484993143116923,
+          "location": null
+        },
+        {
+          "id": "ev-3b52a95273918042",
+          "lat": 40.32333333333333,
+          "lon": 115.76666666666667,
+          "timestamp": "2023-12-31T14:28:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "graphite",
+          "tone": -1.7577198940919145,
+          "location": null
+        }
+      ],
+      "notes": [
+        "Probabilities are calibrated ensemble outputs, not declarations that an event will happen.",
+        "Historical similarity is one input. Structural differences are called out explicitly.",
+        "Sample-world backtests prove the pipeline. Live GDELT ingest improves coverage, not automatic accuracy."
+      ]
+    },
+    "2024-06-01": {
+      "as_of": "2024-06-01",
+      "horizon_days": 180,
+      "portfolio": "demo_defense",
+      "programs": [
+        "F-35 Lightning II",
+        "Virginia-class submarine",
+        "Patriot",
+        "GMLRS",
+        "Protected SATCOM"
+      ],
+      "pins": [
+        {
+          "id": "CN:antimony:export_restriction",
+          "lat": 27.69,
+          "lon": 111.44,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · antimony",
+          "site": "Xikuangshan",
+          "country": "CN",
+          "material": "antimony",
+          "disruption_type": "export_restriction",
+          "probability": 0.2076,
+          "previous_probability": 0.0167,
+          "delta": 0.191,
+          "chokepoint": null,
+          "rank": 1,
+          "exposed_programs": [
+            "GMLRS"
+          ],
+          "exposed_suppliers": [
+            "China antimony"
+          ],
+          "drivers": [
+            {
+              "indicator": "threat rhetoric (90d)",
+              "direction": "up",
+              "detail": "3 threat-class events involving China."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 56%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            }
+          ],
+          "analogs": [
+            {
+              "name": "China–Japan rare earth export cutoff",
+              "similarity": 0.728,
+              "year": 2010,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "export_restriction",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            },
+            {
+              "name": "China rare earth threats during US trade war (near miss)",
+              "similarity": 0.727,
+              "year": 2019,
+              "country": "CN",
+              "material": "rare_earths",
+              "outcome": "no disruption (near miss)",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            },
+            {
+              "name": "China graphite export controls",
+              "similarity": 0.722,
+              "year": 2023,
+              "country": "CN",
+              "material": "graphite",
+              "outcome": "export_restriction",
+              "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+            }
+          ],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2024-06-01",
+            "https://example.invalid/events/CN/2024-05-29",
+            "https://example.invalid/events/CN/2024-05-26",
+            "https://example.invalid/events/CN/2024-05-25",
+            "https://example.invalid/events/CN/2024-05-21"
+          ],
+          "headline": "There is a 21% probability of export restriction affecting antimony (China) within 180 days, up from 2%."
+        },
+        {
+          "id": "CD:cobalt:civil_unrest",
+          "lat": -10.72,
+          "lon": 25.47,
+          "kind": "forecast",
+          "label": "DR Congo",
+          "subtitle": "civil unrest · cobalt",
+          "site": "Kolwezi",
+          "country": "CD",
+          "material": "cobalt",
+          "disruption_type": "civil_unrest",
+          "probability": 0.2,
+          "previous_probability": 0.0167,
+          "delta": 0.1833,
+          "chokepoint": null,
+          "rank": 2,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "DRC cobalt node"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 70%."
+            }
+          ],
+          "analogs": [
+            {
+              "name": "Myanmar coup and rare earth disruption",
+              "similarity": 0.662,
+              "year": 2021,
+              "country": "MM",
+              "material": "rare_earths",
+              "outcome": "civil_unrest",
+              "difference": "Event sequence resembles Myanmar, but the actor today is DR Congo."
+            }
+          ],
+          "would_increase": [
+            "Security forces fire on protesters in a mining/port region",
+            "Opposition calls a general strike covering export infrastructure"
+          ],
+          "would_decrease": [
+            "Negotiated pause and reopening of mines/ports",
+            "Protest activity falling below the 90-day median"
+          ],
+          "sources": [
+            "https://example.invalid/events/CD/2024-05-16",
+            "https://example.invalid/events/CD/2024-04-13",
+            "https://example.invalid/events/CD/2024-04-01",
+            "https://example.invalid/events/CD/2024-02-09",
+            "https://example.invalid/events/CD/2023-12-01"
+          ],
+          "headline": "There is a 20% probability of civil unrest affecting cobalt (DR Congo) within 180 days, up from 2%."
+        },
+        {
+          "id": "CN:graphite:export_restriction",
+          "lat": 47.58,
+          "lon": 130.83,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · graphite",
+          "site": "Luobei",
+          "country": "CN",
+          "material": "graphite",
+          "disruption_type": "export_restriction",
+          "probability": 0.0167,
+          "previous_probability": 0.0167,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 3,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "China spherical graphite"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 65%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2024-01-17",
+            "https://example.invalid/events/CN/2024-01-11",
+            "https://example.invalid/events/CN/2024-01-02",
+            "https://example.invalid/events/CN/2023-12-31",
+            "https://example.invalid/events/CN/2023-12-28"
+          ],
+          "headline": "There is a 2% probability of export restriction affecting graphite (China) within 180 days."
+        },
+        {
+          "id": "TW:semiconductors:conflict_escalation",
+          "lat": 24.81,
+          "lon": 120.97,
+          "kind": "forecast",
+          "label": "Taiwan",
+          "subtitle": "conflict escalation · semiconductors",
+          "site": "Hsinchu",
+          "country": "TW",
+          "material": "semiconductors",
+          "disruption_type": "conflict_escalation",
+          "probability": 0.0167,
+          "previous_probability": 0.0167,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 4,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [
+            "TSMC"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 60%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Cross-border fires or blockade of a producing region",
+            "Mobilization orders or no-fly/maritime exclusion zone"
+          ],
+          "would_decrease": [
+            "Ceasefire that restores commercial access",
+            "Force posture returning to baseline"
+          ],
+          "sources": [
+            "https://example.invalid/events/TW/2024-02-28",
+            "https://example.invalid/events/TW/2024-02-26",
+            "https://example.invalid/events/TW/2024-02-20",
+            "https://example.invalid/events/TW/2024-02-19",
+            "https://example.invalid/events/TW/2024-01-22"
+          ],
+          "headline": "There is a 2% probability of conflict escalation affecting semiconductors (Taiwan) within 180 days."
+        },
+        {
+          "id": "YE:na:shipping_threat",
+          "lat": 12.58,
+          "lon": 43.33,
+          "kind": "forecast",
+          "label": "Yemen",
+          "subtitle": "shipping threat · Bab el-Mandeb / Red Sea",
+          "site": "Bab el-Mandeb",
+          "country": "YE",
+          "material": null,
+          "disruption_type": "shipping_threat",
+          "probability": 0.0167,
+          "previous_probability": 0.2,
+          "delta": -0.1833,
+          "chokepoint": "Bab el-Mandeb / Red Sea",
+          "rank": 5,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "base rate",
+              "direction": "up",
+              "detail": "No single indicator dominates; probability is mostly the historical rate plus analog tilt."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Successful attack on a commercial vessel in the chokepoint",
+            "Major carriers announce a full route diversion",
+            "War-risk premiums spike above a prior crisis peak"
+          ],
+          "would_decrease": [
+            "Sustained period without attacks and carriers returning to the route",
+            "Credible multinational escort corridor with high compliance"
+          ],
+          "sources": [
+            "https://example.invalid/events/YE/2024-05-11",
+            "https://example.invalid/events/YE/2024-04-03",
+            "https://example.invalid/events/YE/2024-03-08",
+            "https://example.invalid/events/YE/2024-01-25",
+            "https://example.invalid/events/YE/2024-01-22"
+          ],
+          "headline": "There is a 2% probability of shipping threat affecting Bab el-Mandeb / Red Sea (Yemen) within 180 days, down from 20%."
+        },
+        {
+          "id": "IR:na:shipping_threat",
+          "lat": 26.57,
+          "lon": 56.25,
+          "kind": "forecast",
+          "label": "Iran",
+          "subtitle": "shipping threat · Strait of Hormuz",
+          "site": "Strait of Hormuz",
+          "country": "IR",
+          "material": null,
+          "disruption_type": "shipping_threat",
+          "probability": 0.0167,
+          "previous_probability": 0.0167,
+          "delta": 0.0,
+          "chokepoint": "Strait of Hormuz",
+          "rank": 6,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "base rate",
+              "direction": "up",
+              "detail": "No single indicator dominates; probability is mostly the historical rate plus analog tilt."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Successful attack on a commercial vessel in the chokepoint",
+            "Major carriers announce a full route diversion",
+            "War-risk premiums spike above a prior crisis peak"
+          ],
+          "would_decrease": [
+            "Sustained period without attacks and carriers returning to the route",
+            "Credible multinational escort corridor with high compliance"
+          ],
+          "sources": [
+            "https://example.invalid/events/IR/2024-04-09",
+            "https://example.invalid/events/IR/2024-03-12",
+            "https://example.invalid/events/IR/2023-12-23",
+            "https://example.invalid/events/IR/2023-12-17",
+            "https://example.invalid/events/IR/2023-07-26"
+          ],
+          "headline": "There is a 2% probability of shipping threat affecting Strait of Hormuz (Iran) within 180 days."
+        },
+        {
+          "id": "ID:nickel:export_restriction",
+          "lat": -2.22,
+          "lon": 121.59,
+          "kind": "forecast",
+          "label": "Indonesia",
+          "subtitle": "export restriction · nickel",
+          "site": "Morowali",
+          "country": "ID",
+          "material": "nickel",
+          "disruption_type": "export_restriction",
+          "probability": 0.0167,
+          "previous_probability": 0.0167,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 7,
+          "exposed_programs": [],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 48%."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/ID/2024-04-30",
+            "https://example.invalid/events/ID/2024-03-24",
+            "https://example.invalid/events/ID/2023-09-28",
+            "https://example.invalid/events/ID/2023-09-09",
+            "https://example.invalid/events/ID/2023-08-10"
+          ],
+          "headline": "There is a 2% probability of export restriction affecting nickel (Indonesia) within 180 days."
+        },
+        {
+          "id": "CN:rare_earths:export_restriction",
+          "lat": 40.66,
+          "lon": 109.84,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · rare earths",
+          "site": "Baotou",
+          "country": "CN",
+          "material": "rare_earths",
+          "disruption_type": "export_restriction",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 8,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 70%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2024-01-17",
+            "https://example.invalid/events/CN/2023-12-26",
+            "https://example.invalid/events/CN/2023-11-09",
+            "https://example.invalid/events/CN/2023-11-08",
+            "https://example.invalid/events/CN/2023-08-27"
+          ],
+          "headline": "There is a 0.5% probability of export restriction affecting rare earths (China) within 180 days."
+        },
+        {
+          "id": "CN:gallium:export_restriction",
+          "lat": 24.69,
+          "lon": 108.09,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · gallium",
+          "site": "Hechi",
+          "country": "CN",
+          "material": "gallium",
+          "disruption_type": "export_restriction",
+          "probability": 0.005,
+          "previous_probability": 0.0167,
+          "delta": -0.0117,
+          "chokepoint": null,
+          "rank": 9,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [
+            "China gallium metal"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 98%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2024-01-17",
+            "https://example.invalid/events/CN/2023-12-26",
+            "https://example.invalid/events/CN/2023-11-09",
+            "https://example.invalid/events/CN/2023-11-08",
+            "https://example.invalid/events/CN/2023-09-10"
+          ],
+          "headline": "There is a 0.5% probability of export restriction affecting gallium (China) within 180 days, down from 2%."
+        },
+        {
+          "id": "CN:germanium:export_restriction",
+          "lat": 23.36,
+          "lon": 103.15,
+          "kind": "forecast",
+          "label": "China",
+          "subtitle": "export restriction · germanium",
+          "site": "Gejiu",
+          "country": "CN",
+          "material": "germanium",
+          "disruption_type": "export_restriction",
+          "probability": 0.005,
+          "previous_probability": 0.0167,
+          "delta": -0.0117,
+          "chokepoint": null,
+          "rank": 10,
+          "exposed_programs": [
+            "Patriot",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [
+            "China germanium"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 68%."
+            },
+            {
+              "indicator": "economic interdependence",
+              "direction": "down",
+              "detail": "High trade interdependence raises the cost of a cutoff (does not make it impossible)."
+            },
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/CN/2024-01-17",
+            "https://example.invalid/events/CN/2023-12-26",
+            "https://example.invalid/events/CN/2023-11-09",
+            "https://example.invalid/events/CN/2023-11-08",
+            "https://example.invalid/events/CN/2023-09-11"
+          ],
+          "headline": "There is a 0.5% probability of export restriction affecting germanium (China) within 180 days, down from 2%."
+        },
+        {
+          "id": "RU:titanium:export_restriction",
+          "lat": 58.05,
+          "lon": 60.56,
+          "kind": "forecast",
+          "label": "Russia",
+          "subtitle": "export restriction · titanium",
+          "site": "Verkhnyaya Salda",
+          "country": "RU",
+          "material": "titanium",
+          "disruption_type": "export_restriction",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 11,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine"
+          ],
+          "exposed_suppliers": [
+            "VSMPO-AVISMA"
+          ],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Formal export-license rule published for the material",
+            "State media frames the material as a geopolitical lever",
+            "Customs delays or quota rumors confirmed by multiple shippers"
+          ],
+          "would_decrease": [
+            "Bilateral mineral-supply agreement or quota reinstatement",
+            "Licenses issued at pre-crisis volumes for allied buyers",
+            "New non-origin supply coming online (mine, recycler, stockpile release)"
+          ],
+          "sources": [
+            "https://example.invalid/events/RU/2024-05-28",
+            "https://example.invalid/events/RU/2024-04-10",
+            "https://example.invalid/events/RU/2024-03-22",
+            "https://example.invalid/events/RU/2023-11-14",
+            "https://example.invalid/events/RU/2023-08-26"
+          ],
+          "headline": "There is a 0.5% probability of export restriction affecting titanium (Russia) within 180 days."
+        },
+        {
+          "id": "RU:palladium:sanctions",
+          "lat": 69.36,
+          "lon": 88.19,
+          "kind": "forecast",
+          "label": "Russia",
+          "subtitle": "sanctions · palladium",
+          "site": "Norilsk",
+          "country": "RU",
+          "material": "palladium",
+          "disruption_type": "sanctions",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 12,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "VSMPO-AVISMA"
+          ],
+          "drivers": [
+            {
+              "indicator": "tone deterioration",
+              "direction": "up",
+              "detail": "Average event tone is worse than the prior 90 days."
+            },
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 40%."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Coordinated G7/allied designation of the producer or bank",
+            "Secondary-sanctions warning to freight and insurers"
+          ],
+          "would_decrease": [
+            "Carve-outs for the material or wind-down licenses expanded",
+            "De-escalatory diplomacy that historically preceded relief"
+          ],
+          "sources": [
+            "https://example.invalid/events/RU/2024-05-28",
+            "https://example.invalid/events/RU/2024-04-10",
+            "https://example.invalid/events/RU/2024-03-22",
+            "https://example.invalid/events/RU/2023-11-14",
+            "https://example.invalid/events/RU/2023-08-26"
+          ],
+          "headline": "There is a 0.5% probability of sanctions affecting palladium (Russia) within 180 days."
+        },
+        {
+          "id": "UA:neon:factory_shutdown",
+          "lat": 46.48,
+          "lon": 30.73,
+          "kind": "forecast",
+          "label": "Ukraine",
+          "subtitle": "factory shutdown · neon",
+          "site": "Odesa",
+          "country": "UA",
+          "material": "neon",
+          "disruption_type": "factory_shutdown",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 13,
+          "exposed_programs": [],
+          "exposed_suppliers": [
+            "Ukraine semiconductor neon"
+          ],
+          "drivers": [
+            {
+              "indicator": "supplier concentration",
+              "direction": "up",
+              "detail": "Exporter share for this node is about 50%."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Confirmed halt at a plant that is a single-source node",
+            "Grid, siege, or safety shutdown lasting more than 14 days"
+          ],
+          "would_decrease": [
+            "Plant restart confirmed by shippers and power-grid load"
+          ],
+          "sources": [
+            "https://example.invalid/events/UA/2024-04-28",
+            "https://example.invalid/events/UA/2024-04-04",
+            "https://example.invalid/events/UA/2023-10-30",
+            "https://example.invalid/events/UA/2023-07-17",
+            "https://example.invalid/events/UA/2023-06-06"
+          ],
+          "headline": "There is a 0.5% probability of factory shutdown affecting neon (Ukraine) within 180 days."
+        },
+        {
+          "id": "EG:na:shipping_threat",
+          "lat": 30.45,
+          "lon": 32.35,
+          "kind": "forecast",
+          "label": "Egypt",
+          "subtitle": "shipping threat · Suez Canal",
+          "site": "Suez Canal",
+          "country": "EG",
+          "material": null,
+          "disruption_type": "shipping_threat",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": "Suez Canal",
+          "rank": 14,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Virginia-class submarine",
+            "Patriot",
+            "GMLRS",
+            "Protected SATCOM"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "quiet watch window",
+              "direction": "down",
+              "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Successful attack on a commercial vessel in the chokepoint",
+            "Major carriers announce a full route diversion",
+            "War-risk premiums spike above a prior crisis peak"
+          ],
+          "would_decrease": [
+            "Sustained period without attacks and carriers returning to the route",
+            "Credible multinational escort corridor with high compliance"
+          ],
+          "sources": [
+            "https://example.invalid/events/EG/2024-05-13",
+            "https://example.invalid/events/EG/2024-01-10",
+            "https://example.invalid/events/EG/2023-12-22",
+            "https://example.invalid/events/EG/2023-11-15",
+            "https://example.invalid/events/EG/2023-10-22"
+          ],
+          "headline": "There is a 0.5% probability of shipping threat affecting Suez Canal (Egypt) within 180 days."
+        },
+        {
+          "id": "MM:rare_earths:civil_unrest",
+          "lat": 25.87,
+          "lon": 98.13,
+          "kind": "forecast",
+          "label": "Myanmar",
+          "subtitle": "civil unrest · rare earths",
+          "site": "Kachin",
+          "country": "MM",
+          "material": "rare_earths",
+          "disruption_type": "civil_unrest",
+          "probability": 0.005,
+          "previous_probability": 0.005,
+          "delta": 0.0,
+          "chokepoint": null,
+          "rank": 15,
+          "exposed_programs": [
+            "F-35 Lightning II",
+            "Patriot"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [
+            {
+              "indicator": "base rate",
+              "direction": "up",
+              "detail": "No single indicator dominates; probability is mostly the historical rate plus analog tilt."
+            }
+          ],
+          "analogs": [],
+          "would_increase": [
+            "Security forces fire on protesters in a mining/port region",
+            "Opposition calls a general strike covering export infrastructure"
+          ],
+          "would_decrease": [
+            "Negotiated pause and reopening of mines/ports",
+            "Protest activity falling below the 90-day median"
+          ],
+          "sources": [
+            "https://example.invalid/events/MM/2024-04-26",
+            "https://example.invalid/events/MM/2024-04-14",
+            "https://example.invalid/events/MM/2023-11-28",
+            "https://example.invalid/events/MM/2023-10-21",
+            "https://example.invalid/events/MM/2023-10-05"
+          ],
+          "headline": "There is a 0.5% probability of civil unrest affecting rare earths (Myanmar) within 180 days."
+        }
+      ],
+      "suppliers": [
+        {
+          "id": "sup:mp_materials",
+          "lat": 35.48,
+          "lon": -115.53,
+          "kind": "supplier",
+          "label": "MP Materials",
+          "subtitle": "rare earths",
+          "site": "Mountain Pass",
+          "country": "US",
+          "material": "rare_earths",
+          "disruption_type": null,
+          "probability": null,
+          "previous_probability": null,
+          "delta": null,
+          "chokepoint": null,
+          "rank": 0,
+          "exposed_programs": [
+            "F-35",
+            "PATRIOT"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [],
+          "analogs": [],
+          "would_increase": [],
+          "would_decrease": [],
+          "sources": [],
+          "headline": ""
+        },
+        {
+          "id": "sup:lynas",
+          "lat": -28.86,
+          "lon": 122.42,
+          "kind": "supplier",
+          "label": "Lynas",
+          "subtitle": "rare earths",
+          "site": "Mount Weld",
+          "country": "AU",
+          "material": "rare_earths",
+          "disruption_type": null,
+          "probability": null,
+          "previous_probability": null,
+          "delta": null,
+          "chokepoint": null,
+          "rank": 0,
+          "exposed_programs": [
+            "F-35"
+          ],
+          "exposed_suppliers": [],
+          "drivers": [],
+          "analogs": [],
+          "would_increase": [],
+          "would_decrease": [],
+          "sources": [],
+          "headline": ""
+        }
+      ],
+      "pulse": [
+        {
+          "id": "ev-af468ce09feaf071",
+          "lat": -34.59666666666667,
+          "lon": 149.17333333333332,
+          "timestamp": "2024-03-06T18:50:00",
+          "actor_country": "AU",
+          "actor_name": "Australia",
+          "action": "consults",
+          "material": null,
+          "tone": 1.3746083426218354,
+          "location": null
+        },
+        {
+          "id": "ev-e2f92aeb7d2721a9",
+          "lat": 40.60666666666667,
+          "lon": 33.55,
+          "timestamp": "2024-03-07T13:00:00",
+          "actor_country": "TR",
+          "actor_name": "Turkey",
+          "action": "consults",
+          "material": null,
+          "tone": 0.9945479718478586,
+          "location": null
+        },
+        {
+          "id": "ev-7b234668310fdac6",
+          "lat": 16.126666666666665,
+          "lon": 43.36666666666667,
+          "timestamp": "2024-03-08T10:10:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "rejects",
+          "material": null,
+          "tone": -4.674785286386429,
+          "location": null
+        },
+        {
+          "id": "ev-d3401210a2a074ae",
+          "lat": 53.32333333333334,
+          "lon": 13.256666666666668,
+          "timestamp": "2024-03-10T15:48:00",
+          "actor_country": "DE",
+          "actor_name": "Germany",
+          "action": "consults",
+          "material": null,
+          "tone": 1.1567372770951658,
+          "location": null
+        },
+        {
+          "id": "ev-32d17a3507290294",
+          "lat": -34.97666666666667,
+          "lon": 148.82666666666665,
+          "timestamp": "2024-03-11T19:38:00",
+          "actor_country": "AU",
+          "actor_name": "Australia",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 3.4249529650943003,
+          "location": null
+        },
+        {
+          "id": "ev-bc1795f74bc4b81b",
+          "lat": 34.846666666666664,
+          "lon": 50.873333333333335,
+          "timestamp": "2024-03-12T19:53:00",
+          "actor_country": "IR",
+          "actor_name": "Iran",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 2.8795097760927746,
+          "location": null
+        },
+        {
+          "id": "ev-a3e398740284322d",
+          "lat": 55.07333333333333,
+          "lon": 38.47,
+          "timestamp": "2024-03-22T11:29:00",
+          "actor_country": "RU",
+          "actor_name": "Russia",
+          "action": "demands",
+          "material": null,
+          "tone": -2.0948737812093956,
+          "location": null
+        },
+        {
+          "id": "ev-ee6d279557c0a62e",
+          "lat": -5.726666666666667,
+          "lon": 107.25333333333333,
+          "timestamp": "2024-03-24T04:16:00",
+          "actor_country": "ID",
+          "actor_name": "Indonesia",
+          "action": "demands",
+          "material": null,
+          "tone": -4.103709658739828,
+          "location": null
+        },
+        {
+          "id": "ev-ffdf82b9e6ef37b4",
+          "lat": 40.7,
+          "lon": 33.67666666666667,
+          "timestamp": "2024-03-28T02:03:00",
+          "actor_country": "TR",
+          "actor_name": "Turkey",
+          "action": "states",
+          "material": null,
+          "tone": 1.465223112455925,
+          "location": null
+        },
+        {
+          "id": "ev-bef21ce535b4094d",
+          "lat": -3.836666666666667,
+          "lon": 14.866666666666667,
+          "timestamp": "2024-04-01T11:28:00",
+          "actor_country": "CD",
+          "actor_name": "DR Congo",
+          "action": "states",
+          "material": null,
+          "tone": -0.6472081350499518,
+          "location": null
+        },
+        {
+          "id": "ev-933ceb7819e038a4",
+          "lat": 14.686666666666666,
+          "lon": 43.51333333333333,
+          "timestamp": "2024-04-03T14:52:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "disapproves",
+          "material": null,
+          "tone": -0.9024171391112787,
+          "location": null
+        },
+        {
+          "id": "ev-18248e34bd057fbd",
+          "lat": 51.06,
+          "lon": 30.403333333333332,
+          "timestamp": "2024-04-04T04:47:00",
+          "actor_country": "UA",
+          "actor_name": "Ukraine",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 4.486325357894801,
+          "location": null
+        },
+        {
+          "id": "ev-a1851648a74a705c",
+          "lat": 35.58,
+          "lon": 51.78666666666667,
+          "timestamp": "2024-04-09T01:48:00",
+          "actor_country": "IR",
+          "actor_name": "Iran",
+          "action": "disapproves",
+          "material": "cobalt",
+          "tone": -3.000618431007208,
+          "location": null
+        },
+        {
+          "id": "ev-504a20486f8b5f6e",
+          "lat": 55.22666666666667,
+          "lon": 37.836666666666666,
+          "timestamp": "2024-04-10T06:19:00",
+          "actor_country": "RU",
+          "actor_name": "Russia",
+          "action": "rejects",
+          "material": null,
+          "tone": -5.697438781532836,
+          "location": null
+        },
+        {
+          "id": "ev-e22a3ea5b535ef8e",
+          "lat": -4.596666666666667,
+          "lon": 16.013333333333335,
+          "timestamp": "2024-04-13T05:19:00",
+          "actor_country": "CD",
+          "actor_name": "DR Congo",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 2.631895673996892,
+          "location": null
+        },
+        {
+          "id": "ev-ac2fbfddbb3fb812",
+          "lat": 19.883333333333336,
+          "lon": 95.25666666666666,
+          "timestamp": "2024-04-14T07:24:00",
+          "actor_country": "MM",
+          "actor_name": "Myanmar",
+          "action": "disapproves",
+          "material": null,
+          "tone": -1.4387859472314704,
+          "location": null
+        },
+        {
+          "id": "ev-3e1d59bd3dc0a7c9",
+          "lat": 20.076666666666668,
+          "lon": 95.72333333333333,
+          "timestamp": "2024-04-26T22:33:00",
+          "actor_country": "MM",
+          "actor_name": "Myanmar",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 3.989756099570852,
+          "location": null
+        },
+        {
+          "id": "ev-98a49c04782e3eb0",
+          "lat": 50.27333333333333,
+          "lon": 30.816666666666666,
+          "timestamp": "2024-04-28T15:33:00",
+          "actor_country": "UA",
+          "actor_name": "Ukraine",
+          "action": "consults",
+          "material": null,
+          "tone": 0.3629756710273089,
+          "location": null
+        },
+        {
+          "id": "ev-ffc35cc4678b97d9",
+          "lat": -5.46,
+          "lon": 106.95333333333333,
+          "timestamp": "2024-04-30T01:48:00",
+          "actor_country": "ID",
+          "actor_name": "Indonesia",
+          "action": "states",
+          "material": null,
+          "tone": -1.0904201293324227,
+          "location": null
+        },
+        {
+          "id": "ev-f148798af0d9b940",
+          "lat": -26.406666666666666,
+          "lon": 27.993333333333336,
+          "timestamp": "2024-05-01T14:30:00",
+          "actor_country": "ZA",
+          "actor_name": "South Africa",
+          "action": "states",
+          "material": null,
+          "tone": 0.07880858777019699,
+          "location": null
+        },
+        {
+          "id": "ev-7dd4ef30c6a632dc",
+          "lat": -25.046666666666667,
+          "lon": 28.166666666666668,
+          "timestamp": "2024-05-09T06:49:00",
+          "actor_country": "ZA",
+          "actor_name": "South Africa",
+          "action": "demands",
+          "material": "beryllium",
+          "tone": -3.6017403415095663,
+          "location": null
+        },
+        {
+          "id": "ev-e63d38732e708ff2",
+          "lat": 15.773333333333333,
+          "lon": 44.0,
+          "timestamp": "2024-05-11T00:28:00",
+          "actor_country": "YE",
+          "actor_name": "Yemen",
+          "action": "states",
+          "material": null,
+          "tone": 0.06716430429450809,
+          "location": null
+        },
+        {
+          "id": "ev-a6fc045b4e423c2c",
+          "lat": 29.363333333333333,
+          "lon": 30.81,
+          "timestamp": "2024-05-13T09:14:00",
+          "actor_country": "EG",
+          "actor_name": "Egypt",
+          "action": "consults",
+          "material": null,
+          "tone": -0.7798654506754197,
+          "location": null
+        },
+        {
+          "id": "ev-c45a26177e2cc518",
+          "lat": 40.48,
+          "lon": 32.05,
+          "timestamp": "2024-05-14T13:15:00",
+          "actor_country": "TR",
+          "actor_name": "Turkey",
+          "action": "rejects",
+          "material": null,
+          "tone": -4.2590557584735045,
+          "location": null
+        },
+        {
+          "id": "ev-2a94e43ca9cab410",
+          "lat": -3.976666666666667,
+          "lon": 15.713333333333335,
+          "timestamp": "2024-05-16T09:40:00",
+          "actor_country": "CD",
+          "actor_name": "DR Congo",
+          "action": "consults",
+          "material": "cobalt",
+          "tone": 0.88733379293379,
+          "location": null
+        },
+        {
+          "id": "ev-64c6f70a091f4431",
+          "lat": 40.23,
+          "lon": 115.97333333333333,
+          "timestamp": "2024-05-18T17:19:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "antimony",
+          "tone": -7.25352043911397,
+          "location": null
+        },
+        {
+          "id": "ev-ac8f08eeb271c914",
+          "lat": 39.43,
+          "lon": 116.05333333333333,
+          "timestamp": "2024-05-19T15:40:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "demands",
+          "material": "antimony",
+          "tone": -4.7215488743081115,
+          "location": null
+        },
+        {
+          "id": "ev-60100e8adef486f3",
+          "lat": 39.39666666666667,
+          "lon": 115.86666666666666,
+          "timestamp": "2024-05-21T10:33:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": "antimony",
+          "tone": -3.6722051913517086,
+          "location": null
+        },
+        {
+          "id": "ev-7f09d3df8cd1072f",
+          "lat": 55.28666666666667,
+          "lon": 37.169999999999995,
+          "timestamp": "2024-05-25T01:03:00",
+          "actor_country": "RU",
+          "actor_name": "Russia",
+          "action": "demands",
+          "material": "tungsten",
+          "tone": -3.5560901323798535,
+          "location": null
+        },
+        {
+          "id": "ev-32d707a5d5b2c0f2",
+          "lat": 40.46333333333333,
+          "lon": 116.58,
+          "timestamp": "2024-05-25T02:31:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "antimony",
+          "tone": -6.516981784852859,
+          "location": null
+        },
+        {
+          "id": "ev-97c494f92578d0be",
+          "lat": 39.53,
+          "lon": 117.2,
+          "timestamp": "2024-05-26T04:58:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "disapproves",
+          "material": "antimony",
+          "tone": -4.1909266182000025,
+          "location": null
+        },
+        {
+          "id": "ev-ea7a88be99637418",
+          "lat": 56.45333333333333,
+          "lon": 38.24333333333333,
+          "timestamp": "2024-05-28T06:40:00",
+          "actor_country": "RU",
+          "actor_name": "Russia",
+          "action": "cooperates with",
+          "material": null,
+          "tone": 3.6165324925077957,
+          "location": null
+        },
+        {
+          "id": "ev-a0029292e040367e",
+          "lat": 40.31666666666666,
+          "lon": 116.59333333333333,
+          "timestamp": "2024-05-29T05:46:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "rejects",
+          "material": "antimony",
+          "tone": -3.721511906009031,
+          "location": null
+        },
+        {
+          "id": "ev-d4689686c150d38f",
+          "lat": 39.49333333333333,
+          "lon": 33.29666666666667,
+          "timestamp": "2024-05-30T07:44:00",
+          "actor_country": "TR",
+          "actor_name": "Turkey",
+          "action": "rejects",
+          "material": null,
+          "tone": -5.384540488624637,
+          "location": null
+        },
+        {
+          "id": "ev-84d785f304768dc9",
+          "lat": 24.553333333333335,
+          "lon": 121.74666666666666,
+          "timestamp": "2024-05-31T01:22:00",
+          "actor_country": "TW",
+          "actor_name": "Taiwan",
+          "action": "disapproves",
+          "material": "graphite",
+          "tone": -1.0831428322103034,
+          "location": null
+        },
+        {
+          "id": "ev-592c27f84af43fce",
+          "lat": 39.629999999999995,
+          "lon": 115.75999999999999,
+          "timestamp": "2024-06-01T00:13:00",
+          "actor_country": "CN",
+          "actor_name": "China",
+          "action": "threatens",
+          "material": "antimony",
+          "tone": -6.142474428819839,
+          "location": null
+        },
+        {
+          "id": "ev-bf456128587d29a8",
+          "lat": 39.13333333333333,
+          "lon": 33.336666666666666,
+          "timestamp": "2024-06-01T19:32:00",
+          "actor_country": "TR",
+          "actor_name": "Turkey",
+          "action": "states",
+          "material": null,
+          "tone": -0.36182592105275196,
+          "location": null
+        }
+      ],
+      "notes": [
+        "Probabilities are calibrated ensemble outputs, not declarations that an event will happen.",
+        "Historical similarity is one input. Structural differences are called out explicitly.",
+        "Sample-world backtests prove the pipeline. Live GDELT ingest improves coverage, not automatic accuracy."
+      ]
+    }
+  }
+}

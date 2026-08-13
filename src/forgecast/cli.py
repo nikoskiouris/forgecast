@@ -146,13 +146,26 @@ def graph(
 
 
 @app.command()
+def snapshot(
+    out: Path = typer.Option(Path("docs"), help="Folder for the static demo site"),
+) -> None:
+    """Bake the map + forecast JSON. One folder. GitHub Pages can host it."""
+    from forgecast.snapshot import write_site
+
+    path = write_site(out)
+    typer.echo(f"static demo → {out}/  ({path.name})")
+    typer.echo("open that folder, or run `forgecast serve`")
+
+
+@app.command()
 def serve(
     host: str = "127.0.0.1",
     port: int = 8000,
 ) -> None:
-    """Dashboard + JSON API."""
+    """One process: map UI + API. Open http://127.0.0.1:8000"""
     import uvicorn
 
+    typer.echo(f"Forgecast  →  http://{host}:{port}")
     uvicorn.run("forgecast.api:app", host=host, port=port, reload=False)
 
 
