@@ -1,9 +1,10 @@
 name: pages
-# Retrigger after Pages source was set to GitHub Actions.
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -23,6 +24,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install -e .
+      - name: Snapshot live Atlanta feeds
+        run: forgecast snapshot
       - uses: actions/configure-pages@v5
         with:
           enablement: true

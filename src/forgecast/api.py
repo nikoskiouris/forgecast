@@ -1,28 +1,43 @@
 from __future__ import annotations
 
-from datetime import date
+import time
 from functools import lru_cache
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import FileResponse
+from pydantic import BaseModel, Field
 
 from forgecast import __version__
-from forgecast.config import DEMO_AS_OF, ROOT
-from forgecast.explain import headline, render_markdown
-from forgecast.forecast import WATCHLIST, load_training_world
-from forgecast.forecast import forecast as run_forecast
-from forgecast.geo import build_map
-from forgecast.schema import DemoBundle, ForecastReport, MapPayload
+from forgecast.config import ROOT
+from forgecast.day import build_day, city_overview
+from forgecast.geocode import geocode
+from forgecast.ingest.http import make_client
+from forgecast.ingest.live import fetch_city_events
+from forgecast.schema import CityBundle, DayReport, Place
 
 WEB = Path(__file__).parent / "web"
 DOCS = ROOT / "docs"
 
 app = FastAPI(
     title="Forgecast",
-    description="Calibrated forecasts of disruptions to the U.S. and allied defense industrial base.",
+    description="Know what will affect your day in Atlanta—before it does.",
     version=__version__,
 )
+
+_CACHE: tuple[float, CityBundle] | None = None
+_TTL = 180.0
+
+
+class PlaceIn(BaseModel):
+    label: str = "home"
+    address: str = ""
+    lat: float | None = None
+    lon: float | None = None
+
+
+class DayRequest(BaseModel):
+    places: list[PlaceIn] = Field(default_factory=list)
 
 
 def _first_file(*candidates: Path) -> Path | None:
@@ -33,85 +48,106 @@ def _first_file(*candidates: Path) -> Path | None:
 
 
 @lru_cache(maxsize=1)
-def _bundle() -> DemoBundle | None:
+def _baked() -> CityBundle | None:
     path = _first_file(DOCS / "data" / "demo.json", WEB / "data" / "demo.json")
     if path is None:
         return None
-    return DemoBundle.model_validate_json(path.read_text())
+    try:
+        return CityBundle.model_validate_json(path.read_text())
+    except (ValueError, TypeError, OSError):
+        return None
 
 
-@lru_cache(maxsize=8)
-def _report(as_of: str, horizon: int) -> ForecastReport:
-    return run_forecast(
-        as_of=date.fromisoformat(as_of),
-        horizon_days=horizon,
-        top_n=len(WATCHLIST),
-    )
-
-
-def _map_payload(as_of: str, horizon: int) -> MapPayload:
-    bundle = _bundle()
-    if bundle and as_of in bundle.snapshots:
-        return bundle.snapshots[as_of]
-    report = _report(as_of, horizon)
-    events, _outcomes = load_training_world()
-    return build_map(report, events=events)
+def live_bundle(force: bool = False) -> CityBundle:
+    global _CACHE
+    now = time.time()
+    if not force and _CACHE and now - _CACHE[0] < _TTL:
+        return _CACHE[1]
+    try:
+        bundle = fetch_city_events()
+        _CACHE = (now, bundle)
+        return bundle
+    except Exception:  # noqa: BLE001 — fall back to last baked snapshot
+        baked = _baked()
+        if baked:
+            return baked
+        raise
 
 
 @app.get("/api/health")
 def health() -> dict:
-    return {"ok": True, "version": __version__, "demo": _bundle() is not None}
-
-
-@app.get("/api/forecast", response_model=ForecastReport)
-def api_forecast(
-    as_of: str = Query(default=None, description="YYYY-MM-DD"),
-    horizon: int = Query(default=180, ge=30, le=365),
-) -> ForecastReport:
-    day = as_of or DEMO_AS_OF.isoformat()
-    return _report(day, horizon)
-
-
-@app.get("/api/map", response_model=MapPayload)
-def api_map(
-    as_of: str = Query(default=None, description="YYYY-MM-DD"),
-    horizon: int = Query(default=180, ge=30, le=365),
-) -> MapPayload:
-    day = as_of or DEMO_AS_OF.isoformat()
-    return _map_payload(day, horizon)
-
-
-@app.get("/api/report")
-def api_report(
-    as_of: str = Query(default=None),
-    rank: int = Query(default=1, ge=1, le=20),
-    pin: str | None = Query(default=None),
-    horizon: int = 180,
-) -> dict:
-    day = as_of or DEMO_AS_OF.isoformat()
-    payload = _map_payload(day, horizon)
-    item = None
-    if pin:
-        item = next((p for p in payload.pins if p.id == pin), None)
-        if item is None:
-            raise HTTPException(status_code=404, detail="unknown pin")
-    else:
-        if not payload.pins:
-            raise HTTPException(status_code=404, detail="no forecasts")
-        item = payload.pins[min(rank, len(payload.pins)) - 1]
-    report = _report(day, horizon)
-    full = next((i for i in report.items if i.id == item.id), None)
-    target = full or report.items[min(rank, len(report.items)) - 1]
+    baked = _baked()
     return {
-        "headline": headline(target, report.horizon_days),
-        "markdown": render_markdown(target, report.horizon_days),
-        "item": target.model_dump(),
+        "ok": True,
+        "version": __version__,
+        "city": "Atlanta",
+        "demo": baked is not None,
+        "live": True,
     }
+
+
+@app.get("/api/events", response_model=CityBundle)
+def api_events(refresh: bool = False) -> CityBundle:
+    try:
+        return live_bundle(force=refresh)
+    except Exception as exc:
+        baked = _baked()
+        if baked:
+            return baked
+        raise HTTPException(status_code=502, detail=f"city feeds unavailable: {exc}") from exc
+
+
+@app.get("/api/geocode", response_model=Place)
+def api_geocode(q: str = Query(..., min_length=2)) -> Place:
+    try:
+        with make_client() as http:
+            return geocode(q, http, label="place")
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+def _from_query(home: str | None, work: str | None, gym: str | None) -> list[dict]:
+    raw = []
+    if home:
+        raw.append({"label": "home", "address": home})
+    if work:
+        raw.append({"label": "work", "address": work})
+    if gym:
+        raw.append({"label": "gym", "address": gym})
+    return raw
+
+
+@app.get("/api/day", response_model=DayReport)
+def api_day_get(
+    home: str | None = None,
+    work: str | None = None,
+    gym: str | None = None,
+) -> DayReport:
+    bundle = live_bundle()
+    raw = _from_query(home, work, gym)
+    if not raw:
+        return city_overview(bundle)
+    try:
+        return build_day(raw, bundle=bundle)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/api/day", response_model=DayReport)
+def api_day_post(body: DayRequest) -> DayReport:
+    bundle = live_bundle()
+    raw = [p.model_dump() for p in body.places if p.address or (p.lat is not None and p.lon is not None)]
+    if not raw:
+        return city_overview(bundle)
+    try:
+        return build_day(raw, bundle=bundle)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.get("/")
 def dashboard() -> FileResponse:
-    path = _first_file(DOCS / "index.html", WEB / "index.html")
+    path = _first_file(WEB / "index.html", DOCS / "index.html")
     if path is None:
         raise HTTPException(status_code=404, detail="UI missing")
     return FileResponse(path)
@@ -121,7 +157,7 @@ def dashboard() -> FileResponse:
 def assets(name: str) -> FileResponse:
     if "/" in name or name.startswith("."):
         raise HTTPException(status_code=400)
-    path = _first_file(DOCS / "assets" / name, WEB / "assets" / name)
+    path = _first_file(WEB / "assets" / name, DOCS / "assets" / name)
     if path is None:
         raise HTTPException(status_code=404)
     return FileResponse(path)
