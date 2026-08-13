@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta
 
 from forgecast.city import as_eastern, distance_to_route_km, haversine_km, now_eastern
+from forgecast.routing import highways_from_text, spine_highways
 from forgecast.schema import CityEvent, CommuteRoute, EventKind, ImpactItem, Place
 
 NEAR_PLACE_KM = 1.6
@@ -83,9 +84,13 @@ def _on_commute(ev: CityEvent, coords: list[list[float]]) -> bool:
 def route_hits(ev: CityEvent, routes: list[CommuteRoute]) -> list[CommuteRoute]:
     if ev.metro or not routes:
         return []
+    named = set(highways_from_text(" ".join([ev.title, ev.summary, *(ev.roads or [])])))
     hit: list[CommuteRoute] = []
     for route in routes:
-        if _on_commute(ev, route.coords):
+        keys = spine_highways(route.name, route.highways)
+        by_geom = _on_commute(ev, route.coords)
+        by_name = bool(named & keys)
+        if by_geom or by_name:
             hit.append(route)
     return hit
 

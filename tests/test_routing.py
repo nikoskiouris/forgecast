@@ -19,7 +19,8 @@ def test_i285_is_not_read_as_i85():
 
 
 def test_name_prefers_perimeter():
-    assert name_corridor(["I-85", "I-285"]) == "I-285"
+    assert name_corridor(["I-85", "I-285"]) == "Perimeter"
+    assert name_corridor(["I-85", "I-75"]) == "Connector"
     assert name_corridor(["I-85"]) == "I-85"
     assert name_corridor([]) == "local roads"
 
@@ -45,12 +46,12 @@ def test_long_ne_to_south_can_use_downtown_connector():
 
 def test_pick_keeps_distinct_names():
     routes = [
-        CommuteRoute(id="i-285", name="I-285", duration_s=42 * 60, kind="shortest"),
-        CommuteRoute(id="i-285-2", name="I-285", duration_s=50 * 60, kind="perimeter"),
-        CommuteRoute(id="i-85", name="I-85", duration_s=43 * 60, kind="alternate"),
+        CommuteRoute(id="perimeter", name="Perimeter", duration_s=42 * 60, kind="shortest"),
+        CommuteRoute(id="perimeter-2", name="Perimeter", duration_s=50 * 60, kind="perimeter"),
+        CommuteRoute(id="connector", name="Connector", duration_s=43 * 60, kind="alternate"),
     ]
     picked = pick_corridors(routes)
-    assert [r.name for r in picked] == ["I-285", "I-85"]
+    assert [r.name for r in picked] == ["Perimeter", "Connector"]
 
 
 def _osrm(ref, name, duration, coords):
@@ -70,9 +71,10 @@ def test_options_keep_both_named_habits(monkeypatch):
             return []
         return [
             _osrm("I 285", "The Perimeter", 42 * 60, [[-84.27, 33.84], [-84.20, 33.74], [-84.49, 33.61]]),
-            _osrm("I 85", "Northeast Expressway", 43 * 60, [[-84.27, 33.84], [-84.39, 33.75], [-84.49, 33.61]]),
+            _osrm("I 75; I 85", "Downtown Connector", 43 * 60, [[-84.27, 33.84], [-84.39, 33.75], [-84.49, 33.61]]),
         ]
 
     monkeypatch.setattr("forgecast.routing.fetch_osrm", fake_fetch)
     opts = commute_options(None, -84.2722, 33.8439, -84.4894, 33.6137)
-    assert {o.name for o in opts} == {"I-285", "I-85"}
+    assert {o.name for o in opts} == {"Perimeter", "Connector"}
+    assert all("min" not in (o.detail or "") for o in opts)

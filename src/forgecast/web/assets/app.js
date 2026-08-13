@@ -128,9 +128,22 @@ function highwaysFromText(blob) {
 }
 
 function nameCorridor(highways) {
-  const order = ["I-285", "GA-400", "I-85", "I-75", "I-20"];
+  if (highways.includes("I-285")) return "Perimeter";
+  if (highways.includes("GA-400")) return "GA-400";
+  if (highways.includes("I-85") && highways.includes("I-75")) return "Connector";
+  const order = ["I-85", "I-75", "I-20"];
   const hit = order.find((n) => highways.includes(n));
   return hit || "local roads";
+}
+
+function spineHighways(name, highways) {
+  const keys = new Set(highways || []);
+  if (name === "Perimeter") keys.add("I-285");
+  else if (name === "Connector") {
+    keys.add("I-85");
+    keys.add("I-75");
+  } else if (["I-85", "I-75", "I-20", "GA-400"].includes(name)) keys.add(name);
+  return keys;
 }
 
 function slugId(name, used) {
@@ -155,14 +168,10 @@ function parseOsrmRoute(raw, a, b, kind, used) {
   });
   const highways = highwaysFromText(blob);
   const name = nameCorridor(highways);
-  const mins = raw.duration != null ? Math.round(raw.duration / 60) : null;
-  const miles = raw.distance != null ? Math.round((raw.distance / 1609) * 10) / 10 : null;
-  const detail = [highways.join(" / ") || null, mins != null ? `${mins} min` : null, miles ? `${miles} mi` : null]
-    .filter(Boolean).join(" · ");
   return {
     id: slugId(name, used),
     name,
-    detail,
+    detail: kind === "shortest" ? "usual candidate" : "backup spine",
     highways,
     coords,
     duration_s: raw.duration,
@@ -252,7 +261,8 @@ async function commuteOptions(a, b) {
   } catch (e) {
     routes = [];
   }
-  const names = new Set(routes.map((r) => r.name));
+  const names = new Set();
+  routes.forEach((r) => spineHighways(r.name, r.highways).forEach((h) => names.add(h)));
   const direct = haversineKm(a.lat, a.lon, b.lat, b.lon);
   const addVia = async (pt, want, kind) => {
     if (!pt || names.has(want)) return;
@@ -260,9 +270,9 @@ async function commuteOptions(a, b) {
       const extra = await osrmFetch([[a.lon, a.lat], [pt.lon, pt.lat], [b.lon, b.lat]], false);
       extra.forEach((raw) => {
         const parsed = parseOsrmRoute(raw, a, b, kind, used);
-        if (parsed && (parsed.highways.includes(want) || parsed.name === want) && !names.has(parsed.name)) {
+        if (parsed && spineHighways(parsed.name, parsed.highways).has(want) && !names.has(want)) {
           routes.push(parsed);
-          names.add(parsed.name);
+          spineHighways(parsed.name, parsed.highways).forEach((h) => names.add(h));
         }
       });
     } catch (e) { /* keep what we have */ }
@@ -364,7 +374,13 @@ function scoreLocal(events, places, routes, dest, usualId) {
         }
       });
     }
-    const hit = ev.metro ? [] : (routes || []).filter((r) => distToRouteKm(ev.lat, ev.lon, r.coords) <= NEAR_COMMUTE_KM);
+    const named = highwaysFromText([ev.title, ev.summary || "", ...((ev.roads) || [])].join(" "));
+    const hit = ev.metro ? [] : (routes || []).filter((r) => {
+      const keys = spineHighways(r.name, r.highways);
+      const byGeom = distToRouteKm(ev.lat, ev.lon, r.coords) <= NEAR_COMMUTE_KM;
+      const byName = named.some((h) => keys.has(h));
+      return byGeom || byName;
+    });
     const usual = usualId || ((routes || []).length === 1 ? routes[0].id : null);
     const onUsual = usual ? hit.some((r) => r.id === usual) : hit.length > 0;
     const commuteHit = hit.length > 0;
@@ -909,8 +925,9 @@ function renderCorridors() {
     const active = route.id === selectedRouteId;
     btn.type = "button";
     btn.className = `corridor${active ? " active" : ""}${route.hits ? " messy" : " clear"}`;
-    const flag = active ? "your usual" : (route.hits ? `${route.hits} hit${route.hits === 1 ? "" : "s"}` : "clear");
-    btn.innerHTML = `<div><div class="cname">${esc(route.name)}</div><div class="cdetail">${esc(route.detail || "")}</div></div><div class="chits">${esc(flag)}</div>`;
+    const role = active ? "your usual spine" : "backup spine";
+    const flag = route.hits ? "HIT" : "CLEAR";
+    btn.innerHTML = `<div><div class="cname">${esc(route.name)}</div><div class="cdetail">${esc(role)}</div></div><div class="chits">${esc(flag)}</div>`;
     btn.addEventListener("click", () => selectCorridor(route.id));
     corridorsEl.appendChild(btn);
   });

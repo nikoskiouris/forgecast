@@ -62,10 +62,31 @@ def highways_from_osrm(route: dict) -> list[str]:
 
 
 def name_corridor(highways: list[str]) -> str:
-    for key in ("I-285", "GA-400", "I-85", "I-75", "I-20"):
-        if key in highways:
-            return key
+    """Atlanta habit names, not interstate numbers as the headline."""
+    if "I-285" in highways:
+        return "Perimeter"
+    if "GA-400" in highways:
+        return "GA-400"
+    if "I-85" in highways and "I-75" in highways:
+        return "Connector"
+    if "I-85" in highways:
+        return "I-85"
+    if "I-75" in highways:
+        return "I-75"
+    if "I-20" in highways:
+        return "I-20"
     return "local roads"
+
+
+def spine_highways(name: str, highways: list[str] | None = None) -> set[str]:
+    keys = set(highways or [])
+    if name == "Perimeter":
+        keys.add("I-285")
+    elif name == "Connector":
+        keys.update({"I-85", "I-75"})
+    elif name in {"I-85", "I-75", "I-20", "GA-400"}:
+        keys.add(name)
+    return keys
 
 
 def _slug(name: str, used: set[str]) -> str:
@@ -104,14 +125,10 @@ def parse_osrm_route(
     name = name_corridor(highways)
     duration = raw.get("duration")
     distance = raw.get("distance")
-    mins = round(float(duration) / 60.0) if duration is not None else None
-    miles = round(float(distance) / 1609.0, 1) if distance is not None else None
-    via = " / ".join(highways) if highways else None
-    detail_bits = [b for b in (via, f"{mins} min" if mins is not None else None, f"{miles} mi" if miles else None) if b]
     return CommuteRoute(
         id=_slug(name, used_ids),
         name=name,
-        detail=" · ".join(detail_bits),
+        detail="backup spine" if kind != "shortest" else "usual candidate",
         highways=highways,
         coords=coords,
         duration_s=None if duration is None else float(duration),
@@ -238,26 +255,28 @@ def commute_options(
     except Exception:  # noqa: BLE001 — OSRM down still yields a straight line
         raws = []
     routes.extend(_parse_many(raws, lon1, lat1, lon2, lat2, "shortest", used))
-    names = {r.name for r in routes}
+    covered: set[str] = set()
+    for route in routes:
+        covered |= spine_highways(route.name, route.highways)
     direct = haversine_km(lat1, lon1, lat2, lon2)
 
     def _add_via(point: tuple[float, float] | None, want: str) -> None:
-        if point is None or want in names:
+        if point is None or want in covered:
             return
         try:
             extra = fetch_osrm(http, [(lon1, lat1), point, (lon2, lat2)], alternatives=False)
         except Exception:  # noqa: BLE001
             extra = []
         for parsed in _parse_many(extra, lon1, lat1, lon2, lat2, "perimeter" if want == "I-285" else "alternate", used):
-            if want in parsed.highways or parsed.name == want:
+            if want in spine_highways(parsed.name, parsed.highways):
                 routes.append(parsed)
-                names.add(parsed.name)
+                covered.update(spine_highways(parsed.name, parsed.highways))
                 return
 
     if direct >= PERIMETER_MIN_KM:
-        if "I-285" not in names:
+        if "I-285" not in covered:
             _add_via(shorter_arc_via(lon1, lat1, lon2, lat2), "I-285")
-        if "I-85" not in names:
+        if "I-85" not in covered:
             _add_via(downtown_via(lon1, lat1, lon2, lat2), "I-85")
 
     picked = pick_corridors(routes)
