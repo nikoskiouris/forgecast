@@ -1,12 +1,12 @@
 [project]
 name = "forgecast"
-version = "0.2.0"
-description = "Know what will affect your day in Atlanta—before it does."
+version = "0.3.0"
+description = "Gridpulse: calibrated map of the AI power buildout."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "Forgecast"}]
-keywords = ["atlanta", "traffic", "transit", "weather", "briefing"]
+keywords = ["grid", "data-center", "forecast", "map", "energy"]
 dependencies = [
   "pydantic>=2.0",
   "numpy>=1.24",
@@ -17,7 +17,9 @@ dependencies = [
   "httpx>=0.27",
   "pyyaml>=6.0",
   "python-dateutil>=2.8",
-  "jinja2>=3.1",
+  "h3>=4.5,<5",
+  "duckdb>=1.0",
+  "pyarrow>=15.0",
 ]
 
 [project.optional-dependencies]
@@ -25,6 +27,7 @@ dev = ["pytest>=7.4", "ruff>=0.4"]
 
 [project.scripts]
 forgecast = "forgecast.cli:app"
+gridpulse = "forgecast.cli:app"
 
 [project.urls]
 Homepage = "https://github.com/nikoskiouris/forgecast"
@@ -35,9 +38,6 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.setuptools.package-data]
-forgecast = ["web/*", "web/assets/*", "web/data/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

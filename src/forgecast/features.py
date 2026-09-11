@@ -1,50 +1,57 @@
-"""Feature vectors for (country, material, disruption) as of a date."""
+"""Feature vectors for (geo_id, signal) as of a date."""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from datetime import date, timedelta
 
 import numpy as np
 
 from forgecast.ingest.cameo import root_code
-from forgecast.schema import DisruptionType, Event, Outcome
-from forgecast.staticdata import EXPORTER_SHARE, interdependence
+from forgecast.schema import Entity, Event, Outcome, SignalType
 
 FEATURE_NAMES = [
     "n_30",
     "n_90",
     "n_180",
-    "threats_90",
-    "sanctions_90",
-    "protests_90",
-    "force_90",
-    "fight_90",
-    "material_90",
+    "attention_90",
+    "permit_90",
+    "load_90",
+    "giga_90",
     "mean_goldstein_90",
     "mean_tone_90",
     "delta_tone",
     "days_since_hot",
-    "exporter_share",
-    "interdependence",
+    "progress",
+    "ba_flag",
     "analog_rate",
     "analog_sim",
 ]
 
-ROOT_BUCKETS = {
-    "threats_90": {"13"},
-    "sanctions_90": {"16", "163"},
-    "protests_90": {"14"},
-    "force_90": {"15"},
-    "fight_90": {"18", "19"},
-}
+HAZARD_FEATURES = [
+    "n_30",
+    "attention_90",
+    "permit_90",
+    "load_90",
+    "giga_90",
+    "days_since_hot",
+    "progress",
+]
+SEQUENCE_FEATURES = [
+    "attention_90",
+    "permit_90",
+    "load_90",
+    "giga_90",
+    "mean_goldstein_90",
+    "mean_tone_90",
+]
+
+HOT_ROOTS = {"13", "15", "16", "163", "19"}
 
 
-@dataclass
-class Entity:
-    country: str
-    material: str | None
-    disruption: DisruptionType
+def horizon_for(signal: SignalType, default: int = 180) -> int:
+    if signal is SignalType.GIGA_SITE:
+        return 90
+    return default
 
 
 def _in_window(events: list[Event], start: date, end: date) -> list[Event]:
@@ -63,9 +70,9 @@ def _mean(xs: list[float], default: float = 0.0) -> float:
 def entity_events(events: list[Event], entity: Entity) -> list[Event]:
     out = []
     for e in events:
-        if e.actor_country != entity.country:
+        if e.geo_id != entity.geo_id:
             continue
-        if entity.material and e.material and e.material != entity.material:
+        if e.signal_type is not None and e.signal_type != entity.signal:
             continue
         out.append(e)
     return out
@@ -84,34 +91,34 @@ def feature_vector(
     w180 = _in_window(scoped, as_of - timedelta(days=180), as_of)
     prev90 = _in_window(scoped, as_of - timedelta(days=180), as_of - timedelta(days=90))
 
-    def count_roots(window: list[Event], roots: set[str]) -> float:
-        return float(sum(1 for e in window if root_code(e.action_code) in roots))
+    def count_signal(window: list[Event], signal: SignalType) -> float:
+        return float(sum(1 for e in window if e.signal_type is signal))
 
     last_hot = None
     for e in reversed(scoped):
-        if e.timestamp.date() > as_of:
+        day = e.timestamp.date()
+        if day > as_of:
             continue
-        if root_code(e.action_code) in {"13", "15", "16", "163", "19"}:
-            last_hot = e.timestamp.date()
+        if e.signal_type is entity.signal or root_code(e.action_code) in HOT_ROOTS:
+            last_hot = day
             break
     days_since = float((as_of - last_hot).days) if last_hot else 365.0
+    progress = float(len(w30)) / float(max(len(w180), 1))
 
     vec = [
         float(len(w30)),
         float(len(w90)),
         float(len(w180)),
-        count_roots(w90, ROOT_BUCKETS["threats_90"]),
-        count_roots(w90, ROOT_BUCKETS["sanctions_90"]),
-        count_roots(w90, ROOT_BUCKETS["protests_90"]),
-        count_roots(w90, ROOT_BUCKETS["force_90"]),
-        count_roots(w90, ROOT_BUCKETS["fight_90"]),
-        float(sum(1 for e in w90 if e.material == entity.material and entity.material)),
+        float(len(w90)),
+        count_signal(w90, SignalType.PERMIT_MW),
+        count_signal(w90, SignalType.LOAD_GROWTH),
+        count_signal(w90, SignalType.GIGA_SITE),
         _mean([e.goldstein for e in w90]),
         _mean([e.tone for e in w90]),
         _mean([e.tone for e in w90]) - _mean([e.tone for e in prev90]),
         days_since,
-        float(EXPORTER_SHARE.get((entity.country, entity.material or ""), 0.05)),
-        interdependence(entity.country, as_of.year),
+        progress,
+        1.0 if entity.geo_kind == "ba" else 0.0,
         analog_rate,
         analog_sim,
     ]
@@ -122,15 +129,14 @@ def label_for(
     entity: Entity,
     as_of: date,
     outcomes: list[Outcome],
-    horizon_days: int,
+    horizon_days: int | None = None,
 ) -> int:
-    end = as_of + timedelta(days=horizon_days)
+    horizon = horizon_for(entity.signal, horizon_days or 180)
+    end = as_of + timedelta(days=horizon)
     for o in outcomes:
-        if o.country != entity.country:
+        if o.geo_id != entity.geo_id:
             continue
-        if o.disruption_type != entity.disruption:
-            continue
-        if entity.material and o.material and o.material != entity.material:
+        if o.signal_type != entity.signal:
             continue
         if as_of < o.occurred_on <= end:
             return 1

@@ -15,4 +15,8 @@ def test_store_roundtrip(tmp_path: Path, world):
     assert rels
     lines = dump_timeline(rels, limit=3)
     assert lines
+    n1 = len(store.recent_relations(date(2026, 1, 1), lookback_days=365 * 20))
+    store.upsert_events(world.events[:50])
+    n2 = len(store.recent_relations(date(2026, 1, 1), lookback_days=365 * 20))
+    assert n1 == n2
     store.close()

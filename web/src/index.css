@@ -1,0 +1,222 @@
+:root {
+  color-scheme: dark;
+  --navy: #0b1020;
+  --navy-2: #12182c;
+  --gold: #d4b46a;
+  --gold-dim: #8a7340;
+  --ink: #e8e4d8;
+  --mute: #8b93a7;
+  --line: rgba(212, 180, 106, 0.22);
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: var(--navy);
+  color: var(--ink);
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+.map-root {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.map-root .maplibregl-map {
+  height: 100%;
+  width: 100%;
+}
+
+.grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+.hud {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  left: 18px;
+  width: min(420px, calc(100vw - 36px));
+  padding: 16px 18px 14px;
+  background: linear-gradient(180deg, rgba(11, 16, 32, 0.92), rgba(18, 24, 44, 0.78));
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.42em;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.brand span {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--mute);
+  letter-spacing: 0.16em;
+}
+
+.lede {
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--gold);
+}
+
+.stats b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.disclaimer {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: var(--mute);
+  line-height: 1.4;
+}
+
+.drill {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  right: 18px;
+  width: min(360px, calc(100vw - 36px));
+  max-height: calc(100vh - 140px);
+  overflow: auto;
+  padding: 16px 18px 18px;
+  background: linear-gradient(180deg, rgba(11, 16, 32, 0.94), rgba(18, 24, 44, 0.84));
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+
+.drill h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.prob {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 28px;
+  color: var(--gold);
+  margin: 6px 0 8px;
+}
+
+.tickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 12px;
+}
+
+.chip {
+  border: 1px solid var(--gold-dim);
+  color: var(--gold);
+  padding: 2px 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.drill p,
+.drill li {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.drill ul {
+  margin: 6px 0 12px;
+  padding-left: 16px;
+}
+
+.kicker {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.scrub {
+  position: absolute;
+  z-index: 3;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+  padding: 10px 16px 12px;
+  background: rgba(11, 16, 32, 0.86);
+  border: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 140px 1fr 80px;
+  gap: 12px;
+  align-items: center;
+}
+
+.scrub label {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+}
+
+.scrub input[type="range"] {
+  width: 100%;
+  accent-color: var(--gold);
+}
+
+.status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  letter-spacing: 0.28em;
+  font-size: 12px;
+}
+
+@media (max-width: 720px) {
+  .drill {
+    top: auto;
+    bottom: 86px;
+    max-height: 40vh;
+  }
+  .hud {
+    width: calc(100vw - 36px);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "product": "Gridpulse",
+  "version": "0.3.0",
+  "as_of": "2026-06-01",
+  "horizon_days": 180,
+  "week": 2943,
+  "n": 490,
+  "brier": 0.02229523861031506,
+  "brier_skill": 0.294160497054767,
+  "base_rate": 0.0326530612244898,
+  "disclaimer": "Publisher, not an adviser. Mechanical ticker exposure is not a recommendation."
+}

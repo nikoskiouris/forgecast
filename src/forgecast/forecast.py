@@ -3,38 +3,24 @@
 from __future__ import annotations
 
 from datetime import date, timedelta
+from functools import lru_cache
 from pathlib import Path
 
 from forgecast.analogs import analog_summary
 from forgecast.backtest import build_xy
 from forgecast.config import DEFAULT_HORIZON_DAYS, DEFAULT_PORTFOLIO, DEMO_AS_OF
-from forgecast.explain import drivers_from_features, fill_text_fields, recent_sources
+from forgecast.explain import THRESHOLDS, drivers_from_features, fill_text_fields, recent_sources
 from forgecast.exposure import apply_exposure, load_portfolio
-from forgecast.features import Entity, feature_vector, month_starts
-from forgecast.geo import locate_node, make_pin_id
+from forgecast.features import Entity, feature_vector, horizon_for, month_starts
+from forgecast.geo import cell_for, make_pin_id
 from forgecast.graph import Store
 from forgecast.models import Ensemble
 from forgecast.sample import generate_world
-from forgecast.schema import DisruptionType, Event, ForecastItem, ForecastReport, Outcome
-from forgecast.staticdata import country_name
+from forgecast.schema import Event, ForecastItem, ForecastReport, Outcome
+from forgecast.staticdata import coords, place_name, train_watchlist, watchlist
 
-WATCHLIST: list[Entity] = [
-    Entity("CN", "rare_earths", DisruptionType.EXPORT_RESTRICTION),
-    Entity("CN", "gallium", DisruptionType.EXPORT_RESTRICTION),
-    Entity("CN", "germanium", DisruptionType.EXPORT_RESTRICTION),
-    Entity("CN", "antimony", DisruptionType.EXPORT_RESTRICTION),
-    Entity("CN", "graphite", DisruptionType.EXPORT_RESTRICTION),
-    Entity("RU", "titanium", DisruptionType.EXPORT_RESTRICTION),
-    Entity("RU", "palladium", DisruptionType.SANCTIONS),
-    Entity("UA", "neon", DisruptionType.FACTORY_SHUTDOWN),
-    Entity("CD", "cobalt", DisruptionType.CIVIL_UNREST),
-    Entity("TW", "semiconductors", DisruptionType.CONFLICT_ESCALATION),
-    Entity("YE", None, DisruptionType.SHIPPING_THREAT),
-    Entity("EG", None, DisruptionType.SHIPPING_THREAT),
-    Entity("IR", None, DisruptionType.SHIPPING_THREAT),
-    Entity("MM", "rare_earths", DisruptionType.CIVIL_UNREST),
-    Entity("ID", "nickel", DisruptionType.EXPORT_RESTRICTION),
-]
+WATCHLIST: list[Entity] = watchlist()
+TRAIN_WATCH: list[Entity] = train_watchlist()
 
 
 def load_training_world(store: Store | None = None) -> tuple[list[Event], list[Outcome]]:
@@ -42,21 +28,25 @@ def load_training_world(store: Store | None = None) -> tuple[list[Event], list[O
     if store is None or store.count() == 0:
         return world.events, world.outcomes
     live = store.events_as_of(date.today(), lookback_days=365 * 20)
-    # Prefer live rows when present; keep sample outcomes for backtest labels.
     if live:
         return live, world.outcomes
     return world.events, world.outcomes
 
 
+@lru_cache(maxsize=4)
+def _cached_model(as_of: date) -> Ensemble:
+    events, outcomes = load_training_world()
+    return fit_model(events, outcomes, as_of)
+
+
 def fit_model(events: list[Event], outcomes: list[Outcome], as_of: date) -> Ensemble:
     train_end = as_of - timedelta(days=DEFAULT_HORIZON_DAYS + 1)
-    start = date(2012, 1, 1)
+    start = date(2014, 1, 1)
     if train_end <= start:
         train_end = date(2018, 1, 1)
     dates = month_starts(start, train_end)
-    # Quarterly snapshots keep training fast without dropping the signal.
     dates = [d for d in dates if d.month in {1, 4, 7, 10}]
-    X, y, _ = build_xy(events, outcomes, WATCHLIST, dates, DEFAULT_HORIZON_DAYS)
+    X, y, _ = build_xy(events, outcomes, TRAIN_WATCH, dates, DEFAULT_HORIZON_DAYS)
     return Ensemble().fit(X, y)
 
 
@@ -79,25 +69,18 @@ def _item_for(
     xp = feature_vector(known_prev, entity, prev_as_of, analog_p.rate, analog_p.max_similarity)
     p_prev = float(model.predict_proba(xp.reshape(1, -1))[0])
 
-    chokepoint = None
-    if entity.disruption == DisruptionType.SHIPPING_THREAT:
-        chokepoint = {
-            "YE": "Bab el-Mandeb / Red Sea",
-            "EG": "Suez Canal",
-            "IR": "Strait of Hormuz",
-        }.get(entity.country)
-
-    lat, lon, site = locate_node(entity.country, entity.material, chokepoint)
+    lat, lon = coords(entity.geo_id)
     item = ForecastItem(
-        id=make_pin_id(entity.country, entity.material, entity.disruption),
-        disruption_type=entity.disruption,
-        actor_country=entity.country,
-        actor_name=country_name(entity.country),
-        material=entity.material,
-        chokepoint=chokepoint,
-        site=site,
+        id=make_pin_id(entity.geo_id, entity.signal),
+        signal_type=entity.signal,
+        geo_id=entity.geo_id,
+        geo_kind=entity.geo_kind,
+        geo_name=place_name(entity.geo_id),
+        site=place_name(entity.geo_id),
         lat=lat,
         lon=lon,
+        h3=cell_for(lat, lon, 5),
+        threshold=THRESHOLDS[entity.signal],
         probability=round(p, 4),
         previous_probability=round(p_prev, 4),
         delta=round(p - p_prev, 4),
@@ -119,24 +102,39 @@ def forecast(
 ) -> ForecastReport:
     as_of = as_of or DEMO_AS_OF
     portfolio_path = portfolio_path or DEFAULT_PORTFOLIO
-    portfolio = load_portfolio(portfolio_path) if portfolio_path.exists() else {"name": "none", "programs": [], "suppliers": []}
+    portfolio = (
+        load_portfolio(portfolio_path)
+        if portfolio_path.exists()
+        else {"name": "none", "holdings": []}
+    )
     events, outcomes = load_training_world(store)
     if model is None:
-        model = fit_model(events, outcomes, as_of)
+        model = _cached_model(as_of) if store is None else fit_model(events, outcomes, as_of)
     prev = as_of - timedelta(days=30)
-    items = [
-        _item_for(model, events, outcomes, ent, as_of, prev, portfolio) for ent in WATCHLIST
-    ]
+    # Score the hot subset plus a few more so the map is not empty.
+    score_list = list(TRAIN_WATCH)
+    seen = {(e.geo_id, e.signal) for e in score_list}
+    for ent in WATCHLIST:
+        if (ent.geo_id, ent.signal) not in seen:
+            # Keep inference bounded: remaining BAs only.
+            if ent.geo_kind == "ba":
+                score_list.append(ent)
+                seen.add((ent.geo_id, ent.signal))
+    items = [_item_for(model, events, outcomes, ent, as_of, prev, portfolio) for ent in score_list]
     items.sort(key=lambda i: i.probability, reverse=True)
     notes = [
+        "Publisher, not an adviser. Mechanical ticker exposure is not a recommendation.",
         "Probabilities are calibrated ensemble outputs, not declarations that an event will happen.",
-        "Historical similarity is one input. Structural differences are called out explicitly.",
-        "Sample-world backtests prove the pipeline. Live GDELT ingest improves coverage, not automatic accuracy.",
+        "GDELT is attention only and never a label. Sample-world backtests prove the pipeline.",
     ]
     return ForecastReport(
         as_of=as_of,
         horizon_days=horizon_days,
-        portfolio=portfolio.get("name", "demo"),
+        portfolio=portfolio.get("name", "gridpulse-demo"),
         items=items[:top_n],
         notes=notes,
     )
+
+
+def item_horizon(item: ForecastItem, default: int = DEFAULT_HORIZON_DAYS) -> int:
+    return horizon_for(item.signal_type, default)

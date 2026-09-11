@@ -35,17 +35,22 @@ class Store:
                 action_code TEXT,
                 target TEXT,
                 target_country TEXT,
-                material TEXT,
+                theme TEXT,
                 location TEXT,
+                lat REAL,
+                lon REAL,
+                h3 TEXT,
+                geo_id TEXT,
+                geo_kind TEXT,
                 goldstein REAL,
                 tone REAL,
                 source_url TEXT,
                 source TEXT,
-                disruption_type TEXT,
+                signal_type TEXT,
                 raw TEXT
             );
             CREATE INDEX IF NOT EXISTS idx_events_ts ON events(ts);
-            CREATE INDEX IF NOT EXISTS idx_events_country ON events(actor_country);
+            CREATE INDEX IF NOT EXISTS idx_events_geo ON events(geo_id);
 
             CREATE TABLE IF NOT EXISTS relations (
                 id INTEGER PRIMARY KEY,
@@ -53,9 +58,10 @@ class Store:
                 subject TEXT,
                 predicate TEXT,
                 object TEXT,
-                material TEXT,
+                theme TEXT,
                 confidence REAL,
-                event_id TEXT
+                event_id TEXT,
+                UNIQUE(event_id, predicate)
             );
             CREATE INDEX IF NOT EXISTS idx_rel_ts ON relations(ts);
             """
@@ -73,13 +79,18 @@ class Store:
                 e.action_code,
                 e.target,
                 e.target_country,
-                e.material,
+                e.theme,
                 e.location,
+                e.lat,
+                e.lon,
+                e.h3,
+                e.geo_id,
+                e.geo_kind,
                 e.goldstein,
                 e.tone,
                 e.source_url,
                 e.source,
-                e.disruption_type.value if e.disruption_type else None,
+                e.signal_type.value if e.signal_type else None,
                 e.model_dump_json(),
             )
             for e in events
@@ -88,17 +99,21 @@ class Store:
             """
             INSERT OR REPLACE INTO events (
                 id, ts, actor, actor_country, action, action_code, target,
-                target_country, material, location, goldstein, tone, source_url,
-                source, disruption_type, raw
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                target_country, theme, location, lat, lon, h3, geo_id, geo_kind,
+                goldstein, tone, source_url, source, signal_type, raw
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """,
             rows,
         )
+        ids = [(e.id,) for e in events]
+        if ids:
+            self.conn.executemany("DELETE FROM relations WHERE event_id = ?", ids)
         rels = [r for e in events for r in relations_from_event(e)]
         if rels:
             self.conn.executemany(
                 """
-                INSERT INTO relations (ts, subject, predicate, object, material, confidence, event_id)
+                INSERT OR IGNORE INTO relations
+                    (ts, subject, predicate, object, theme, confidence, event_id)
                 VALUES (?,?,?,?,?,?,?)
                 """,
                 [
@@ -107,7 +122,7 @@ class Store:
                         r.subject,
                         r.predicate,
                         r.object,
-                        r.material,
+                        r.theme,
                         r.confidence,
                         r.event_id,
                     )
@@ -121,15 +136,15 @@ class Store:
         self,
         as_of: date,
         lookback_days: int = 365 * 8,
-        country: str | None = None,
+        geo_id: str | None = None,
     ) -> list[Event]:
         start = (as_of - timedelta(days=lookback_days)).isoformat()
         end = datetime(as_of.year, as_of.month, as_of.day, 23, 59, 59).isoformat()
         sql = "SELECT raw FROM events WHERE ts >= ? AND ts <= ?"
         args: list[object] = [start, end]
-        if country:
-            sql += " AND actor_country = ?"
-            args.append(country)
+        if geo_id:
+            sql += " AND geo_id = ?"
+            args.append(geo_id)
         sql += " ORDER BY ts"
         rows = self.conn.execute(sql, args).fetchall()
         return [Event.model_validate_json(r["raw"]) for r in rows]
@@ -138,7 +153,7 @@ class Store:
         start = (as_of - timedelta(days=lookback_days)).isoformat()
         end = as_of.isoformat() + "T23:59:59"
         rows = self.conn.execute(
-            "SELECT ts, subject, predicate, object, material, confidence, event_id "
+            "SELECT ts, subject, predicate, object, theme, confidence, event_id "
             "FROM relations WHERE ts >= ? AND ts <= ? ORDER BY ts",
             (start, end),
         ).fetchall()
@@ -148,7 +163,7 @@ class Store:
                 subject=r["subject"],
                 predicate=r["predicate"],
                 object=r["object"],
-                material=r["material"],
+                theme=r["theme"],
                 confidence=r["confidence"],
                 event_id=r["event_id"],
             )
@@ -164,14 +179,14 @@ class Store:
 
 def relations_from_event(event: Event) -> list[Relation]:
     pred = event.action.replace(" ", "_").upper()
-    obj = event.target_country or event.target or event.material or "UNK"
+    obj = event.geo_id or event.target or "UNK"
     return [
         Relation(
             timestamp=event.timestamp,
-            subject=event.actor_country,
+            subject=event.geo_id or event.actor,
             predicate=pred,
             object=str(obj),
-            material=event.material,
+            theme=event.theme,
             confidence=1.0,
             event_id=event.id,
         )
@@ -181,8 +196,8 @@ def relations_from_event(event: Event) -> list[Relation]:
 def dump_timeline(relations: list[Relation], limit: int = 12) -> list[str]:
     lines = []
     for r in relations[-limit:]:
-        mat = f" → {r.material}" if r.material else ""
+        theme = f" → {r.theme}" if r.theme else ""
         lines.append(
-            f"{r.timestamp.date()}  {r.subject} → {r.predicate.lower()} → {r.object}{mat}"
+            f"{r.timestamp.date()}  {r.subject} → {r.predicate.lower()} → {r.object}{theme}"
         )
     return lines

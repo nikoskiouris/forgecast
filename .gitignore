@@ -13,6 +13,10 @@ build/
 htmlcov/
 *.db
 data/forgecast.db
+data/hex_week.parquet
+data/map/
+web/node_modules/
+web/dist/
 .env
 .DS_Store
 .idea/

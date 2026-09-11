@@ -1,0 +1,1292 @@
+{
+  "as_of": "2026-06-01",
+  "horizon_days": 180,
+  "portfolio": "gridpulse-demo",
+  "items": [
+    {
+      "id": "ERCO-W:load_growth",
+      "signal_type": "load_growth",
+      "geo_id": "ERCO-W",
+      "geo_kind": "ba",
+      "geo_name": "ERCOT West",
+      "site": "ERCOT West",
+      "lat": 32.45,
+      "lon": -100.4,
+      "h3": "8526db8bfffffff",
+      "threshold": "weekly peak load ≥8% YoY",
+      "probability": 0.9,
+      "previous_probability": 0.9,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "grid attention (90d)",
+          "direction": "up",
+          "detail": "165 relevant events at ERCOT West."
+        },
+        {
+          "indicator": "load-coded events (90d)",
+          "direction": "up",
+          "detail": "165 load-growth-tagged events in the window."
+        },
+        {
+          "indicator": "historical analog",
+          "direction": "up",
+          "detail": "Closest analog similarity 98%."
+        }
+      ],
+      "analogs": [
+        {
+          "name": "ERCOT-West 2025 breakout",
+          "similarity": 0.977,
+          "year": 2025,
+          "geo_id": "ERCO-W",
+          "geo_name": "ERCOT West",
+          "signal_type": "load_growth",
+          "outcome": "load growth",
+          "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+        },
+        {
+          "name": "CAISO 2024 summer load",
+          "similarity": 0.969,
+          "year": 2024,
+          "geo_id": "CISO",
+          "geo_name": "CAISO",
+          "signal_type": "load_growth",
+          "outcome": "load growth",
+          "difference": "Sequence resembles CAISO, but the node today is ERCOT West."
+        },
+        {
+          "name": "PJM 2024 load step-up",
+          "similarity": 0.967,
+          "year": 2024,
+          "geo_id": "PJM",
+          "geo_name": "PJM Interconnection",
+          "signal_type": "load_growth",
+          "outcome": "load growth",
+          "difference": "Sequence resembles PJM Interconnection, but the node today is ERCOT West."
+        }
+      ],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/ERCO-W/2026-06-01",
+        "https://example.invalid/grid/ERCO-W/2026-05-31",
+        "https://example.invalid/grid/ERCO-W/2026-05-29",
+        "https://example.invalid/grid/ERCO-W/2026-05-28",
+        "https://example.invalid/grid/ERCO-W/2026-05-27"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "VST",
+          "name": "Vistra",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NRG",
+          "name": "NRG Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "48441:permit_mw",
+      "signal_type": "permit_mw",
+      "geo_id": "48441",
+      "geo_kind": "county",
+      "geo_name": "Taylor County, TX",
+      "site": "Taylor County, TX",
+      "lat": 32.45,
+      "lon": -99.73,
+      "h3": "8526d943fffffff",
+      "threshold": "permit-MW giga-site threshold",
+      "probability": 0.9,
+      "previous_probability": 0.9,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "grid attention (90d)",
+          "direction": "up",
+          "detail": "130 relevant events at Taylor County, TX."
+        },
+        {
+          "indicator": "permit-coded events (90d)",
+          "direction": "up",
+          "detail": "130 permit-MW-tagged events in the window."
+        },
+        {
+          "indicator": "historical analog",
+          "direction": "up",
+          "detail": "Closest analog similarity 81%."
+        }
+      ],
+      "analogs": [
+        {
+          "name": "Abilene 2025 campus permits",
+          "similarity": 0.806,
+          "year": 2025,
+          "geo_id": "48441",
+          "geo_name": "Taylor County, TX",
+          "signal_type": "permit_mw",
+          "outcome": "permit mw",
+          "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+        },
+        {
+          "name": "Abilene 2025 giga-site",
+          "similarity": 0.646,
+          "year": 2025,
+          "geo_id": "48441",
+          "geo_name": "Taylor County, TX",
+          "signal_type": "giga_site",
+          "outcome": "giga site",
+          "difference": "Structural conditions are broadly comparable; treat the analog as one input only."
+        },
+        {
+          "name": "Cook County 2024",
+          "similarity": 0.946,
+          "year": 2024,
+          "geo_id": "17031",
+          "geo_name": "Cook County, IL",
+          "signal_type": "permit_mw",
+          "outcome": "permit mw",
+          "difference": "Sequence resembles Cook County, IL, but the node today is Taylor County, TX."
+        }
+      ],
+      "would_increase": [
+        "County issues a data-center building permit above the giga-site MW bar",
+        "Site plan or rezoning approved for a hyperscale campus",
+        "Transmission upgrade filing that names the campus load"
+      ],
+      "would_decrease": [
+        "Permit pipeline goes quiet for two quarters",
+        "Moratorium, lawsuit, or water/power constraint stalls sites",
+        "Filed MW is revised below the giga-site threshold"
+      ],
+      "sources": [
+        "https://example.invalid/grid/48441/2026-06-01",
+        "https://example.invalid/grid/48441/2026-05-31",
+        "https://example.invalid/grid/48441/2026-05-30",
+        "https://example.invalid/grid/48441/2026-05-29",
+        "https://example.invalid/grid/48441/2026-05-27"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "VST",
+          "name": "Vistra",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NRG",
+          "name": "NRG Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "51047:giga_site",
+      "signal_type": "giga_site",
+      "geo_id": "51047",
+      "geo_kind": "county",
+      "geo_name": "Culpeper County, VA",
+      "site": "Culpeper County, VA",
+      "lat": 38.47,
+      "lon": -77.97,
+      "h3": "852aaa2bfffffff",
+      "threshold": "named campus announcement",
+      "probability": 0.9,
+      "previous_probability": 0.9,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "grid attention (90d)",
+          "direction": "up",
+          "detail": "129 relevant events at Culpeper County, VA."
+        },
+        {
+          "indicator": "campus-coded events (90d)",
+          "direction": "up",
+          "detail": "129 giga-site-tagged events in the window."
+        },
+        {
+          "indicator": "historical analog",
+          "direction": "up",
+          "detail": "Closest analog similarity 97%."
+        }
+      ],
+      "analogs": [
+        {
+          "name": "Loudoun 2024 giga-site",
+          "similarity": 0.97,
+          "year": 2024,
+          "geo_id": "51107",
+          "geo_name": "Loudoun County, VA",
+          "signal_type": "giga_site",
+          "outcome": "giga site",
+          "difference": "Sequence resembles Loudoun County, VA, but the node today is Culpeper County, VA."
+        },
+        {
+          "name": "King County 2024 campus",
+          "similarity": 0.957,
+          "year": 2025,
+          "geo_id": "53033",
+          "geo_name": "King County, WA",
+          "signal_type": "giga_site",
+          "outcome": "giga site",
+          "difference": "Sequence resembles King County, WA, but the node today is Culpeper County, VA."
+        },
+        {
+          "name": "Clark 2023 campus",
+          "similarity": 0.955,
+          "year": 2024,
+          "geo_id": "32003",
+          "geo_name": "Clark County, NV",
+          "signal_type": "giga_site",
+          "outcome": "giga site",
+          "difference": "Sequence resembles Clark County, NV, but the node today is Culpeper County, VA."
+        }
+      ],
+      "would_increase": [
+        "Named hyperscale or AI campus announcement with MW disclosed",
+        "Power-purchase or behind-the-meter generation deal signed",
+        "County economic-development memo confirming the tenant"
+      ],
+      "would_decrease": [
+        "The rumored tenant walks or relocates the campus",
+        "No named announcement by the 90-day mark",
+        "Local opposition or interconnection denial becomes public"
+      ],
+      "sources": [
+        "https://example.invalid/grid/51047/2026-06-01",
+        "https://example.invalid/grid/51047/2026-05-31",
+        "https://example.invalid/grid/51047/2026-05-30",
+        "https://example.invalid/grid/51047/2026-05-29",
+        "https://example.invalid/grid/51047/2026-05-28"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "USB",
+          "name": "U.S. Bancorp",
+          "role": "bank",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "PJM:load_growth",
+      "signal_type": "load_growth",
+      "geo_id": "PJM",
+      "geo_kind": "ba",
+      "geo_name": "PJM Interconnection",
+      "site": "PJM Interconnection",
+      "lat": 40.12,
+      "lon": -77.52,
+      "h3": "852aaec3fffffff",
+      "threshold": "weekly peak load ≥8% YoY",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/PJM/2026-05-21",
+        "https://example.invalid/grid/PJM/2025-12-21",
+        "https://example.invalid/grid/PJM/2025-03-17",
+        "https://example.invalid/grid/PJM/2025-01-30",
+        "https://example.invalid/grid/PJM/2024-12-14"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "AEP",
+          "name": "American Electric Power",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EXC",
+          "name": "Exelon",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "FE",
+          "name": "FirstEnergy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PEG",
+          "name": "PSEG",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PPL",
+          "name": "PPL",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "CEG",
+          "name": "Constellation Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "ERCO:load_growth",
+      "signal_type": "load_growth",
+      "geo_id": "ERCO",
+      "geo_kind": "ba",
+      "geo_name": "ERCOT",
+      "site": "ERCOT",
+      "lat": 31.0,
+      "lon": -99.9,
+      "h3": "85489997fffffff",
+      "threshold": "weekly peak load ≥8% YoY",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/ERCO/2023-09-09",
+        "https://example.invalid/grid/ERCO/2023-08-19",
+        "https://example.invalid/grid/ERCO/2022-08-04",
+        "https://example.invalid/grid/ERCO/2022-04-03",
+        "https://example.invalid/grid/ERCO/2021-10-22"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "VST",
+          "name": "Vistra",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NRG",
+          "name": "NRG Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NEE",
+          "name": "NextEra Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "CISO:load_growth",
+      "signal_type": "load_growth",
+      "geo_id": "CISO",
+      "geo_kind": "ba",
+      "geo_name": "CAISO",
+      "site": "CAISO",
+      "lat": 37.3,
+      "lon": -120.5,
+      "h3": "852836d3fffffff",
+      "threshold": "weekly peak load ≥8% YoY",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/CISO/2026-04-07",
+        "https://example.invalid/grid/CISO/2025-12-09",
+        "https://example.invalid/grid/CISO/2024-09-14",
+        "https://example.invalid/grid/CISO/2024-09-08",
+        "https://example.invalid/grid/CISO/2024-09-03"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "EIX",
+          "name": "Edison International",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PCG",
+          "name": "PG&E",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "SRE",
+          "name": "Sempra",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "MISO:load_growth",
+      "signal_type": "load_growth",
+      "geo_id": "MISO",
+      "geo_kind": "ba",
+      "geo_name": "MISO",
+      "site": "MISO",
+      "lat": 41.6,
+      "lon": -90.6,
+      "h3": "852675dbfffffff",
+      "threshold": "weekly peak load ≥8% YoY",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/MISO/2024-07-07",
+        "https://example.invalid/grid/MISO/2024-04-21",
+        "https://example.invalid/grid/MISO/2023-04-01",
+        "https://example.invalid/grid/MISO/2023-01-17",
+        "https://example.invalid/grid/MISO/2021-11-17"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "AEP",
+          "name": "American Electric Power",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EXC",
+          "name": "Exelon",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EIX",
+          "name": "Edison International",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "SOCO:load_growth",
+      "signal_type": "load_growth",
+      "geo_id": "SOCO",
+      "geo_kind": "ba",
+      "geo_name": "Southern Company",
+      "site": "Southern Company",
+      "lat": 33.75,
+      "lon": -84.39,
+      "h3": "8544c1abfffffff",
+      "threshold": "weekly peak load ≥8% YoY",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/SOCO/2026-03-25",
+        "https://example.invalid/grid/SOCO/2026-02-07",
+        "https://example.invalid/grid/SOCO/2025-07-30",
+        "https://example.invalid/grid/SOCO/2025-04-03",
+        "https://example.invalid/grid/SOCO/2024-09-07"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "SO",
+          "name": "Southern Company",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DUK",
+          "name": "Duke Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "51107:permit_mw",
+      "signal_type": "permit_mw",
+      "geo_id": "51107",
+      "geo_kind": "county",
+      "geo_name": "Loudoun County, VA",
+      "site": "Loudoun County, VA",
+      "lat": 39.08,
+      "lon": -77.64,
+      "h3": "852aaa8ffffffff",
+      "threshold": "permit-MW giga-site threshold",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "County issues a data-center building permit above the giga-site MW bar",
+        "Site plan or rezoning approved for a hyperscale campus",
+        "Transmission upgrade filing that names the campus load"
+      ],
+      "would_decrease": [
+        "Permit pipeline goes quiet for two quarters",
+        "Moratorium, lawsuit, or water/power constraint stalls sites",
+        "Filed MW is revised below the giga-site threshold"
+      ],
+      "sources": [
+        "https://example.invalid/grid/51107/2025-07-04",
+        "https://example.invalid/grid/51107/2025-06-16",
+        "https://example.invalid/grid/51107/2024-12-07",
+        "https://example.invalid/grid/51107/2024-07-08",
+        "https://example.invalid/grid/51107/2024-07-03"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "IRM",
+          "name": "Iron Mountain",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "GEV",
+          "name": "GE Vernova",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "51153:permit_mw",
+      "signal_type": "permit_mw",
+      "geo_id": "51153",
+      "geo_kind": "county",
+      "geo_name": "Prince William County, VA",
+      "site": "Prince William County, VA",
+      "lat": 38.7,
+      "lon": -77.48,
+      "h3": "852aaaaffffffff",
+      "threshold": "permit-MW giga-site threshold",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "County issues a data-center building permit above the giga-site MW bar",
+        "Site plan or rezoning approved for a hyperscale campus",
+        "Transmission upgrade filing that names the campus load"
+      ],
+      "would_decrease": [
+        "Permit pipeline goes quiet for two quarters",
+        "Moratorium, lawsuit, or water/power constraint stalls sites",
+        "Filed MW is revised below the giga-site threshold"
+      ],
+      "sources": [
+        "https://example.invalid/grid/51153/2026-03-26",
+        "https://example.invalid/grid/51153/2025-11-01",
+        "https://example.invalid/grid/51153/2025-04-14",
+        "https://example.invalid/grid/51153/2024-11-03",
+        "https://example.invalid/grid/51153/2024-10-28"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "04013:permit_mw",
+      "signal_type": "permit_mw",
+      "geo_id": "04013",
+      "geo_kind": "county",
+      "geo_name": "Maricopa County, AZ",
+      "site": "Maricopa County, AZ",
+      "lat": 33.45,
+      "lon": -112.07,
+      "h3": "8529b6d3fffffff",
+      "threshold": "permit-MW giga-site threshold",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "County issues a data-center building permit above the giga-site MW bar",
+        "Site plan or rezoning approved for a hyperscale campus",
+        "Transmission upgrade filing that names the campus load"
+      ],
+      "would_decrease": [
+        "Permit pipeline goes quiet for two quarters",
+        "Moratorium, lawsuit, or water/power constraint stalls sites",
+        "Filed MW is revised below the giga-site threshold"
+      ],
+      "sources": [
+        "https://example.invalid/grid/04013/2026-05-18",
+        "https://example.invalid/grid/04013/2026-01-31",
+        "https://example.invalid/grid/04013/2025-05-31",
+        "https://example.invalid/grid/04013/2025-02-28",
+        "https://example.invalid/grid/04013/2025-01-12"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "PNW",
+          "name": "Pinnacle West",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "51107:giga_site",
+      "signal_type": "giga_site",
+      "geo_id": "51107",
+      "geo_kind": "county",
+      "geo_name": "Loudoun County, VA",
+      "site": "Loudoun County, VA",
+      "lat": 39.08,
+      "lon": -77.64,
+      "h3": "852aaa8ffffffff",
+      "threshold": "named campus announcement",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Named hyperscale or AI campus announcement with MW disclosed",
+        "Power-purchase or behind-the-meter generation deal signed",
+        "County economic-development memo confirming the tenant"
+      ],
+      "would_decrease": [
+        "The rumored tenant walks or relocates the campus",
+        "No named announcement by the 90-day mark",
+        "Local opposition or interconnection denial becomes public"
+      ],
+      "sources": [
+        "https://example.invalid/grid/51107/2025-07-04",
+        "https://example.invalid/grid/51107/2025-06-16",
+        "https://example.invalid/grid/51107/2024-12-07",
+        "https://example.invalid/grid/51107/2024-07-08",
+        "https://example.invalid/grid/51107/2024-07-03"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "D",
+          "name": "Dominion Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "IRM",
+          "name": "Iron Mountain",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "GEV",
+          "name": "GE Vernova",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "48441:giga_site",
+      "signal_type": "giga_site",
+      "geo_id": "48441",
+      "geo_kind": "county",
+      "geo_name": "Taylor County, TX",
+      "site": "Taylor County, TX",
+      "lat": 32.45,
+      "lon": -99.73,
+      "h3": "8526d943fffffff",
+      "threshold": "named campus announcement",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Named hyperscale or AI campus announcement with MW disclosed",
+        "Power-purchase or behind-the-meter generation deal signed",
+        "County economic-development memo confirming the tenant"
+      ],
+      "would_decrease": [
+        "The rumored tenant walks or relocates the campus",
+        "No named announcement by the 90-day mark",
+        "Local opposition or interconnection denial becomes public"
+      ],
+      "sources": [
+        "https://example.invalid/grid/48441/2026-06-01",
+        "https://example.invalid/grid/48441/2026-05-31",
+        "https://example.invalid/grid/48441/2026-05-30",
+        "https://example.invalid/grid/48441/2026-05-29",
+        "https://example.invalid/grid/48441/2026-05-27"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "VST",
+          "name": "Vistra",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NRG",
+          "name": "NRG Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv",
+          "role": "equipment",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "32003:giga_site",
+      "signal_type": "giga_site",
+      "geo_id": "32003",
+      "geo_kind": "county",
+      "geo_name": "Clark County, NV",
+      "site": "Clark County, NV",
+      "lat": 36.17,
+      "lon": -115.14,
+      "h3": "852986bbfffffff",
+      "threshold": "named campus announcement",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Named hyperscale or AI campus announcement with MW disclosed",
+        "Power-purchase or behind-the-meter generation deal signed",
+        "County economic-development memo confirming the tenant"
+      ],
+      "would_decrease": [
+        "The rumored tenant walks or relocates the campus",
+        "No named announcement by the 90-day mark",
+        "Local opposition or interconnection denial becomes public"
+      ],
+      "sources": [
+        "https://example.invalid/grid/32003/2026-02-12",
+        "https://example.invalid/grid/32003/2025-09-27",
+        "https://example.invalid/grid/32003/2025-08-22",
+        "https://example.invalid/grid/32003/2024-12-24",
+        "https://example.invalid/grid/32003/2024-07-16"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "EQIX",
+          "name": "Equinix",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty",
+          "role": "reit",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "TVA:load_growth",
+      "signal_type": "load_growth",
+      "geo_id": "TVA",
+      "geo_kind": "ba",
+      "geo_name": "Tennessee Valley Authority",
+      "site": "Tennessee Valley Authority",
+      "lat": 35.96,
+      "lon": -83.92,
+      "h3": "8544caaffffffff",
+      "threshold": "weekly peak load ≥8% YoY",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/TVA/2026-03-10",
+        "https://example.invalid/grid/TVA/2025-04-02",
+        "https://example.invalid/grid/TVA/2024-09-05",
+        "https://example.invalid/grid/TVA/2024-09-02",
+        "https://example.invalid/grid/TVA/2024-07-05"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "SO",
+          "name": "Southern Company",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "DUK",
+          "name": "Duke Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    },
+    {
+      "id": "NYIS:load_growth",
+      "signal_type": "load_growth",
+      "geo_id": "NYIS",
+      "geo_kind": "ba",
+      "geo_name": "NYISO",
+      "site": "NYISO",
+      "lat": 42.9,
+      "lon": -75.5,
+      "h3": "852b8bc7fffffff",
+      "threshold": "weekly peak load ≥8% YoY",
+      "probability": 0.005,
+      "previous_probability": 0.005,
+      "delta": 0.0,
+      "drivers": [
+        {
+          "indicator": "quiet watch window",
+          "direction": "down",
+          "detail": "Few relevant events in the last 90 days; forecast sits near the base rate."
+        }
+      ],
+      "analogs": [],
+      "would_increase": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook"
+      ],
+      "would_decrease": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up"
+      ],
+      "sources": [
+        "https://example.invalid/grid/NYIS/2024-06-28",
+        "https://example.invalid/grid/NYIS/2024-06-09",
+        "https://example.invalid/grid/NYIS/2023-08-09",
+        "https://example.invalid/grid/NYIS/2022-12-23",
+        "https://example.invalid/grid/NYIS/2022-03-08"
+      ],
+      "exposed_tickers": [
+        {
+          "ticker": "CEG",
+          "name": "Constellation Energy",
+          "role": "ipp",
+          "weight": 1.0,
+          "thesis": ""
+        },
+        {
+          "ticker": "NEE",
+          "name": "NextEra Energy",
+          "role": "utility",
+          "weight": 1.0,
+          "thesis": ""
+        }
+      ]
+    }
+  ],
+  "brier": 0.02229523861031506,
+  "brier_skill": 0.294160497054767,
+  "notes": [
+    "Publisher, not an adviser. Mechanical ticker exposure is not a recommendation.",
+    "Probabilities are calibrated ensemble outputs, not declarations that an event will happen.",
+    "GDELT is attention only and never a label. Sample-world backtests prove the pipeline."
+  ]
+}

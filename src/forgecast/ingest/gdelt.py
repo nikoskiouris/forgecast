@@ -1,4 +1,4 @@
-"""GDELT 1.0 daily event ingest, filtered to DIB-relevant CAMEO codes."""
+"""GDELT 1.0 daily event ingest, filtered to AI-grid attention."""
 
 from __future__ import annotations
 
@@ -11,52 +11,14 @@ from urllib.parse import urlparse
 
 import httpx
 
-from forgecast.ingest.cameo import (
-    GOLDSTEIN,
-    WATCH_CODES,
-    action_label,
-    disruption_for_code,
-    root_code,
-)
+from forgecast.geo import cell_for
+from forgecast.ingest.cameo import GOLDSTEIN, action_label, root_code, signal_for_theme
 from forgecast.schema import Event
-from forgecast.staticdata import MATERIALS
-
-ISO3_TO_ISO2 = {
-    "CHN": "CN",
-    "USA": "US",
-    "RUS": "RU",
-    "IRN": "IR",
-    "YEM": "YE",
-    "UKR": "UA",
-    "TWN": "TW",
-    "COD": "CD",
-    "IDN": "ID",
-    "ZAF": "ZA",
-    "AUS": "AU",
-    "MMR": "MM",
-    "TUR": "TR",
-    "EGY": "EG",
-    "JPN": "JP",
-    "DEU": "DE",
-    "KOR": "KR",
-    "GBR": "GB",
-    "FRA": "FR",
-    "IND": "IN",
-}
-
-
-def country_iso(code: str | None) -> str | None:
-    if not code:
-        return None
-    code = code.strip().upper()
-    if len(code) == 2:
-        return code
-    return ISO3_TO_ISO2.get(code, code[:2])
-
+from forgecast.staticdata import resolve_geo
 
 GDELT_DAILY = "http://data.gdeltproject.org/events/{stamp}.export.CSV.zip"
 
-# GDELT 1.0 daily export has no header. Column indexes from the codebook.
+# Official GDELT 1.0 daily export (no header).
 COL_ID = 0
 COL_SQLDATE = 1
 COL_ACTOR1 = 6
@@ -66,40 +28,57 @@ COL_ACTOR2_COUNTRY = 17
 COL_EVENTCODE = 26
 COL_GOLDSTEIN = 30
 COL_TONE = 34
-COL_ACTION_GEO = 51
+COL_ACTION_GEO_NAME = 50  # ActionGeo_FullName
+COL_ACTION_GEO_CC = 51  # ActionGeo_CountryCode (FIPS)
+COL_ACTION_LAT = 53
+COL_ACTION_LON = 54
 COL_SOURCEURL = 57
 
-MATERIAL_KEYWORDS = {
-    "titanium": "titanium",
-    "rare earth": "rare_earths",
-    "rare-earth": "rare_earths",
-    "gallium": "gallium",
-    "germanium": "germanium",
-    "antimony": "antimony",
-    "graphite": "graphite",
-    "cobalt": "cobalt",
-    "nickel": "nickel",
-    "palladium": "palladium",
-    "neon": "neon",
-    "semiconductor": "semiconductors",
-    "tungsten": "tungsten",
-    "beryllium": "beryllium",
-    "aluminum": "aluminum",
-    "aluminium": "aluminum",
-    "carbon fiber": "carbon_fiber",
-}
+GRID_KEYWORDS = (
+    "data center",
+    "datacenter",
+    "data-centre",
+    "hyperscale",
+    "ercot",
+    "megawatt",
+    "mega-watt",
+    "gigawatt",
+    "giga-site",
+    "interconnection",
+    "substation",
+    "building permit",
+    "ai campus",
+    "loudoun",
+    "ashburn",
+    "abilene",
+    "culpeper",
+    "dominion energy",
+    "pjm",
+    "caiso",
+    "miso",
+    "permit",
+)
 
 
-def _material_from_text(*parts: str | None) -> str | None:
+def _has_grid_keyword(*parts: str | None) -> bool:
     blob = " ".join(p or "" for p in parts).lower()
-    for kw, mat in MATERIAL_KEYWORDS.items():
-        if kw in blob:
-            return mat
-    return None
+    return any(kw in blob for kw in GRID_KEYWORDS)
 
 
 def _parse_day(sql_date: str) -> datetime:
     return datetime.strptime(sql_date[:8], "%Y%m%d")
+
+
+def _f(row: list[str], idx: int) -> float | None:
+    if len(row) <= idx:
+        return None
+    raw = (row[idx] or "").strip()
+    if not raw:
+        return None
+    try:
+        return float(raw)
+    except ValueError:
+        return None
 
 
 def parse_gdelt_csv(raw: str) -> list[Event]:
@@ -108,16 +87,16 @@ def parse_gdelt_csv(raw: str) -> list[Event]:
     for row in reader:
         if len(row) <= COL_EVENTCODE:
             continue
-        code = str(row[COL_EVENTCODE]).strip()
-        if root_code(code) not in WATCH_CODES and code not in WATCH_CODES:
-            continue
-        actor_country = country_iso(row[COL_ACTOR1_COUNTRY]) or "ZZ"
-        target_country = country_iso(row[COL_ACTOR2_COUNTRY])
-        actor = (row[COL_ACTOR1] or actor_country).strip()
-        target = (row[COL_ACTOR2] or "").strip() or None
+        actor = (row[COL_ACTOR1] or "").strip() if len(row) > COL_ACTOR1 else ""
+        target = (row[COL_ACTOR2] or "").strip() if len(row) > COL_ACTOR2 else ""
         url = row[COL_SOURCEURL].strip() if len(row) > COL_SOURCEURL else ""
-        loc = row[COL_ACTION_GEO].strip() if len(row) > COL_ACTION_GEO else ""
-        material = _material_from_text(actor, target, loc, url)
+        loc = row[COL_ACTION_GEO_NAME].strip() if len(row) > COL_ACTION_GEO_NAME else ""
+        if not _has_grid_keyword(actor, target, loc, url):
+            continue
+        code = str(row[COL_EVENTCODE]).strip()
+        lat = _f(row, COL_ACTION_LAT)
+        lon = _f(row, COL_ACTION_LON)
+        geo_id, geo_kind = resolve_geo(loc, lat, lon)
         try:
             goldstein = float(row[COL_GOLDSTEIN] or GOLDSTEIN.get(root_code(code), 0))
         except ValueError:
@@ -133,23 +112,29 @@ def parse_gdelt_csv(raw: str) -> list[Event]:
         eid = str(row[COL_ID]).strip() or hashlib.sha1(
             f"{ts}{actor}{code}{url}".encode()
         ).hexdigest()[:16]
+        signal = signal_for_theme(None, " ".join([actor, target, loc, url]))
         events.append(
             Event(
                 id=f"gdelt-{eid}",
                 timestamp=ts,
-                actor=actor,
-                actor_country=actor_country,
+                actor=actor or "UNK",
+                actor_country="US",
                 action=action_label(code),
                 action_code=code,
-                target=target,
-                target_country=target_country,
-                material=material if material in MATERIALS or material else material,
+                target=target or None,
+                target_country="US",
+                theme="grid",
                 location=loc or None,
+                lat=lat,
+                lon=lon,
+                h3=cell_for(lat, lon, 5) if lat is not None and lon is not None else None,
+                geo_id=geo_id,
+                geo_kind=geo_kind,  # type: ignore[arg-type]
                 goldstein=goldstein,
                 tone=tone,
                 source_url=url or None,
                 source="gdelt",
-                disruption_type=disruption_for_code(code, material, loc),
+                signal_type=signal,
             )
         )
     return events

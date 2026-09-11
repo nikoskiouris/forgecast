@@ -1,123 +1,96 @@
-"""Template explanations. LLM optional later; numbers come from the ensemble."""
+"""Template explanations. Numbers come from the ensemble."""
 
 from __future__ import annotations
 
-from forgecast.features import FEATURE_NAMES, Entity
-from forgecast.schema import Driver, Event, ForecastItem
-from forgecast.staticdata import country_name
+from forgecast.features import FEATURE_NAMES, Entity, horizon_for
+from forgecast.schema import Driver, Event, ForecastItem, SignalType
+from forgecast.staticdata import place_name
 
 INCREASE = {
-    "export_restriction": [
-        "Formal export-license rule published for the material",
-        "State media frames the material as a geopolitical lever",
-        "Customs delays or quota rumors confirmed by multiple shippers",
+    "load_growth": [
+        "Weekly peak load prints ≥8% YoY for two consecutive weeks",
+        "New large-load interconnection queue additions in the BA",
+        "Utility IRP or ERCOT CDR raises the official demand outlook",
     ],
-    "shipping_threat": [
-        "Successful attack on a commercial vessel in the chokepoint",
-        "Major carriers announce a full route diversion",
-        "War-risk premiums spike above a prior crisis peak",
+    "permit_mw": [
+        "County issues a data-center building permit above the giga-site MW bar",
+        "Site plan or rezoning approved for a hyperscale campus",
+        "Transmission upgrade filing that names the campus load",
     ],
-    "sanctions": [
-        "Coordinated G7/allied designation of the producer or bank",
-        "Secondary-sanctions warning to freight and insurers",
-    ],
-    "civil_unrest": [
-        "Security forces fire on protesters in a mining/port region",
-        "Opposition calls a general strike covering export infrastructure",
-    ],
-    "conflict_escalation": [
-        "Cross-border fires or blockade of a producing region",
-        "Mobilization orders or no-fly/maritime exclusion zone",
-    ],
-    "factory_shutdown": [
-        "Confirmed halt at a plant that is a single-source node",
-        "Grid, siege, or safety shutdown lasting more than 14 days",
-    ],
-    "asset_seizure": [
-        "Draft nationalization law or asset-freeze order",
-        "Foreign operators ordered to transfer equity",
-    ],
-    "port_border_closure": [
-        "Official closure of a commercial port or land crossing",
-        "Force majeure notices from terminal operators",
+    "giga_site": [
+        "Named hyperscale or AI campus announcement with MW disclosed",
+        "Power-purchase or behind-the-meter generation deal signed",
+        "County economic-development memo confirming the tenant",
     ],
 }
 
 DECREASE = {
-    "export_restriction": [
-        "Bilateral mineral-supply agreement or quota reinstatement",
-        "Licenses issued at pre-crisis volumes for allied buyers",
-        "New non-origin supply coming online (mine, recycler, stockpile release)",
+    "load_growth": [
+        "Weekly peaks revert toward the five-year trend",
+        "Queued large loads withdraw or slip beyond the horizon",
+        "A mild weather year without a new industrial step-up",
     ],
-    "shipping_threat": [
-        "Sustained period without attacks and carriers returning to the route",
-        "Credible multinational escort corridor with high compliance",
+    "permit_mw": [
+        "Permit pipeline goes quiet for two quarters",
+        "Moratorium, lawsuit, or water/power constraint stalls sites",
+        "Filed MW is revised below the giga-site threshold",
     ],
-    "sanctions": [
-        "Carve-outs for the material or wind-down licenses expanded",
-        "De-escalatory diplomacy that historically preceded relief",
+    "giga_site": [
+        "The rumored tenant walks or relocates the campus",
+        "No named announcement by the 90-day mark",
+        "Local opposition or interconnection denial becomes public",
     ],
-    "civil_unrest": [
-        "Negotiated pause and reopening of mines/ports",
-        "Protest activity falling below the 90-day median",
-    ],
-    "conflict_escalation": [
-        "Ceasefire that restores commercial access",
-        "Force posture returning to baseline",
-    ],
-    "factory_shutdown": [
-        "Plant restart confirmed by shippers and power-grid load",
-    ],
-    "asset_seizure": [
-        "Court or executive reversal; foreign operators remain in control",
-    ],
-    "port_border_closure": [
-        "Port or crossing reopened to commercial traffic",
-    ],
+}
+
+THRESHOLDS = {
+    SignalType.LOAD_GROWTH: "weekly peak load ≥8% YoY",
+    SignalType.PERMIT_MW: "permit-MW giga-site threshold",
+    SignalType.GIGA_SITE: "named campus announcement",
 }
 
 
 def drivers_from_features(x, events: list[Event], entity: Entity) -> list[Driver]:
     named = dict(zip(FEATURE_NAMES, x.tolist()))
+    where = place_name(entity.geo_id)
     out: list[Driver] = []
-    if named["threats_90"] >= 3:
+    if named["attention_90"] >= 8:
         out.append(
             Driver(
-                indicator="threat rhetoric (90d)",
+                indicator="grid attention (90d)",
                 direction="up",
-                detail=f"{int(named['threats_90'])} threat-class events involving {country_name(entity.country)}.",
+                detail=f"{int(named['attention_90'])} relevant events at {where}.",
             )
         )
-    if named["sanctions_90"] >= 2:
+    if named["load_90"] >= 4:
         out.append(
             Driver(
-                indicator="sanctions / embargo actions (90d)",
+                indicator="load-coded events (90d)",
                 direction="up",
-                detail=f"{int(named['sanctions_90'])} reduce-relations or embargo-coded events.",
+                detail=f"{int(named['load_90'])} load-growth-tagged events in the window.",
             )
         )
-    if named["delta_tone"] < -0.8:
+    if named["permit_90"] >= 4:
         out.append(
             Driver(
-                indicator="tone deterioration",
+                indicator="permit-coded events (90d)",
                 direction="up",
-                detail="Average event tone is worse than the prior 90 days.",
+                detail=f"{int(named['permit_90'])} permit-MW-tagged events in the window.",
             )
         )
-    if named["exporter_share"] >= 0.4:
+    if named["giga_90"] >= 3:
         out.append(
             Driver(
-                indicator="supplier concentration",
+                indicator="campus-coded events (90d)",
                 direction="up",
-                detail=f"Exporter share for this node is about {named['exporter_share']:.0%}.",
+                detail=f"{int(named['giga_90'])} giga-site-tagged events in the window.",
             )
         )
-    if named["interdependence"] >= 0.6:
+    if named["analog_sim"] >= 0.35:
         out.append(
             Driver(
-                indicator="economic interdependence",
-                direction="down",
-                detail="High trade interdependence raises the cost of a cutoff (does not make it impossible).",
+                indicator="historical analog",
+                direction="up",
+                detail=f"Closest analog similarity {named['analog_sim']:.0%}.",
             )
         )
     if named["n_90"] < 2:
@@ -142,9 +115,7 @@ def drivers_from_features(x, events: list[Event], entity: Entity) -> list[Driver
 def recent_sources(events: list[Event], entity: Entity, n: int = 5) -> list[str]:
     urls = []
     for e in reversed(events):
-        if e.actor_country != entity.country:
-            continue
-        if entity.material and e.material and e.material != entity.material:
+        if e.geo_id != entity.geo_id:
             continue
         if e.source_url and e.source_url not in urls:
             urls.append(e.source_url)
@@ -154,32 +125,30 @@ def recent_sources(events: list[Event], entity: Entity, n: int = 5) -> list[str]
 
 
 def headline(item: ForecastItem, horizon_days: int) -> str:
-    who = country_name(item.actor_country)
-    what = item.disruption_type.value.replace("_", " ")
-    target = item.material.replace("_", " ") if item.material else (item.chokepoint or "allied supply")
-    pct = f"{item.probability:.0%}" if item.probability >= 0.01 else f"{item.probability:.1%}"
-    delta = ""
-    if item.delta is not None:
-        pts = abs(int(round(item.delta * 100)))
-        if item.delta > 0.005:
-            prev = f"{item.previous_probability:.0%}" if item.previous_probability is not None else "last month"
-            delta = f", up from {prev}" if item.previous_probability is not None else f", up {pts} points"
-        elif item.delta < -0.005:
-            prev = f"{item.previous_probability:.0%}" if item.previous_probability is not None else "last month"
-            delta = f", down from {prev}"
+    pct = f"{item.probability:.0%}"
+    name = item.geo_name
+    if item.signal_type is SignalType.LOAD_GROWTH:
+        return (
+            f"There is a {pct} probability that {name} weekly peak load grows "
+            f"≥8% YoY within {horizon_days} days."
+        )
+    if item.signal_type is SignalType.PERMIT_MW:
+        return (
+            f"There is a {pct} probability that permit-MW in {name} crosses "
+            f"the giga-site threshold within {horizon_days} days."
+        )
+    h = horizon_for(item.signal_type, horizon_days)
     return (
-        f"There is a {pct} probability of {what} affecting {target} "
-        f"({who}) within {horizon_days} days{delta}."
+        f"There is a {pct} probability that a new giga-site is announced "
+        f"in {name} within {h} days."
     )
 
 
 def render_markdown(item: ForecastItem, horizon_days: int) -> str:
     lines = [headline(item, horizon_days), ""]
-    if item.exposed_programs:
-        lines.append(
-            f"Exposed programs: {', '.join(item.exposed_programs)}. "
-            f"Suppliers: {len(item.exposed_suppliers)}."
-        )
+    if item.exposed_tickers:
+        tickers = ", ".join(t.ticker for t in item.exposed_tickers)
+        lines.append(f"Exposed: {tickers}. Mechanical mapping, not advice.")
         lines.append("")
     lines.append("**What moved the forecast**")
     for d in item.drivers:
@@ -205,11 +174,14 @@ def render_markdown(item: ForecastItem, horizon_days: int) -> str:
     lines.append("**Sources**")
     for u in item.sources:
         lines.append(f"- {u}")
+    lines.append("")
+    lines.append("_Publisher, not an adviser._")
     return "\n".join(lines)
 
 
 def fill_text_fields(item: ForecastItem) -> ForecastItem:
-    key = item.disruption_type.value
-    item.would_increase = INCREASE.get(key, INCREASE["export_restriction"])
-    item.would_decrease = DECREASE.get(key, DECREASE["export_restriction"])
+    key = item.signal_type.value
+    item.would_increase = INCREASE.get(key, INCREASE["load_growth"])
+    item.would_decrease = DECREASE.get(key, DECREASE["load_growth"])
+    item.threshold = THRESHOLDS.get(item.signal_type, item.threshold)
     return item

@@ -46,14 +46,18 @@ def build_xy(
     as_of_dates: list[date],
     horizon_days: int,
 ) -> tuple[np.ndarray, np.ndarray, list[tuple[date, Entity]]]:
+    by_geo: dict[str, list[Event]] = {}
+    for e in events:
+        if e.geo_id:
+            by_geo.setdefault(e.geo_id, []).append(e)
     xs = []
     ys = []
     keys = []
     for as_of in as_of_dates:
-        known = [e for e in events if e.timestamp.date() <= as_of]
         for ent in entities:
-            analog = analog_summary(known, ent, as_of, outcomes)
-            x = feature_vector(known, ent, as_of, analog.rate, analog.max_similarity)
+            scoped = [e for e in by_geo.get(ent.geo_id, []) if e.timestamp.date() <= as_of]
+            analog = analog_summary(scoped, ent, as_of, outcomes)
+            x = feature_vector(scoped, ent, as_of, analog.rate, analog.max_similarity)
             y = label_for(ent, as_of, outcomes, horizon_days)
             xs.append(x)
             ys.append(y)
@@ -66,23 +70,20 @@ def walk_forward(
     outcomes: list[Outcome],
     entities: list[Entity],
     horizon_days: int = 180,
-    start: date = date(2012, 1, 1),
-    end: date = date(2024, 6, 1),
+    start: date = date(2014, 1, 1),
+    end: date = date(2025, 7, 1),
     months: tuple[int, ...] = (1, 4, 7, 10),
 ) -> tuple[BacktestScores, Ensemble]:
-    """Train only on labels that would have been known at forecast time."""
     dates = [d for d in month_starts(start, end) if d.month in months]
     X, y, keys = build_xy(events, outcomes, entities, dates, horizon_days)
 
     preds = np.zeros(len(y))
     last_model = Ensemble()
-    # Expanding window by year to keep this tractable.
     years = sorted({d.year for d, _ in keys})
     for year in years:
         train_idx = []
         test_idx = []
         for i, (as_of, _) in enumerate(keys):
-            # Label known only after as_of + horizon.
             label_known_by = as_of + timedelta(days=horizon_days)
             if label_known_by < date(year, 1, 1) and as_of.year < year:
                 train_idx.append(i)
